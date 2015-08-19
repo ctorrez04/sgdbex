@@ -17,8 +17,8 @@
 	<h:outputText id="display2" value="#{generalController.filtro_proyecto}"/>			
      <div align="center">
      	<h:form>
-			<p:dataTable id="dataTable" var="est" value="#{generalController.estadosList}" style="text-align:center"
-			paginator="true" editable="true" selection="#{generalController.estado_seleccion}" rows="10" rowKey="#{est.estado_id}">
+			<p:dataTable id="dataTable" var="est" value="#{generalController.estadosList}" style="text-align:center">
+			<!--  paginator="true" editable="true" selection="#{generalController.estado_seleccion}" rows="10" rowKey="#{est.estado_id}">-->
 			
 				<f:facet name="header">
         			Lista de Proyectos

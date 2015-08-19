@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import sgdbex.controllers.GeneralController;
 import sgdbex.model.pojos.Defectos;
-import sgdbex.model.pojos.Proyectos;
 import sgdbex.services.GeneralServices;
 
 @ManagedBean 
