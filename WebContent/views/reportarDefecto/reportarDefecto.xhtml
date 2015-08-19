@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+	<h:outputStylesheet library="awesome" name="css/font-awesome.css" />
+</h:head>
+<h:body>
+ 	<f:facet name="last">
+		<h:outputStylesheet library="css" name="crearDefecto.css" />
+		<h:outputScript library="default" name="js/script.js" />
+	</f:facet>  
+	<h:form id="formDefecto">
+		<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+    	<p:panelGrid styleClass="panelgrid" columns="2">
+    		
+    		<h:outputLabel for="proyecto" value="Proyecto " />
+			<h:selectOneMenu id="proyecto" value="#{generalController.defecto.proyecto_fk}"  displayValueOnly="true" >
+				<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+				<f:selectItems value="#{generalController.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
+			</h:selectOneMenu>
+							
+			<h:outputLabel for="categoria" value="Categoria " />
+			<h:selectOneMenu id="categoria" value="#{generalController.defecto.categoria_fk}"  displayValueOnly="true" >
+				<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+				<f:selectItems value="#{generalController.categoriasList}" var="cat" itemLabel="#{cat.categoria_nombre}" itemValue="#{cat.categoria_id}"/>
+			</h:selectOneMenu>
+			
+			<h:outputLabel for="urgencia" value="Urgencia " />
+			<h:selectOneMenu id="urgencia" value="#{generalController.defecto.urgencia_fk}"  displayValueOnly="true" >
+				<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+				<f:selectItems value="#{generalController.urgenciasList}" var="urgen" itemLabel="#{urgen.urgencia_tipo}" itemValue="#{urgen.urgencia_id}"/>
+			</h:selectOneMenu>
+
+			<h:outputLabel for="impacto" value="Impacto " />
+			<h:selectOneMenu id="impacto" value="#{generalController.defecto.impacto_fk}"  displayValueOnly="true" >
+				<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+				<f:selectItems value="#{generalController.impactosList}" var="impac" itemLabel="#{impac.impacto_tipo}" itemValue="#{impac.impacto_id}"/>
+			</h:selectOneMenu>
+			
+    	   	<h:outputLabel for="asunto" value="Asunto" />
+        	<p:inputText id="asunto" value="#{generalController.defecto.asunto}" required="true" />
+ 
+			<h:outputLabel for="descripcion"  value="Descripcion del defecto " />
+            <p:inputTextarea rows="8" cols="50"  id="descripcion" value="#{generalController.defecto.descripcion}"/>
+			
+               <h:outputLabel for="adjuntar"  value="Adjuntar archivos " />
+				<p:fileUpload id="adjuntar" fileUploadListener="#{generalController.handleFileUpload}" mode="advanced" update="growl"
+				sizeLimit="2048000" fileLimit="3" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" />
+
+			
+			<h:outputLabel for="comentarios"  value="Comentarios adicionales" />
+            <p:inputTextarea rows="4" cols="50" id="comentarios" value="#{generalController.defecto.comentarios}"/>
+			
+			<!--  <f:facet name="header">
+				<div id="headerCrear">
+					<h3 title="Crear incidencia">Crear incidencia</h3>
+				</div>
+			</f:facet>-->
+			<f:facet name="footer">
+				<div id="botones" >
+					<p:commandButton value="Crear" update="growl" actionListener="#{generalController.agregar(generalController.defecto)}">
+					<p:confirm header="Confirmacion" message="Esta seguro de reportar este defecto?" icon="ui-icon-alert" />
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				    	<p:commandButton id="confirmacion" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				    	<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				 	</p:confirmDialog>
+				 	</p:commandButton>
+					<p:commandButton id="cancelar" value="Borrar" type="reset" update="growl" action="#{generalController.limpiar}"></p:commandButton>
+				</div>
+        	</f:facet>
+		</p:panelGrid>
+    </h:form>
+</h:body>
+</html>

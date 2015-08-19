@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:impl="http://servicios.beasa" xmlns:intf="http://servicios.beasa" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://servicios.beasa">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://servicios.beasa">
+   <element name="verificarResponse">
+    <complexType>
+     <sequence>
+      <element name="verificarReturn" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="verificar">
+    <complexType>
+     <sequence>
+      <element name="ip" nillable="true" type="xsd:string"/>
+      <element name="usuario" nillable="true" type="xsd:string"/>
+      <element name="clave" nillable="true" type="xsd:string"/>
+      <element name="sistema" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="verificarRequest">
+
+      <wsdl:part element="impl:verificar" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="verificarResponse">
+
+      <wsdl:part element="impl:verificarResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WS_Validar">
+
+      <wsdl:operation name="verificar">
+
+         <wsdl:input message="impl:verificarRequest" name="verificarRequest"/>
+
+         <wsdl:output message="impl:verificarResponse" name="verificarResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WS_ValidarSoapBinding" type="impl:WS_Validar">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="verificar">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="verificarRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="verificarResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WS_ValidarService">
+
+      <wsdl:port binding="impl:WS_ValidarSoapBinding" name="WS_Validar">
+
+         <wsdlsoap:address location="http://localhost:8090/provider/services/WS_Validar"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

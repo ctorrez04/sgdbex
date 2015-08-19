@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<f:metadata>
+    <f:viewParam name="id" value="#{defectosMB.id}" />
+    <f:event listener="#{defectosMB.detalle}" type="preRenderView" />
+</f:metadata>
+
+<h:head>
+	<title>SGDBE</title>
+</h:head>
+<h:body>
+	<ui:composition template="/plantilla.xhtml">
+	<ui:define name="content">
+    <div align="center">
+		<h:form id="formDetalle">
+			<p:panel id="basic" header="Defecto No. #{defectosMB.defecto.defecto_id}" style="margin-bottom:20px">
+		        <h:panelGrid columns="4" cellpadding="10">
+		            <h:outputLabel value="Asunto: " />
+					<p:inputText value="#{defectosMB.defecto.asunto}" disabled = "true"/>
+		            
+		            <h:outputLabel value="Proyecto: " />
+	                <h:selectOneMenu id="proyecto" value="#{defectosMB.defecto.proyecto_fk}"  displayValueOnly="true" disabled = "true">
+						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+						<f:selectItems value="#{generalController.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
+					</h:selectOneMenu>
+
+		            <h:outputLabel value="Descripcion del defecto: " />
+					<p:inputTextarea rows="3" cols="30" value="#{defectosMB.defecto.descripcion}" disabled = "#{!defectosMB.validar}"/>
+										
+		            <h:outputLabel value="Categoria: " />
+		            <h:selectOneMenu id="categoria" value="#{defectosMB.defecto.categoria_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+						<f:selectItems value="#{generalController.categoriasList}" var="cat" itemLabel="#{cat.categoria_nombre}" itemValue="#{cat.categoria_id}"/>
+					</h:selectOneMenu>
+					
+		            <h:outputLabel value="Usuario Reportero: " />
+		            <h:outputText value="#{defectosMB.defecto.reportero_fk.concat('-').concat(defectosMB.defecto.reportero_nombre)}" />
+					
+		            <h:outputLabel value="Fecha Creacion: " />
+		            <h:outputText value="#{defectosMB.defecto.fecha_creacion}" />
+					
+		            <h:outputLabel value="Estado: " />
+		            <h:selectOneMenu id="estado" value="#{defectosMB.defecto.estado_fk}"  displayValueOnly="true" disabled = "true">
+						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+						<f:selectItems value="#{generalController.estadosList}" var="esta" itemLabel="#{esta.estado_nombre}" itemValue="#{esta.estado_id}"/>
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Motivo: " />
+		            <h:selectOneMenu id="motivo" value="#{defectosMB.defecto.motivo_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.resolver}">
+						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+						<f:selectItems value="#{generalController.motivosList}" var="mot" itemLabel="#{mot.motivo_nombre}" itemValue="#{mot.motivo_id}"/>
+					</h:selectOneMenu>
+					
+		            <h:outputLabel value="Prioridad: " />
+					<h:selectOneMenu id="prioridad" value="#{defectosMB.defecto.prioridad_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+							<f:selectItems value="#{generalController.prioridadesList}" var="pr" itemLabel="#{pr.prioridad_tipo}" itemValue="#{pr.prioridad_id}"/>
+					</h:selectOneMenu>
+					
+		            <h:outputLabel value="Impacto: " />
+					<h:selectOneMenu id="impacto" value="#{defectosMB.defecto.impacto_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+							<f:selectItems value="#{generalController.impactosList}" var="im" itemLabel="#{im.impacto_tipo}" itemValue="#{im.impacto_id}"/>
+					</h:selectOneMenu>
+					
+		            <h:outputLabel value="Urgencia: " />
+					<h:selectOneMenu id="urgencia" value="#{defectosMB.defecto.urgencia_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+							<f:selectItems value="#{generalController.urgenciasList}" var="ur" itemLabel="#{ur.urgencia_tipo}" itemValue="#{ur.urgencia_id}"/>
+					</h:selectOneMenu>
+					
+		            <h:outputLabel value="Fecha Estimada: " />
+		            <p:calendar id="datetime" value="#{defectosMB.defecto.fecha_estimada}" pattern="dd/MM/yyyy HH:mm:ss" disabled="#{!defectosMB.asignar and !defectosMB.resolver and !defectosMB.validar}"/>
+					
+					<h:outputLabel value="Usuario Asignado" />
+		            <h:selectOneMenu id="asignado" value="#{defectosMB.defecto.responsable_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar}">
+							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+							<f:selectItems value="#{defectosMB.usuariosAnalistas}" var="user" itemLabel="#{user.nombre_completo}" itemValue="#{user.carnet}"/>
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Fecha Asignacion: " />
+		            <p:calendar id="datetime_asi" value="#{defectosMB.defecto.fecha_asignacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true"/>
+								
+            		<h:outputLabel value="Usuario Modificador" />
+		            <h:outputText value="#{defectosMB.defecto.carnet_modificacion.concat('-').concat(defectosMB.defecto.usuario_modificacion)}" />	
+					
+					<h:outputLabel value="Fecha Modificacion: " />
+		            <p:calendar id="datetime_mod" value="#{defectosMB.defecto.fecha_modificacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true" />
+					
+					<h:outputLabel value="Comentarios: " />
+					<p:inputTextarea rows="6" cols="30" value="#{defectosMB.defecto.comentarios}" disabled="#{!defectosMB.editar and !defectosMB.asignar and !defectosMB.resolver and !defectosMB.validar}"/>
+		
+					<h:outputLabel for="adjuntar"  value="Anadir archivo adjuntos al defecto: " rendered="#{!defectosMB.resolver and !defectosMB.asignar}"/> <!-- rendered = #{defectosMB.puedeResolver()} -->
+ 					<p:fileUpload id="adjuntar" fileUploadListener="#{defectosMB.manejadorCargaArchivos}" mode="advanced"
+ 					sizeLimit="2048000" fileLimit="3" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" rendered="#{!defectosMB.resolver and !defectosMB.asignar}" disabled="#{!defectosMB.resolver and !defectosMB.validar}"/>
+		            
+		            <f:facet name="footer">
+		            	<p:commandButton value="Editar Defecto" rendered="#{defectosMB.puedeEditar() and !defectosMB.editar}" update=":formDetalle" actionListener="#{defectosMB.opcEditar}"></p:commandButton>
+
+		            	<p:commandButton value="Asignar Defecto" rendered="#{defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'ASIGNADO')}"></p:commandButton>
+						<p:commandButton value="Resolver Defecto" rendered="#{defectosMB.resolver or defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'RESUELTO')}"></p:commandButton>
+						<p:commandButton value="Rechazar Defecto" rendered="#{defectosMB.resolver}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'RE-ABIERTO')}"></p:commandButton>
+						<p:commandButton value="Validar Defecto" rendered="#{defectosMB.validar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'CERRADO')}"></p:commandButton>
+						<p:commandButton value="Defecto No Resuelto" rendered="#{defectosMB.validar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'RE-ABIERTO')}"></p:commandButton>
+						<p:commandButton value="Guardar Cambios" rendered="#{defectosMB.editar}" update=":formDetalle" actionListener="#{defectosMB.opcGuardarCambios(defectosMB.defecto)}"></p:commandButton>
+
+						<p:commandButton value="Cancelar" rendered="#{defectosMB.editar}" update=":formDetalle" actionListener="#{defectosMB.opcCancelar}"></p:commandButton>
+						<!--<p:commandButton value="Confirmar" rendered="#{defectosMB.validar or defectosMB.resolver or defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto)}"></p:commandButton> -->
+		        	</f:facet>
+		        </h:panelGrid>
+		        <h:panelGrid>
+		    		<p:dataTable id="tablaAdjuntos" var="adj" value="#{defectosMB.adjuntosList}" style="margin-bottom:20px" >
+						<f:facet name="header">
+				        	<h:outputText value="Archivos adjuntos del defecto" />
+				    	</f:facet>
+
+						<p:column headerText="Nombre de archivo" style="font-weight: bold;">
+							<h:outputText value="#{adj.archivo_nombre}" />
+						</p:column>
+						<p:column headerText="Tamano de archivo" style="font-weight: bold;">
+							<h:outputText value="#{''.concat(adj.archivo_tamano / 1024).concat('KB')}" />
+						</p:column>
+						<p:column>
+							<p:commandLink value="Descargar" ajax="false" actionListener="#{defectosMB.descargarArchivo(adj)}">
+	        					<p:fileDownload value="#{defectosMB.archivo}" />
+	    					</p:commandLink >
+    					</p:column>
+		    		</p:dataTable>
+		    	</h:panelGrid>
+		    	<h:panelGrid>
+		    		<p:galleria value="#{defectosMB.imagenes}" var="imagen" panelWidth="500" panelHeight="313" showCaption="true">
+    					<p:graphicImage name="#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}"/>
+					</p:galleria>
+		    	</h:panelGrid>
+		    	<h:panelGrid>
+		    		<p:dataTable id="tablaHistorico" var="hist" value="#{defectosMB.historico}" style="margin-bottom:20px" >
+						<f:facet name="header">
+				        	<h:outputText value="Historico del defecto" />
+				    	</f:facet>
+
+						<p:column headerText="Fecha" style="font-weight: bold;">
+							<h:outputText value="#{hist.fecha_estatus}" />
+						</p:column>
+						<p:column headerText="Usuario" style="font-weight: bold;">
+							<h:outputText value="#{hist.usuario_estatus_anterior}" />
+						</p:column>
+						<p:column headerText="Estado" style="font-weight: bold;">
+							<h:outputText value="#{hist.estado_nombre}" />
+						</p:column>
+						<p:column headerText="Duracion" style="font-weight: bold;">
+							<h:outputText value="#{hist.duracion}" />
+						</p:column>
+						<p:column headerText="Comentarios" style="font-weight: bold;">
+							<h:outputText value="#{hist.comentarios}" />
+						</p:column>
+		    		</p:dataTable>
+		    	</h:panelGrid>
+	    	</p:panel>
+		</h:form>
+	</div>
+	<script type="text/javascript">
+		function showStatus(){
+			PF('statusDialog').show();
+		}
+		function hideStatus(){
+			PF('statusDialog').hide();
+		}
+	</script>
+	</ui:define>
+	</ui:composition>
+</h:body>
+</html>

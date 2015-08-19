@@ -1,0 +1,98 @@
+/* ESTILOS HEADER */
+#header {
+	background-image: url(/sgdbex/images/header_bg_01.jpg) !important;
+	background-repeat: no-repeat !important;
+	background-position: center 0px !important;
+	height: 110px !important;
+	width: 100% !important;
+	min-width: 960px !important;
+	text-align: center !important;
+	font-size: 11px !important;
+	position: fixed !important;
+	z-index: 100 !important;
+	left: 0px !important;
+	top: 0px !important;
+}
+
+#contentBody .ui-layout-unit-content.ui-widget-content {
+	width: 1024px !important;
+	margin-right: auto !important;
+	margin-left: auto !important;
+	text-align: left !important;
+}
+.ui-layout-north {
+    z-index:40 !important;
+    overflow:visible !important;
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+}
+.ui-selectonemenu-panel {
+	z-index:101 !important;
+	overflow:visible !important;
+	width: 155px !important;
+	font-size: 75%;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#header .ui-layout-unit-content.ui-widget-content {
+	width: 1024px !important;
+	margin-right: auto !important;
+	margin-left: auto !important;
+	text-align: left !important;
+	background: inherit !important;
+}
+#header div.logo {
+	float: left;
+	margin-top: 10px;
+}
+#header div.tools {
+	float: right;
+	width: 660px;
+}
+
+/*NAVEGACION*/
+#nav {
+	clear: both;
+	height: 27px;
+	width: 1024px;
+	padding-top: 10px;
+}
+#buscar{
+	/*float: left;*/
+	margin-right: 10px;
+    float: right;	
+}
+/*-------------------------------------------------------------*/
+.disableWin{
+     pointer-events: none;
+}
+/*-------------------------------------------------------------*/
+html, body {
+    height:100%
+}
+
+
+/*#overlay { 
+    position:absolute;
+    z-index:10;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color:#f00;
+    filter:alpha(opacity=10);
+    -moz-opacity:0.1;
+    opacity:0.1;
+    cursor:pointer;
+
+} 
+
+#dialog {
+    position:absolute;
+    border:2px solid #3366CC;
+    width:auto;
+    height:700px;
+    background-color:#ffffff;
+    z-index:150; 
+    overflow:visible;
+}*/

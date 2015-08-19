@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<title>SGDBE</title>
+	<h:outputStylesheet library="css" name="reportes.css" />
+	<!--  <h:outputScript library="jquery" name="jquery-2.1.4.min.js" /> -->
+	<!-- http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js -->
+	<!--  <h:outputStylesheet library="css" name="reportes.css" />
+	<h:outputScript  library="jqplot-plugins" name="jqplot.pointLabels.min.js"  />
+	<h:outputScript  library="jqplot-plugins" name="jqplot.barRenderer.min.js"  />
+	<h:outputScript  library="jqplot-plugins" name="jqplot.categoryAxisRenderer.min.js"  />
+	<h:outputScript  library="jqplot-plugins" name="jquery.jqplot.min.js"  />
+	<h:outputScript  library="jqplot-plugins" name="jquery.min.js"  />  -->
+</h:head>
+<h:body>
+	<ui:composition template="/plantilla.xhtml">
+	  	<ui:define name="content">
+			<h3>Estadísticas de Reportes</h3>
+			
+			<!--  <p:selectOneMenu id="selectReport2" value="#{reportesController.reporteSeleccionado}" filter="true" filterMatchMode="startsWith" style="width:35%">
+						<p:ajax event="change" update="@this"/>
+						<f:selectItem itemLabel="Seleccione un tipo de Reporte" itemValue="vacio"/>
+						<f:selectItems value="#{reportesController.opcionesReportes}" var="report" itemLabel="#{report.reporte}" itemValue="#{report.reporte}"/>
+					</p:selectOneMenu>  -->
+				<p:panel id="panel1" header="Reportes" style="text-align:center">
+		     	<h:form id="formularioReport">
+		     	<div align="center"> 
+		     	<h:panelGrid columns="2" cellpadding="5" style="text-align:center">
+		     		<p:selectOneMenu id="selectReport" value="#{reportesController.reporteSeleccionado}" style="width:103%;margin-right:10px" panelStyle="width:350px;" filter="true" filterMatchMode="startsWith">
+						<p:ajax event="change" update="@this"/>
+						<f:selectItem itemLabel="Seleccione un tipo de Reporte" itemValue="vacio"/>
+						<f:selectItems value="#{reportesController.opcionesReportes}" var="report" itemLabel="#{report.reporte}" itemValue="#{report.reporte}"/>  <!-- panelStyle="width:260px;" styleClass="ui-selectonemenu-panel" style="width:220px" -->
+					</p:selectOneMenu>
+					<p:commandButton id="buttonReport" value="Consultar" actionListener="#{reportesController.actualizarRenderReportes}" update=":formularioReport:GridReport" ></p:commandButton>					
+				</h:panelGrid>
+				</div>
+		     		<h:panelGrid id="GridReport" columns="2" cellpadding="10" style="text-align:center">
+					<p:dataTable rendered="#{reportesController.reportesEstadoRender}" id="table" var="reportes" value="#{reportesController.reportesEstado}" style="width:450px;text-align:center" filteredValue="#{reportesController.reportesfiltrados}" rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains" >
+					    	<f:facet name="header">
+					             <h:outputText value="Estado"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.reporte}" />
+					    </p:column>
+					 
+					    <p:column >
+					    	<f:facet name="header">
+					             <h:outputText value="Total Defectos"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.total}" />
+					    </p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		       
+		        	<p:chart rendered="#{reportesController.graficoEstadoRender}" type="bar" model="#{reportesController.barModel}" style="width:500px;height:300px" /> 
+		        
+		        	<p:dataTable rendered="#{reportesController.reportesTiempoAbiertoRender}" id="table2" var="reportes" value="#{reportesController.reportesTiempoAbierto}" style="width:450px;text-align:center" filteredValue="#{reportesController.reportesfiltradosTiempoAbierto}">
+					    <p:column>
+					    	<f:facet name="header">
+					             <h:outputText value="DefectoID"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.defectoid}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.asunto}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Asunto del Defecto"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.asunto}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Total Dias"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.dias}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					En total son #{fn:length(reportesController.reportesTiempoAbierto)} defecto(s) con mayor tiempo abiertos.
+        					<br></br>
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table2" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table2" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table2" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+					
+					<p:chart rendered="#{reportesController.graficoTiempoAbiertoRender}" type="bar" model="#{reportesController.barModelTiempoAbierto}" style="width:500px;height:300px"/>
+		        
+		        	<p:dataTable rendered="#{reportesController.reportesFechaDiasRender}" id="table3" var="reportes" value="#{reportesController.reportesFechaDias}" style="width:360px;text-align:center" filteredValue="#{reportesController.reportesfiltradosFechaDias}">
+					    <p:column>
+					    	<f:facet name="header">
+					             <h:outputText value="Dia(s)"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.defectoid}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.cantidadAbiertos}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Cantidad&lt;br /&gt;Abiertos" escape="false"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.cantidadAbiertos}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Cantidad&lt;br /&gt;Resueltos" escape="false"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.cantidadResueltos}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table3" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table3" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table3" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		        	
+		        	<p:chart rendered="#{reportesController.graficoFechaDiasRender}" id="chart3" type="bar" model="#{reportesController.barModelFechaDias}" style="width:600px;height:300px"/>
+		        	
+		        	<p:dataTable rendered="#{reportesController.reportesCategoriaRender}" id="table4" var="reportes" value="#{reportesController.reportesCategoria}" style="width:440px;text-align:center" filteredValue="#{reportesController.reportesfiltradosCategoria}" rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					    <p:column>
+					    	<f:facet name="header">
+					             <h:outputText value="Categoria"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.tipoReporte}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Estado"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.reporte}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Total Defectos"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.total}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table4" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table4" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table4" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		        	
+		        	<p:chart rendered="#{reportesController.graficoCategoriaRender}" type="bar" model="#{reportesController.barModelCategoria}" style="width:655px;height:300px"/>
+		        	
+		        	<p:dataTable rendered="#{reportesController.reportesPrioridadRender}" id="table5" var="reportes" value="#{reportesController.reportesPrioridad}" style="width:450px;text-align:center" filteredValue="#{reportesController.reportesfiltradosPrioridad}" rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					    <p:column>
+					    	<f:facet name="header">
+					             <h:outputText value="Prioridad"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.tipoReporte}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Estado"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.reporte}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Total Defectos"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.total}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table5" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table5" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table5" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		        	
+		        	<p:chart rendered="#{reportesController.graficoPrioridadRender}" type="bar" model="#{reportesController.barModelPrioridad}" style="width:655px;height:300px"/>
+		        	
+		        	<p:dataTable rendered="#{reportesController.reportesEstadisticasUsuariosRender}" id="table6" var="reportes" value="#{reportesController.reportesEstadisticasUsuarios}" style="width:500px;text-align:center" filteredValue="#{reportesController.reportesfiltradosEstadisticasUsuarios}" rows="6"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					    <p:column style="width:200px;">
+					    	<f:facet name="header">
+					             <h:outputText value="Estadisticas Analista,Lider,Administrador"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.tipoReporte}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Estado"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.reporte}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Total Defectos"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.total}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table6" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table6" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table6" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		        	
+		        	<p:chart rendered="#{reportesController.graficoEstadisticasUsuariosRender}" type="bar" model="#{reportesController.barModelEstadisticasUsuarios}" style="width:600px;height:300px"/>
+		        	
+		        	<p:dataTable rendered="#{reportesController.reportesEstadisticasReporterosRender}" id="table7" var="reportes" value="#{reportesController.reportesEstadisticasReporteros}" style="width:500px;text-align:center" filteredValue="#{reportesController.reportesfiltradosEstadisticasReporteros}" rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					    <p:column>
+					    	<f:facet name="header">
+					             <h:outputText value="Estadisticas Usuarios Reporteros"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.tipoReporte}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Estado"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.reporte}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Total Defectos"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.total}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table7" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table7" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table7" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		        	
+		        	<p:chart rendered="#{reportesController.graficoEstadisticasReporterosRender}" type="bar" model="#{reportesController.barModelEstadisticasReporteros}" style="width:600px;height:300px"/>
+		        	
+		        	<p:dataTable rendered="#{reportesController.reportesReporterosResolucionRender}" id="table8" var="reportes" value="#{reportesController.reportesReporterosResolucion}" style="width:500px;text-align:center" filteredValue="#{reportesController.reportesfiltradosReporterosResolucion}" rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					    <p:column>
+					    	<f:facet name="header">
+					             <h:outputText value="Resolucion Usuarios Reporteros"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.tipoReporte}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Motivo Resolucion"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.reporte}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Total Defectos"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.total}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table8" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table8" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table8" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		        	
+		        	<p:chart rendered="#{reportesController.graficoReporterosResolucionRender}" type="bar" model="#{reportesController.barModelReporterosResolucion}" style="width:600px;height:300px"/>
+		        	
+		        	<p:dataTable rendered="#{reportesController.reportesUsuariosResolucionRender}" id="table9" var="reportes" value="#{reportesController.reportesUsuariosResolucion}" style="width:470px;text-align:center" filteredValue="#{reportesController.reportesfiltradosUsuariosResolucion}" rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+					    <p:column style="width:200px;">
+					    	<f:facet name="header">
+					             <h:outputText value="Resolucion Usuario Analista,Lider,Administrador"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.tipoReporte}" />
+					    </p:column>
+					 
+					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains">
+					    	<f:facet name="header">
+					             <h:outputText value="Motivo Resolucion"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.reporte}" />
+					    </p:column>
+					    
+					    <p:column >
+				            <f:facet name="header">
+					             <h:outputText value="Total Defectos"/>
+					         </f:facet>
+					        <h:outputText value="#{reportes.total}" />
+        				</p:column>
+					    
+					    <f:facet name="footer">
+        					<p:commandLink id="excel" ajax="false">
+		        				<h:graphicImage url="/images/excel_logo.jpg"/>
+				        		<pe:exporter target="table9" type="xlsx" fileName="test"/>
+		        			</p:commandLink>
+		        			<h:commandLink id="adobe">
+			        			<h:graphicImage url="/images/pdf_icon.png"/>
+			        			<p:dataExporter target="table9" type="pdf" fileName="test"/>
+					        	<!--  <pe:exporter target="table9" type="pdf" fileName="test"/>  -->
+					        </h:commandLink>
+    					</f:facet>			    
+					</p:dataTable>
+		        	
+		        	<p:chart rendered="#{reportesController.graficoUsuariosResolucionRender}" type="bar" model="#{reportesController.barModelUsuariosResolucion}" style="width:655px;height:300px"/>
+		        	<!--  <div><span>You Right Clicked: </span><span id="info3">Nothing yet</span></div>  -->
+		        </h:panelGrid>
+				</h:form>
+				</p:panel>
+			
+			<style type="text/css">
+				.ui-widget {
+				font-size: 90%;
+							}
+			</style>
+			
+	<script type="text/javascript">  
+	function plotAxisInterval() {
+		//var ticks: [1,2,3,4,5,6,7,8,9,10];
+		$.jqplot.config.enablePlugins = true;
+		this.cfg.seriesDefaults = {
+				renderer:$.jqplot.BarRenderer,
+				pointLabels: { show: true }
+		};
+	      this.cfg.axes = {
+	          xaxis : {
+	                   //min : 0,
+	                   //max : 8,
+	                   //tickInterval : 1,
+	                   tickOptions : {
+	                      formatString : '%s'
+	                   },
+	                   label : 'Defectos Intervalos Dias por Estado',
+	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+	                   renderer : $.jqplot.CategoryAxisRenderer,
+	                   //ticks: [1,2,3,7,30,60,90,180,365],
+	                   ticks: ['col 1', 'col 2','col 3', 'col 4','col 5', 'col 6','col 7', 'col 8', 'col 9'],
+	                   //labelticks: [1,2,3,4,5],
+	                   //numberTicks: 9,
+	                   //rendererOptions:{tickRenderer: $.jqplot.CanvasAxisTickRenderer},
+	                   labelOptions : {
+	                       fontFamily : 'Georgia, Serif',
+	                       fontSize : '12pt',
+	                       width : '10px'
+	                   }
+	                 },
+	           yaxis : {
+	                   //min : 0,
+	                   //max : 365,
+	                   label : 'Dia(s)',
+	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+	                   renderer : $.jqplot.CategoryAxisRenderer,
+	                   ticks: [1,2,3,7,30,60,90,180,365],
+	                   //ticks: [2,4,6.8],
+	                   //numberTicks: 9,
+	                   //tickInterval : 10,
+	                   tickOptions : {
+	                       formatString : '%d'
+	                   }
+	                }
+	            };
+	      
+	      this.cfg.highlighter= {
+		          show : false
+		      };
+	      
+	      jQuery('#'+'chart3').bind('jqplotDataClick', 
+	    		    function (ev, seriesIndex, pointIndex, data) {
+	    		      jQuery('#'+'info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+	    		    }
+	    		  );
+	      }
+    </script>
+    
+    <script type="text/javascript">  
+	function plotAxisInterval2() {
+		//var ticks: [1,2,3,4,5,6,7,8,9,10];
+		//$.jqplot.config.enablePlugins = true;
+		this.cfg.seriesDefaults = {
+				renderer:$.jqplot.BarRenderer,
+				pointLabels: { show: true, hideZeros: true }
+		};
+	       /* this.cfg.axes = {
+	          xaxis : {
+	                   //min : 0,
+	                   //max : 8,
+	                   //tickInterval : 1,
+	                   tickOptions : {
+	                      formatString : '%s'
+	                   },
+	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+	                   renderer : $.jqplot.CategoryAxisRenderer,
+	                   //ticks: [1,2,3,7,30,60,90,180,365],
+	                   //labelticks: [1,2,3,4,5],
+	                   //numberTicks: 9,
+	                   //rendererOptions:{tickRenderer: $.jqplot.CanvasAxisTickRenderer},
+	                   labelOptions : {
+	                       fontFamily : 'Georgia, Serif',
+	                       fontSize : '12pt',
+	                       width : '10px'
+	                   }
+	                 },
+	           yaxis : {
+	                   //min : 0,
+	                   //max : 365,
+	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+	                   renderer : $.jqplot.CategoryAxisRenderer,
+	                   //ticks: [2,4,6.8],
+	                   //numberTicks: 9,
+	                   //tickInterval : 10,
+	                   tickOptions : {
+	                       formatString : '%d'
+	                   }
+	                }
+	            }; */
+	      
+	       this.cfg.highlighter= {
+		          show : false
+	    		   //useAxesFormatters: false,
+	               //tooltipAxes: 'x'
+		      };
+	      
+	      /* jQuery('#'+'chart3').bind('jqplotDataClick', 
+	    		    function (ev, seriesIndex, pointIndex, data) {
+	    		      jQuery('#'+'info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+	    		    }
+	    		  ); */
+	      }
+    </script>
+    
+	  	</ui:define>
+		<!-- <ui:define name="footer">
+			<ui:include src="/footer.xhtml"  />
+		</ui:define> -->
+		
+	</ui:composition>
+	
+</h:body>
+</html>

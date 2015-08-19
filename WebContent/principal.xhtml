@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<f:metadata>
+    <f:event listener="#{principalMB.cargarDatos}" type="preRenderView" />
+</f:metadata>
+<h:head>
+	<title>SGDBE</title>
+</h:head>
+<h:body>
+	<ui:composition template="/plantilla.xhtml">
+	  	<ui:define name="content"> 
+			<h:outputStylesheet library="css" name="principal.css" />
+		    <div id="div1" class="box">
+		    	<h:form id="formulario1" rendered="#{principalMB.titulo1 ne ''}">					
+					<p:dataTable var="defec" value="#{principalMB.lista1}" 
+						widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
+						<f:facet name="header" styleClass="headerDefectos">
+							<div id="titleTable">
+								<h:outputLabel value="#{principalMB.titulo1}" />
+							</div>
+							<div>
+							<p:outputPanel id="filtroDefectos">
+		                	<h:outputText value="Buscar: " />
+		                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
+		            		</p:outputPanel>
+		            		</div>
+						</f:facet>
+						<p:column headerText="ID" filterBy="#{defec.defecto_id}" filterStyle="display:none" style="width: 10%;">
+						    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec.defecto_id}">
+								<f:param name="id" value="#{defec.defecto_id}" />
+							</h:link>
+						</p:column>
+						<p:column headerText="Asunto" filterBy="#{defec.asunto}" filterStyle="display:none" style="width: 30%;">
+						    <h:outputText value="#{defec.asunto}" />
+						</p:column>
+						<p:column headerText="Prioridad" filterBy="#{defec.prioridad_tipo}" filterStyle="display:none" style="width: 15%;">
+						    <h:outputText value="#{defec.prioridad_tipo}" />
+						</p:column>
+						<p:column headerText="Estado" filterBy="#{defec.estado_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.estado_nombre}" />
+						</p:column>
+						<p:column headerText="Categoria" filterBy="#{defec.categoria_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.categoria_nombre}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</div>
+			<div id="div2" class="box">
+				<h:form id="formulario2" rendered="#{principalMB.titulo2 ne ''}">					
+					<p:dataTable var="defec" value="#{principalMB.lista2}"
+						widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
+						<f:facet name="header" styleClass="headerDefectos">
+							<div id="titleTable">
+								<h:outputLabel value="#{principalMB.titulo2}" />
+							</div>
+							<div>
+							<p:outputPanel id="filtroDefectos">
+		                	<h:outputText value="Buscar: " />
+		                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
+		            		</p:outputPanel>
+		            		</div>
+						</f:facet>
+						<p:column headerText="ID" filterBy="#{defec.defecto_id}" filterStyle="display:none" style="width: 10%;">
+						    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec.defecto_id}">
+								<f:param name="id" value="#{defec.defecto_id}" />
+							</h:link>
+						</p:column>
+						<p:column headerText="Asunto" filterBy="#{defec.asunto}" filterStyle="display:none" style="width: 30%;">
+						    <h:outputText value="#{defec.asunto}" />
+						</p:column>
+						<p:column headerText="Prioridad" filterBy="#{defec.prioridad_tipo}" filterStyle="display:none" style="width: 15%;">
+						    <h:outputText value="#{defec.prioridad_tipo}" />
+						</p:column>
+						<p:column headerText="Estado" filterBy="#{defec.estado_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.estado_nombre}" />
+						</p:column>
+						<p:column headerText="Categoria" filterBy="#{defec.categoria_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.categoria_nombre}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</div>
+			<div id="div3" class="box">
+				<h:form id="formulario3" rendered="#{principalMB.titulo3 ne ''}">					
+					<p:dataTable var="defec" value="#{principalMB.lista3}" paginator="true"  paginatorPosition="bottom" rows="20"
+						widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
+						<f:facet name="header" styleClass="headerDefectos">
+							<div id="titleTable">
+								<h:outputLabel value="#{principalMB.titulo3}" />
+							</div>
+							<div>
+							<p:outputPanel id="filtroDefectos">
+		                	<h:outputText value="Buscar: " />
+		                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
+		            		</p:outputPanel>
+		            		</div>
+						</f:facet>
+						<p:column headerText="ID" filterBy="#{defec.defecto_id}" filterStyle="display:none" style="width: 10%;">
+						    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec.defecto_id}">
+								<f:param name="id" value="#{defec.defecto_id}" />
+							</h:link>
+						</p:column>
+						<p:column headerText="Asunto" filterBy="#{defec.asunto}" filterStyle="display:none" style="width: 30%;">
+						    <h:outputText value="#{defec.asunto}" />
+						</p:column>
+						<p:column headerText="Prioridad" filterBy="#{defec.prioridad_tipo}" filterStyle="display:none" style="width: 15%;">
+						    <h:outputText value="#{defec.prioridad_tipo}" />
+						</p:column>
+						<p:column headerText="Estado" filterBy="#{defec.estado_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.estado_nombre}" />
+						</p:column>
+						<p:column headerText="Categoria" filterBy="#{defec.categoria_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.categoria_nombre}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</div>
+			<div id="div4" class="box">
+				<h:form id="formulario4" rendered="#{principalMB.titulo4 ne ''}" >					
+					<p:dataTable var="defec" value="#{principalMB.lista4}" paginator="true"  paginatorPosition="bottom" rows="20"
+						widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
+						<f:facet name="header" styleClass="headerDefectos">
+							<div id="titleTable">
+								<h:outputLabel value="#{principalMB.titulo4}" />
+							</div>
+							<div>
+							<p:outputPanel id="filtroDefectos">
+		                	<h:outputText value="Buscar: " />
+		                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
+		            		</p:outputPanel>
+		            		</div>
+						</f:facet>
+						<p:column headerText="ID" filterBy="#{defec.defecto_id}" filterStyle="display:none" style="width: 10%;">
+						    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec.defecto_id}">
+								<f:param name="id" value="#{defec.defecto_id}" />
+							</h:link>
+						</p:column>
+						<p:column headerText="Asunto" filterBy="#{defec.asunto}" filterStyle="display:none" style="width: 30%;">
+						    <h:outputText value="#{defec.asunto}" />
+						</p:column>
+						<p:column headerText="Prioridad" filterBy="#{defec.prioridad_tipo}" filterStyle="display:none" style="width: 15%;">
+						    <h:outputText value="#{defec.prioridad_tipo}" />
+						</p:column>
+						<p:column headerText="Estado" filterBy="#{defec.estado_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.estado_nombre}" />
+						</p:column>
+						<p:column headerText="Categoria" filterBy="#{defec.categoria_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec.categoria_nombre}" />
+						</p:column>
+					</p:dataTable>
+				</h:form>
+			</div>			 
+	  	</ui:define>
+	</ui:composition>
+
+<!-- <style type="text/css">
+		.ui-widget {
+		font-size: 90%;
+					}
+	</style>-->
+	
+</h:body>
+</html>

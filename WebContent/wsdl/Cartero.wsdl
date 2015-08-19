@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:impl="http://correo.beca" xmlns:intf="http://correo.beca" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://correo.beca">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://correo.beca" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <element name="enviarResponse">
+    <complexType>
+     <sequence/>
+    </complexType>
+   </element>
+   <element name="enviar">
+    <complexType>
+     <sequence>
+      <element name="smtpip" nillable="true" type="xsd:string"/>
+      <element name="de" nillable="true" type="xsd:string"/>
+      <element name="para" nillable="true" type="xsd:string"/>
+      <element name="cc" nillable="true" type="xsd:string"/>
+      <element name="cco" nillable="true" type="xsd:string"/>
+      <element name="asunto" nillable="true" type="xsd:string"/>
+      <element name="formato" type="xsd:int"/>
+      <element name="mensaje" nillable="true" type="xsd:string"/>
+      <element name="prioridad" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="enviarResponse">
+     <wsdl:part element="intf:enviarResponse" name="parameters"/>
+
+  </wsdl:message>
+
+   <wsdl:message name="enviarRequest">
+     <wsdl:part element="intf:enviar" name="parameters"/>
+
+  </wsdl:message>
+
+   <wsdl:portType name="Cartero">
+     <wsdl:operation name="enviar">
+       <wsdl:input message="intf:enviarRequest" name="enviarRequest"/>
+
+       <wsdl:output message="intf:enviarResponse" name="enviarResponse"/>
+
+    </wsdl:operation>
+
+  </wsdl:portType>
+
+   <wsdl:binding name="CarteroSoapBinding" type="intf:Cartero">
+ <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsdl:required="false"/>
+
+     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+     <wsdl:operation name="enviar">
+       <wsdlsoap:operation soapAction="enviar"/>
+
+       <wsdl:input name="enviarRequest">
+         <wsdlsoap:body use="literal"/>
+
+      </wsdl:input>
+
+       <wsdl:output name="enviarResponse">
+         <wsdlsoap:body use="literal"/>
+
+      </wsdl:output>
+
+    </wsdl:operation>
+
+  </wsdl:binding>
+
+   <wsdl:service name="CarteroService">
+     <wsdl:port binding="intf:CarteroSoapBinding" name="Cartero">
+       <wsdlsoap:address location="http://localhost:9080/correo/services/Cartero"/>
+    </wsdl:port>
+
+  </wsdl:service>
+
+</wsdl:definitions>

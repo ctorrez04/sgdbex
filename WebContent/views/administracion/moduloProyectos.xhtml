@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+	<title>SGDBE</title>
+</h:head>
+<h:body>
+	<ui:composition template="/plantilla.xhtml">
+	  	<ui:define name="content">
+	  	<h:outputStylesheet library="css" name="administracion.css" />
+	<script type="text/javascript">  
+   		 function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
+            clearForm(formName);
+            dialogName.hide(); 
+        }  
+    }
+    function clearForm(formName){
+        jQuery('#'+formName).each(function(){
+	        this.reset();
+	});
+    }
+    </script>
+
+	<p:dialog id="dialogAdm" header="Nuevo Proyecto" widgetVar="dialog" appendToBody="true">   	  
+   	  <h:form id="formDialog">
+          
+            <p:panelGrid id="panelGridDialog" columns="2">
+				
+				<h:outputLabel for="proyecto_descripcion" value="Nombre " />
+                <p:inputText id="proyecto_descripcion" value="#{generalController.proyecto.proyecto_descripcion}" />
+                
+				<h:outputLabel for="proyecto_nombre"  value="Llave " />
+                <p:inputText  id="proyecto_nombre" value="#{generalController.proyecto.proyecto_nombre}" required="true"/>
+                
+                <h:outputLabel for="selecLider" value="Lider de Proyecto " />
+				<h:selectOneMenu id="selecLider" value="#{generalController.proyecto.proyecto_lider}"  displayValueOnly="true" >
+					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue=""/>
+					<f:selectItems value="#{generalController.lideresList}" var="rolLider" itemLabel="#{rolLider.nombre_completo}" itemValue="#{rolLider.carnet}"/>
+				</h:selectOneMenu>
+					
+				<f:facet name="footer">
+						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{generalController.agregar(generalController.proyecto)}">
+						 </p:commandButton> 
+			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
+                </f:facet>
+			</p:panelGrid>
+       </h:form>
+	</p:dialog>			
+     <div align="center" style="width: 90%;">
+     	<h:form id="formulario">
+			
+			<p:growl id="msjs" showDetail="true"/>
+			
+			<p:dataTable id="table" var="proy" value="#{generalController.proyectosList}" editable="true" style="margin-bottom:20px"
+			paginator="true"  paginatorPosition="bottom" rows="20"
+				widgetVar="proyTable" emptyMessage="No se encontraron proyectos bajo este criterio" filteredValue="#{generalController.filtroProyectos}">
+				<f:facet name="header" styleClass="headerAdm">
+					<div id="titleTable">Todos los proyectos</div>
+					<div>
+					<p:outputPanel id="filtroAdm">
+                	<h:outputText value="Buscar en tabla:" />
+                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('proyTable').filter()" style="width:25%" placeholder=""/>
+            		</p:outputPanel>
+            		</div>
+				</f:facet>
+		 
+				<p:ajax event="rowEdit" listener="#{generalController.editar}" update=":formulario:table" />
+		        <p:ajax event="rowEditCancel" listener="#{generalController.cancelar}" update=":formulario:table" />
+
+				<p:column headerText="Id" filterBy="#{proy.proyecto_nombre}" filterStyle="display:none" style="width: 15%;">
+						<p:cellEditor>
+			               <f:facet name="output"><h:outputText value="#{proy.proyecto_nombre}" /></f:facet>
+			               <f:facet name="input"><p:inputText value="#{proy.proyecto_nombre}" /></f:facet>
+	 		            </p:cellEditor>
+				 </p:column>
+			 
+				 <p:column headerText="Nombre" filterBy="#{proy.proyecto_descripcion}" filterStyle="display:none" style="width: 40%;">
+					 <p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{proy.proyecto_descripcion}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{proy.proyecto_descripcion}" /></f:facet>
+		             </p:cellEditor>
+				 </p:column>
+								
+				 <p:column headerText="Lider Proyecto" filterBy="#{rolLider.nombre_completo}" filterStyle="display:none" style="width: 30%;">
+		             <p:cellEditor>
+		                <f:facet name="output">
+	                		<h:selectOneMenu value="#{proy.proyecto_lider}" disabled="true" displayValueOnly="true" >
+								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue=""/>
+								<f:selectItems value="#{generalController.lideresList}" var="rolLider" itemLabel="#{rolLider.nombre_completo}" itemValue="#{rolLider.carnet}"/>
+							</h:selectOneMenu>
+		                </f:facet>
+		                <f:facet name="input">
+							<h:selectOneMenu value="#{proy.proyecto_lider}"  displayValueOnly="true" >
+								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue=""/>
+								<f:selectItems value="#{generalController.lideresList}" var="rolLider" itemLabel="#{rolLider.nombre_completo}" itemValue="#{rolLider.carnet}"/>
+							</h:selectOneMenu>
+		                </f:facet>
+		             </p:cellEditor>
+				 </p:column>
+				 <p:column id="Editar" headerText="Editar" style="width:8%">
+		             <p:rowEditor />
+		         </p:column>
+
+		         <p:column id="Borrar" headerText="Borrar" style="width:8%">
+				      <f:facet name="header">
+				         <h:outputText value="Borrar" />
+				      </f:facet>
+				      <p:commandButton icon="ui-icon ui-icon-trash" actionListener="#{generalController.borrarItem(proy)}" update=":formulario:table" >
+				      	<p:confirm header="Confirmacion" message="Esta seguro de borrar este proyecto?" icon="ui-icon-alert" />
+				      </p:commandButton>
+ 		         					
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+					    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					 </p:confirmDialog>
+
+        		 </p:column> 
+		         
+		         <f:facet name="footer" styleClass="footerAdm">
+		         	<p:commandButton icon="ui-icon-plusthick" value="Agregar" update=":formDialog:panelGridDialog" onclick="PF('dialog').show()"/>
+              	 </f:facet>
+			 </p:dataTable>
+		</h:form>
+ 	  </div>
+ 	 </ui:define>
+	</ui:composition>
+</h:body>
+</html>

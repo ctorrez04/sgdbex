@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xmlns:int-security="http://www.springframework.org/schema/integration/security"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces-2.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:component-scan base-package="sgdbex.*" />
+	<context:annotation-config />
+
+<!-- 	<bean id="GeneralServices" class="com.crud.services.GeneralServicesImpl"> -->
+<!-- 		<property name="PrioridadesDAO" ref="PrioridadesDAO" /> -->
+<!-- 	</bean> -->
+
+
+	<!-- User DAO Declaration -->
+
+<!--	<bean id="PrioridadesDAO" class="com.crud.dao.PrioridadesDAOImpl">
+
+		<property name="sessionFactory" ref="SessionFactory" />
+
+	</bean>
+-->
+
+
+
+	<!-- Data Source Declaration -->
+	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="net.sourceforge.jtds.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:jtds:sqlserver://localhost:1433/SGD_BD" />
+		<property name="user" value="sa" />
+		<property name="password" value="123456" />
+		<property name="maxPoolSize" value="10" />
+		<property name="maxStatements" value="0" />
+		<property name="minPoolSize" value="5" />
+	</bean>
+
+
+	<!-- Session Factory Declaration -->
+	<bean id="SessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="DataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>sgdbex.model.pojos.ArchivosAdjuntos</value>
+				<value>sgdbex.model.pojos.Auditoria</value>
+				<value>sgdbex.model.pojos.Prioridades</value>
+				<value>sgdbex.model.pojos.Estados</value>
+				<value>sgdbex.model.pojos.RolUsuarios</value>
+				<value>sgdbex.model.pojos.Usuarios</value>
+				<value>sgdbex.model.pojos.Categorias</value>
+				<value>sgdbex.model.pojos.Impactos</value>
+				<value>sgdbex.model.pojos.Urgencias</value>
+				<value>sgdbex.model.pojos.Proyectos</value>
+				<value>sgdbex.model.pojos.Defectos</value>
+				<value>sgdbex.model.pojos.Reportes</value>
+				<value>sgdbex.model.pojos.MotivoResolucion</value>
+				<value>sgdbex.model.pojos.HistoricoEstados</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2008Dialect</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<!-- Transaction Manager is defined -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+</beans>

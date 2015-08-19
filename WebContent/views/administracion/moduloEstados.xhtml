@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+	<title>SGDBE</title>
+</h:head>
+<h:body>
+	<ui:composition template="/plantilla.xhtml">
+	  	<ui:define name="content">
+	<h:outputText id="display2" value="#{generalController.filtro_proyecto}"/>			
+     <div align="center">
+     	<h:form>
+			<p:dataTable id="dataTable" var="est" value="#{generalController.estadosList}" style="text-align:center"
+			paginator="true" editable="true" selection="#{generalController.estado_seleccion}" rows="10" rowKey="#{est.estado_id}">
+			
+				<f:facet name="header">
+        			Lista de Proyectos
+    			</f:facet>
+
+				<p:column selectionMode="multiple" style="width:15px"/>
+			
+			    <p:column headerText="estado_id" rendered="false">
+			        <h:outputText value="#{est.estado_id}" />
+			    </p:column>
+			 
+			    <p:column headerText="Nombre Estado">
+			        <h:outputText value="#{est.estado_nombre}" />
+			    </p:column>
+			 
+			    <p:column headerText="Descripcion Estado">
+			        <h:outputText value="#{est.estado_descripcion}" />
+			    </p:column>
+
+			    <p:column headerText="Usuario Creacion Estado">
+			        <h:outputText value="#{est.edo_usuario_modificacion}" />
+			    </p:column>
+			    			    			    
+			    <p:column headerText="Fecha Creacion Estado" >
+			        <h:outputText value="#{est.edo_fecha_modificacion}"/>
+			    </p:column>
+			    
+			</p:dataTable>
+			
+		</h:form>
+ 	 </div>
+	 </ui:define>
+	</ui:composition>
+	<style type="text/css">
+	.ui-widget {
+	font-size: 90%;
+				}
+	</style>
+</h:body>
+</html>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<f:metadata>
+    <f:event listener="#{usuariosMB.listar}" type="preRenderView" />
+</f:metadata>
+<h:head>
+	<title>SGDBE</title>
+</h:head>
+<h:body>
+	<ui:composition template="/plantilla.xhtml">
+	  	<ui:define name="content">
+	  		<h:outputStylesheet library="css" name="administracion.css" />
+	<script type="text/javascript">  
+   		 function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
+            clearForm(formName);
+            dialogName.hide(); 
+        }
+	    function clearForm(formName){
+	        jQuery('#'+formName).each(function(){
+		        this.reset();
+		});
+	    }
+    </script>
+
+	<p:dialog id="dialogAdm" header="Nuevo Usuario" widgetVar="dialog" appendToBody="true">   	  
+   	  <h:form id="formDialog">
+          
+            <p:panelGrid id="panelGridDialog" columns="2" >
+				
+				<h:outputLabel for="proyecto_id" value="Nombre de Proyecto: " />
+				<h:selectOneMenu id="proyecto_id" value="#{usuariosMB.usuario.usuario_proyecto_fk}"  displayValueOnly="true" >
+					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+					<f:selectItems value="#{usuariosMB.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
+				</h:selectOneMenu>
+				
+				<h:outputLabel for="rol_analistas" value="Rol asignado: " rendered="#{usuariosMB.rol eq 'ADMINISTRADOR'}"/>
+				<h:selectOneMenu id="rol_analistas" value="#{usuariosMB.rolSeleccionado}"  displayValueOnly="true" rendered="#{usuariosMB.rol eq 'ADMINISTRADOR'}">
+					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+					<f:selectItem itemLabel="ANALISTA" noSelectionOption="true" itemValue="ANALISTA"/>
+					<f:selectItem itemLabel="LIDER" noSelectionOption="true" itemValue="LIDER_PROYECTO"/>
+					<p:ajax event="change" update="nombres" listener="#{usuariosMB.cargarUsuarios}"/>
+				</h:selectOneMenu>
+				
+				<h:outputLabel for="rol_lideres" value="Rol asignado: " rendered="#{usuariosMB.rol eq 'LIDER'}"/>
+				<h:selectOneMenu id="rol_lideres" value="#{usuariosMB.rolSeleccionado}"  displayValueOnly="true" rendered="#{usuariosMB.rol eq 'LIDER'}">
+					<f:selectItem itemLabel="ANALISTA" noSelectionOption="true" itemValue="ANALISTA"/>
+				</h:selectOneMenu>
+
+				<h:outputLabel for="nombres"  value="Nombres " />
+                <h:selectOneMenu id="nombres" value="#{usuariosMB.usuario.carnet}"  displayValueOnly="true" >
+					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+					<f:selectItems value="#{usuariosMB.usuariosBeasaList}" var="user" itemLabel="#{user.nombre_completo}" itemValue="#{user.carnet}"/>
+				</h:selectOneMenu>
+                
+				<f:facet name="footer">
+						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{usuariosMB.agregar(usuariosMB.usuario)}">
+						  <!--  <f:ajax render="@form" resetValues="true" />  -->
+						 </p:commandButton> 
+			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
+                </f:facet>
+			</p:panelGrid>
+       </h:form>
+	</p:dialog>	
+    <div align="center" style="width: 90%;">
+     	<h:form id="formulario">
+			<p:dataTable id="table" var="user" value="#{usuariosMB.usuariosList}" style="text-align:center" 
+				 paginator="true"  paginatorPosition="bottom" editable="true" rows="20" 
+				widgetVar="userTable" emptyMessage="No se encontraron usuarios bajo este criterio" filteredValue="#{usuariosMB.filtroUsuarios}">
+				<f:facet styleClass="headerAdm" name="header">
+					<div id="titleTable">Todos los usuarios</div>
+					<div>
+        			<p:outputPanel>
+                	<h:outputText value="Buscar en tabla:" />
+                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('userTable').filter()" style="width:150px" placeholder=""/>
+            		</p:outputPanel>
+            		</div>
+    			</f:facet>
+				
+				<p:ajax event="rowEdit" listener="#{usuariosMB.editar}" update=":formulario:table" />
+		        <p:ajax event="rowEditCancel" listener="#{usuariosMB.cancelar}" update=":formulario:table" />
+			
+				<!--  <p:column selectionMode="multiple" style="width:15px"/>-->
+				<p:column headerText="Carnet" filterBy="#{user.carnet}" filterStyle="display:none">
+			    	<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{user.carnet}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{user.carnet}" /></f:facet>
+			        </p:cellEditor>
+			    </p:column>
+			    
+			    <p:column headerText="Nombre" filterBy="#{user.nombre_completo}" filterStyle="display:none">
+			    	<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{user.nombre_completo}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{user.nombre_completo}" /></f:facet>
+			        </p:cellEditor>
+			    </p:column>
+			    <p:column headerText="Correo" filterBy="#{user.correo_electronico}" filterStyle="display:none">
+			    	<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{user.correo_electronico}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{user.correo_electronico}" /></f:facet>
+			        </p:cellEditor>
+			    </p:column>
+			    
+			    <p:column headerText="Departamento" filterBy="#{user.departamento}" filterStyle="display:none">
+			    	<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{user.departamento}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{user.departamento}" /></f:facet>
+			        </p:cellEditor>
+			    </p:column>
+			    
+			    <p:column headerText="Telefono" filterBy="#{user.telefono}" filterStyle="display:none">
+			    	<p:cellEditor>
+			        	<f:facet name="output"><h:outputText value="#{user.telefono}" /></f:facet>
+		                <f:facet name="input"><p:inputText value="#{user.telefono}" /></f:facet>
+			        </p:cellEditor>
+			    </p:column>
+			    			    
+			    <p:column headerText="Rol" filterBy="#{roles.rol_nombre}" filterStyle="display:none">
+		             <p:cellEditor>
+		                <f:facet name="output">
+	                		<h:selectOneMenu value="#{user.usuario_rol_fk}" disabled="true" displayValueOnly="true" >
+								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+								<f:selectItems value="#{generalController.rolesList}" var="roles" itemLabel="#{roles.rol_nombre}" itemValue="#{roles.rol_id}"/>
+							</h:selectOneMenu>
+		                </f:facet>
+		                <f:facet name="input">
+							<h:selectOneMenu value="#{user.usuario_rol_fk}"  displayValueOnly="true" >
+								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+								<f:selectItems value="#{generalController.rolesList}" var="roles" itemLabel="#{roles.rol_nombre}" itemValue="#{roles.rol_id}"/>
+							</h:selectOneMenu>
+		                </f:facet>
+		             </p:cellEditor>
+				</p:column>
+			    
+			    <p:column headerText="Proyecto" filterBy="#{proy.proyecto_nombre}" filterStyle="display:none">
+		             <p:cellEditor>
+		                <f:facet name="output">
+	                		<h:selectOneMenu value="#{user.usuario_proyecto_fk}" disabled="true" displayValueOnly="true" >
+								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+								<f:selectItems value="#{usuariosMB.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
+							</h:selectOneMenu>
+		                </f:facet>
+		                <f:facet name="input">
+							<h:selectOneMenu value="#{user.usuario_proyecto_fk}"  displayValueOnly="true" >
+								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+								<f:selectItems value="#{usuariosMB.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
+							</h:selectOneMenu>
+		                </f:facet>
+		             </p:cellEditor>
+				</p:column>
+			    
+			    <p:column id="Editar" headerText="Editar" style="width:8%">
+		             <p:rowEditor />
+		         </p:column>
+
+		         <p:column id="Borrar" headerText="Borrar" style="width:8%">
+				      <f:facet name="header">
+				         <h:outputText value="Borrar" />
+				      </f:facet>
+				      <p:commandButton icon="ui-icon ui-icon-trash" actionListener="#{usuariosMB.borrarItem(user)}" update=":formulario:table" >
+				      	<p:confirm header="Confirmacion" message="Esta seguro de borrar este proyecto?" icon="ui-icon-alert" />
+				      </p:commandButton>
+ 		         
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+					    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					 </p:confirmDialog>
+
+        		 </p:column> 
+			    
+				<f:facet styleClass="footerAdm" name="footer" >
+		         	<p:commandButton icon="ui-icon-plusthick" value="Agregar" update=":formDialog:panelGridDialog" onclick="PF('dialog').show()"/>
+              	</f:facet>
+			</p:dataTable>
+			
+		</h:form>
+	</div>
+	</ui:define>
+	</ui:composition>
+</h:body>
+</html>

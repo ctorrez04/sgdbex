@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+	<title>SGDBE</title>
+</h:head>
+<h:body>
+	<ui:composition template="/plantilla.xhtml">
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="defectos.css" />
+    <div align="center" style="width: 90%;">
+    	<h:form id="formulario">
+     		<p:growl id="msjs" showDetail="true"/>					
+			<p:dataTable var="defec" value="#{generalController.defectosList}" paginator="true"  paginatorPosition="bottom" rows="20"
+				widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
+				<f:facet name="header" styleClass="headerDefectos">
+					<div id="titleTable">Defectos Asignados</div>
+					<div>
+					<p:outputPanel id="filtroDefectos">
+                	<h:outputText value="Buscar en tabla:" />
+                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
+            		</p:outputPanel>
+            		</div>
+				</f:facet>
+				<p:column headerText="ID" filterBy="#{defec.defecto_id}" filterStyle="display:none" style="width: 13%;">
+				    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec.defecto_id}">
+						<f:param name="id" value="#{defec.defecto_id}" />
+					</h:link>
+				</p:column>
+				<p:column headerText="Asunto" filterBy="#{defec.asunto}" filterStyle="display:none" style="width: 25%;">
+				    <h:outputText value="#{defec.asunto}" />
+				</p:column>
+				<p:column headerText="Responsable" filterBy="#{defec.responsable_nombre}" filterStyle="display:none" style="width: 20%;">
+					<h:outputText value="#{defec.responsable_nombre}"/>
+				</p:column>
+				<p:column headerText="Reportero" filterBy="#{defec.reportero_nombre}" filterStyle="display:none" style="width: 20%;">
+		            <h:outputText value="#{defec.reportero_fk.concat('-').concat(defec.reportero_nombre)}" />
+		        </p:column>
+				<p:column headerText="Prioridad" filterBy="#{defec.prioridad_tipo}" filterStyle="display:none" style="width: 13%;">
+				    <h:outputText value="#{defec.prioridad_tipo}" />
+				</p:column>
+				<p:column headerText="Estado" filterBy="#{defec.estado_nombre}" filterStyle="display:none" style="width: 20%;">
+				    <h:outputText value="#{defec.estado_nombre}" />
+				</p:column>
+				<p:column headerText="Categoria" filterBy="#{defec.categoria_nombre}" filterStyle="display:none" style="width: 15%;">
+				    <h:outputText value="#{defec.categoria_nombre}" />
+				</p:column>
+				<p:column headerText="Fecha Creacion" filterBy="#{defec.fecha_creacion}" filterStyle="display:none" style="width: 20%;">
+				    <p:calendar value="#{defec.fecha_creacion}" pattern="dd/MM/yyyy" disabled="true" inputStyleClass="datetimeField"/>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+	</ui:define>
+	</ui:composition>
+</h:body>
+</html>

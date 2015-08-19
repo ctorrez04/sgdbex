@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"     
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+      
+<f:metadata>	
+<f:event listener="#{miCuenta.CargarUsuarioAutenticado}" type="preRenderView" />
+</f:metadata>      
+      
+    <h:head>
+        <title>SGDBEX</title>
+    </h:head>
+    
+    <h:body>
+    <ui:composition template="/plantilla.xhtml">
+	  	<ui:define name="content">
+	  		<h:outputStylesheet library="css" name="miCuenta.css" />
+     	<h:form id="formulario">
+		   <p:panel id="basic" header="Información de Usuario Autenticado" >
+		     <h:panelGrid id="grid" columns="2" cellpadding="3" >
+		    
+		     	<h:outputLabel for="nombre" value="Nombre: " />
+				<h:outputText id="nombre" value="#{miCuenta.nombre}" label="nombre" /> 
+			 
+		        <h:outputLabel for="carnet" value="Carnet: " />
+		        <h:outputText id="carnet" value="#{miCuenta.carnet}" label="carnet"/>
+		        
+		        <h:outputLabel for="email" value="Email: " />
+		        <h:outputText id="email" value="#{miCuenta.email}" label="email" />
+		 
+		        <h:outputLabel for="departamento" value="Departamento: " />
+		        <h:outputText id="departamento" value="#{miCuenta.departamento}" label="departamento"/>
+		        
+		        <h:outputLabel for="perfil" value="Perfil: " />
+		        <h:outputText id="perfil" value="#{miCuenta.perfil}" label="perfil"/>
+  
+		     </h:panelGrid>
+	       </p:panel>
+		</h:form>
+		 </ui:define>
+	</ui:composition>
+ 	 
+    </h:body>
+</html>
