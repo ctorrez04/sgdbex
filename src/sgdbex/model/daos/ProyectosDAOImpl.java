@@ -57,7 +57,7 @@ public class ProyectosDAOImpl implements ProyectosDAO{
 	@Override
 	public String updateProyectos(Proyectos Proyecto) {
 		
-		System.out.println("llegue primero" );
+		System.out.println("llegue primero"+Proyecto.toString() );
 		Session session = sessionFactory.openSession();
 		List<Proyectos> list = null;
 		try {
@@ -69,9 +69,12 @@ public class ProyectosDAOImpl implements ProyectosDAO{
 					.setParameter("idLider", Proyecto.getProyecto_lider())
 					.setParameter("usuarioModificador", Proyecto.getProy_usuario_modificacion());
 			list = (List<Proyectos>)query.list();
+			System.out.println("list"+list.get(0).toString() );
 			if(list.get(0).getProyecto_id().equals(Proyecto.getProyecto_id())){
+				System.out.println("fino");
 				return "exito";	
 			}
+			System.out.println("fail");
 			return "fallo";
 		} catch (HibernateException e) {
 			System.out.println("try Impl Proy " +e.getMessage() );

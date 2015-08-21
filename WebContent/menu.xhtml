@@ -138,9 +138,9 @@
 			
 			<p:submenu label="ADMINISTRACION" rendered="#{menu.mostrar('MENU','ADMINISTRACION')}" icon="fa fa-wrench">
 				<p:menuitem value="PROYECTOS" url="/views/administracion/moduloProyectos.jsf" rendered="#{menu.mostrar('ADMINISTRACION','PROYECTOS')}"/>
-				<p:menuitem value="USUARIOS" url="/views/administracion/moduloUsuarios.jsf" rendered="#{menu.mostrar('ADMINISTRACION','USUARIOS')}"/>
+				<p:menuitem value="USUARIOS" url="/views/administracion/moduloUsuarios.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 				<p:menuitem value="CATEGORIAS" url="/views/administracion/moduloCategorias.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
-				<p:menuitem value="MOTIVOS RESOLUCION" url="/views/administracion/moduloMotivos.jsf" rendered="#{menu.mostrar('ADMINISTRACION','USUARIOS')}"/>
+				<p:menuitem value="MOTIVOS RESOLUCION" url="/views/administracion/moduloMotivos.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 			</p:submenu>
 			<!-- <p:menuitem value="MiCuenta" url="/views/miCuenta/miCuenta.jsf" icon="fa fa-user"/> -->
 			<f:facet name="options">
