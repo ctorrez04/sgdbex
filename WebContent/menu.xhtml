@@ -58,11 +58,6 @@
 				<h:outputLabel for="comentarios"  value="Comentarios adicionales" />
 	            <p:inputTextarea rows="4" cols="50" id="comentarios" value="#{generalController.defecto.comentarios}"/>
 				
-				<!--  <f:facet name="header">
-					<div id="headerCrear">
-						<h3 title="Crear incidencia">Crear incidencia</h3>
-					</div>
-				</f:facet>-->
 				<f:facet name="footer">
 					<div id="botones" >
 						<p:commandButton value="Crear" update="growl" actionListener="#{generalController.agregar(generalController.defecto)}">
@@ -142,7 +137,7 @@
 				<p:menuitem value="CATEGORIAS" url="/views/administracion/moduloCategorias.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 				<p:menuitem value="MOTIVOS RESOLUCION" url="/views/administracion/moduloMotivos.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 			</p:submenu>
-			<!-- <p:menuitem value="MiCuenta" url="/views/miCuenta/miCuenta.jsf" icon="fa fa-user"/> -->
+
 			<f:facet name="options">
 				<p:selectOneMenu id="selecProy" value="#{generalController.filtro_proyecto}" filter="true" filterMatchMode="startsWith">
 					<p:ajax event="change" update="@this"/>

@@ -61,7 +61,6 @@
                 
 				<f:facet name="footer">
 						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{usuariosMB.agregar(usuariosMB.usuario)}">
-						  <!--  <f:ajax render="@form" resetValues="true" />  -->
 						 </p:commandButton> 
 			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
                 </f:facet>
@@ -76,17 +75,16 @@
 				<f:facet styleClass="headerAdm" name="header">
 					<div id="titleTable">Todos los usuarios</div>
 					<div>
-        			<p:outputPanel>
-                	<h:outputText value="Buscar en tabla:" />
-                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('userTable').filter()" style="width:150px" placeholder=""/>
-            		</p:outputPanel>
+	        			<p:outputPanel>
+	                	<h:outputText value="Buscar en tabla:" />
+	                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('userTable').filter()" style="width:150px" placeholder=""/>
+	            		</p:outputPanel>
             		</div>
     			</f:facet>
 				
 				<p:ajax event="rowEdit" listener="#{usuariosMB.editar}" update=":formulario:table" />
 		        <p:ajax event="rowEditCancel" listener="#{usuariosMB.cancelar}" update=":formulario:table" />
 			
-				<!--  <p:column selectionMode="multiple" style="width:15px"/>-->
 				<p:column headerText="Carnet" filterBy="#{user.carnet}" filterStyle="display:none">
 			    	<p:cellEditor>
 			        	<f:facet name="output"><h:outputText value="#{user.carnet}" /></f:facet>

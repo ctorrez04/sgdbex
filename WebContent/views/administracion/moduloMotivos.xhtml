@@ -19,13 +19,12 @@
    		 function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
             clearForm(formName);
             dialogName.hide(); 
-        }  
-    }
-    function clearForm(formName){
-        jQuery('#'+formName).each(function(){
-	        this.reset();
-	});
-    }
+        }
+    	function clearForm(formName){
+        	jQuery('#'+formName).each(function(){
+	        	this.reset();
+			});
+    	}
     </script>
 	
 	<p:dialog id="dialogAdm" header="Nuevo Motivo" widgetVar="dialog" appendToBody="true">   	  

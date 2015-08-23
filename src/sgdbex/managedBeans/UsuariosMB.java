@@ -90,7 +90,6 @@ public class UsuariosMB {
 		System.out.println("buscando en proyectos "+proyectos);
 		System.out.println("buscando en proyectos "+proyectos.substring(0, 1));
 		setUsuariosList(gs.getUsuariosPorProyecto(proyectos.substring(0,1)));
-		//System.out.println("cantidad usuarios toString "+getUsuariosList().get(0).toString());
 		System.out.println("cantidad usuarios "+getUsuariosList().size());
 		setRol(m.getPerfil());
 		if(getRol().equalsIgnoreCase("LIDER")){
@@ -176,8 +175,6 @@ public class UsuariosMB {
 	}
 
 	public void cargarUsuarios(){
-	//ValueChangeEvent event) throws AbortProcessingException{
-		System.out.println("cargar "+ rolSeleccionado);
 		if(rolSeleccionado.equalsIgnoreCase("ANALISTA")){
 			usuario.setUsuario_rol_fk(3);
 			usuariosBeasaList = gs.getUsuariosAnalistas();

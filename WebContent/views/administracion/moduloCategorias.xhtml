@@ -7,7 +7,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-
+<f:metadata>
+    <f:event listener="#{categoriasMB.init}" type="preRenderView" />
+</f:metadata>
 <h:head>
 	<title>SGDBE</title>
 </h:head>
@@ -19,13 +21,12 @@
    		 function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
             clearForm(formName);
             dialogName.hide(); 
-        }  
-    }
-    function clearForm(formName){
-        jQuery('#'+formName).each(function(){
-	        this.reset();
-	});
-    }
+        }
+	    function clearForm(formName){
+	        jQuery('#'+formName).each(function(){
+		        this.reset();
+			});
+    	}
     </script>
 	
 	<p:dialog id="dialogAdm" header="Nueva Categorias" widgetVar="dialog" appendToBody="true">   	  
@@ -34,13 +35,13 @@
             <p:panelGrid id="panelGridDialog" columns="2">
 				
 				<h:outputLabel for="categoria_nombre"  value="Nombre " />
-                <p:inputText  id="categoria_nombre" value="#{generalController.categoria.categoria_nombre}" required="true"/>
+                <p:inputText  id="categoria_nombre" value="#{categoriasMB.categoria.categoria_nombre}" required="true"/>
                 
                 <h:outputLabel for="categoria_descripcion" value="Descripcion " />
-                <p:inputText id="categoria_descripcion" value="#{generalController.categoria.categoria_descripcion}" />
+                <p:inputText id="categoria_descripcion" value="#{categoriasMB.categoria.categoria_descripcion}" />
          
 				<f:facet name="footer">
-						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{generalController.agregar(generalController.categoria)}">
+						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{categoriasMB.agregar(categoriasMB.categoria)}">
 						 </p:commandButton> 
 			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
                 </f:facet>
@@ -51,9 +52,9 @@
      	<h:form id="formulario">
      	  	<p:growl id="msjs" showDetail="true"/>
 			
-			<p:dataTable id="table" var="cat" value="#{generalController.categoriasList}" editable="true" style="margin-bottom:20px"
+			<p:dataTable id="table" var="cat" value="#{categoriasMB.categoriasList}" editable="true" style="margin-bottom:20px"
 				paginator="true"  paginatorPosition="bottom" rows="20"
-				widgetVar="catTable" emptyMessage="No se encontraron categorias bajo este criterio" filteredValue="#{generalController.filtroCategorias}">
+				widgetVar="catTable" emptyMessage="No se encontraron categorias bajo este criterio" filteredValue="#{categoriasMB.filtroCategorias}">
 				<f:facet name="header" styleClass="headerAdm">
 					<div id="titleTable">Todas las categorias</div>
 					<div>
@@ -64,8 +65,8 @@
             		</div>
     			</f:facet>
 				
-				<p:ajax event="rowEdit" listener="#{generalController.editar}" update=":formulario:table" />
-		        <p:ajax event="rowEditCancel" listener="#{generalController.cancelar}" update=":formulario:table" />
+				<p:ajax event="rowEdit" listener="#{categoriasMB.editar}" update=":formulario:table" />
+		        <p:ajax event="rowEditCancel" listener="#{categoriasMB.cancelar}" update=":formulario:table" />
 				
 			 
 			    <p:column headerText="Nombre" filterBy="#{cat.categoria_nombre}" filterStyle="display:none">
@@ -82,14 +83,6 @@
 			        </p:cellEditor>
 			    </p:column>
 
-			    <!--  <p:column headerText="Fecha Modificacion">
-			    	<p:calendar value="#{cat.categ_fecha_modificacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true" />
-			    </p:column>
-
-			     <p:column headerText="Usuario Modificacion">
-			    	<h:outputText value="#{cat.categ_usuario_modificacion}" />
-			    </p:column>-->
-
 			    <p:column id="Editar" headerText="Editar" style="width:8%">
 		        	<p:rowEditor />
 		        </p:column>
@@ -98,7 +91,7 @@
 					<f:facet name="header">
 				    	<h:outputText value="Borrar" />
 				    </f:facet>
-				    <p:commandButton icon="ui-icon ui-icon-trash" actionListener="#{generalController.borrarItem(cat)}" update=":formulario:table" >
+				    <p:commandButton icon="ui-icon ui-icon-trash" actionListener="#{categoriasMB.borrarItem(cat)}" update=":formulario:table" >
 				    	<p:confirm header="Confirmacion" message="Esta seguro de borrar esta categoria?" icon="ui-icon-alert" />
 				    </p:commandButton>
  		         

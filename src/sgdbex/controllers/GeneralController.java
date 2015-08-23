@@ -61,9 +61,7 @@ public class GeneralController {
 	private List<Defectos> filtroDefectos;
 	//-----------------------------------------------------------------
 
-	public Categorias categoria;
 	public Estados estado;
-	public Usuarios usuario;
 	public Prioridades prioridad;
 	public Defectos defecto;
 	public Proyectos proyecto;
@@ -98,8 +96,6 @@ public class GeneralController {
 	
 	public GeneralController() {
 		proyecto=new Proyectos();
-		categoria=new Categorias();
-		usuario=new Usuarios();
 		defecto=new Defectos();
 		adjuntosList=new ArrayList<UploadedFile>();
 	}
@@ -209,12 +205,6 @@ public class GeneralController {
 	public void setUsuariosList(List<Usuarios> usuariosList) {
 		this.usuariosList = usuariosList;
 	}
-	public Usuarios getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuarios usuario) {
-		this.usuario = usuario;
-	}
 	
 //----PRIORIDADES----------------------------------------------------------------------------------------------------------------------------
 	public List<Prioridades> obtenerPrioridades(){
@@ -241,12 +231,6 @@ public class GeneralController {
 	}
 	public void setCategoriasList(List<Categorias> categoriasList) {
 		this.categoriasList = categoriasList;
-	}
-	public Categorias getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(Categorias categoria) {
-		this.categoria = categoria;
 	}
 	
 //--------IMPACTOS------------------------------------------------------------------------------------------------------------------------
@@ -336,27 +320,7 @@ public class GeneralController {
 	public void editar(RowEditEvent event) {
 		String mensaje="";
 		System.out.println("Entre a editar Vere a que clase pertenezco");
-        if(event.getObject() instanceof Proyectos){
-            Proyectos proy = ((Proyectos) event.getObject());
-            System.out.println("Soy de Proyectos entro a editar con valores"+proy.toString());
-            proy.setProy_usuario_modificacion(infoUsuario.getNombre());
-            mensaje = gs.updateProyectos(proy);
-            addMessage("El item seleccionado ha sido editado!");
-        }
-        System.out.println("No soy de Proyectos, vere si soy de Categorias");
-        if(event.getObject() instanceof Categorias){
-        	Categorias cat = ((Categorias) event.getObject());
-        	System.out.println("Soy de Categorias entro a editar con valores"+cat.toString());
-        	cat.setCateg_usuario_modificacion(infoUsuario.getNombre());
-        	mensaje = gs.updateCategorias(cat);
-        	addMessage("El item seleccionado ha sido editado!");
-        }
-        if(event.getObject() instanceof Usuarios){
-        	Usuarios user = ((Usuarios) event.getObject());
-        	System.out.println("Soy de Usuarios entro a editar con valores"+user.toString());
-        	mensaje = gs.updateUsuarios(user);
-        	addMessage("El item seleccionado ha sido editado!");
-        }
+
         if(event.getObject() instanceof Defectos){
         	Defectos def = ((Defectos) event.getObject());
         	def.setUsuario_modificacion(infoUsuario.getNombre());
@@ -376,12 +340,6 @@ public class GeneralController {
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
         if(event.getObject() instanceof Proyectos){
         	System.out.println("Soy de Proyectos en cancelar");	
-        }
-        if(event.getObject() instanceof Categorias){
-        	System.out.println("Soy de Categorias en cancelar");	
-        }
-        if(event.getObject() instanceof Usuarios){
-        	System.out.println("Soy de Usuarios en cancelar");	
         }
         if(event.getObject() instanceof Defectos){
         	System.out.println("Soy de defectos en cancelar");	
@@ -472,29 +430,6 @@ public class GeneralController {
 //            	defectosList =  getAllDefectos();
             	System.out.println("Cantidad "+ defectosList.size());
             }*/
-    	}
-    	if(objeto instanceof Categorias){
-    		Categorias c = (Categorias)objeto;
-    		c.setCateg_usuario_modificacion(infoUsuario.getNombre());
-        	mensaje = gs.createCategorias(c);
-        	addMessage("El item seleccionado ha sido creado!");
-            if(mensaje.equalsIgnoreCase("fallo")){
-            	System.out.println("Fallo al crear");
-            }else{
-            	categoriasList =  listarCategorias();
-            	System.out.println("Cantidad "+ categoriasList.size());
-            }
-    	}
-    	if(objeto instanceof Usuarios){
-    		Usuarios user = (Usuarios)objeto;
-        	mensaje = gs.createUsuarios(user);
-            addMessage("El item seleccionado ha sido creado!");
-            if(mensaje.equalsIgnoreCase("fallo")){
-            	System.out.println("Fallo al eliminar");
-            }else{
-            	usuariosList =  listarUsuarios();
-            	System.out.println("Cantidad "+ usuariosList.size());
-            }
     	}
     }
     private Defectos anadirArchivos(List<UploadedFile> adjuntosList, Defectos d) throws IOException {
@@ -591,45 +526,6 @@ public class GeneralController {
     public void borrarItem(Object objeto){
     	System.out.println("Vere a que clase pertenezco");
     	String mensaje;
-//      FacesMessage msg = new FacesMessage("Edicion Cancelada", ((Proyectos) event.getObject()).getProyecto_id().toString());
-//      FacesContext.getCurrentInstance().addMessage(null, msg);
-    	if(objeto instanceof Proyectos){
-    		Proyectos p = (Proyectos)objeto;
-    		p.setProy_usuario_modificacion(infoUsuario.getNombre());
-        	mensaje = gs.deleteProyectos(p);
-            addMessage("El item seleccionado ha sido eliminado!");
-            if(mensaje.equalsIgnoreCase("fallo")){
-            	System.out.println("Fallo al eliminar");
-            }else{
-            	proyectosList =  listarProyectos();
-            	infoUsuario.actualizarListaProyectosUsuario();
-            	System.out.println("Cantidad "+ proyectosList.size());
-            }
-    	}
-    	if(objeto instanceof Categorias){
-    		Categorias c = (Categorias)objeto;
-    		c.setCateg_usuario_modificacion(infoUsuario.getNombre());
-        	mensaje = gs.deleteCategorias(c);
-            addMessage("El item seleccionado ha sido eliminado!");
-            if(mensaje.equalsIgnoreCase("fallo")){
-            	System.out.println("Fallo al eliminar");
-            }else{
-            	categoriasList =  listarCategorias();
-            	System.out.println("Cantidad "+ categoriasList.size());
-            }
-    	}
-    	if(objeto instanceof Usuarios){
-    		Usuarios user = (Usuarios)objeto;
-    		System.out.println("Soy de Proyectos Eliminado" + user.toString());//delete(itemId);
-        	mensaje = gs.deleteUsuarios(user);
-            addMessage("El item seleccionado ha sido eliminado!");
-            if(mensaje.equalsIgnoreCase("fallo")){
-            	System.out.println("Fallo al eliminar");
-            }else{
-            	usuariosList = listarUsuarios();
-            	System.out.println("Cantidad "+ usuariosList.size());
-            }
-    	}
     	if(objeto instanceof Defectos){
     		Defectos def = (Defectos)objeto;
     		System.out.println("Soy de Proyectos Eliminado" + def.toString());
@@ -738,9 +634,6 @@ public class GeneralController {
     	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosResueltos.jsf");
     }
 	public void defectosResolver(ActionEvent e) throws IOException { //puede resolver el defecto que le fue asignado
-//		System.out.println("user" +infoUsuario.getNombre());
-//		System.out.println("carnet" +infoUsuario.getCarnet());
-//		System.out.println("rol "+infoUsuario.getPerfil());
 		if(filtro_proyecto.equals("0")){
 			//Son todos los proyectos relacionados al usuario, entonces hago un concat de la lista de proyectos
 			filtro_proyecto= buscarEnProyectos(infoUsuario.getProyectosUsuarioList());
@@ -765,29 +658,5 @@ public class GeneralController {
 		defectosList = gs.getDefectosMonitorizados(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
     	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosModificados.jsf");
     }
-	
-	/*public void reportesGenerales(ActionEvent e){
-		try{
-			reportesList = gs.getReportesEstado();
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/reportes/reporteGeneral.jsf");
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
-	public List<Reportes> getFilteredvalues() {
-		return filteredvalues;
-	}
-
-	public void setFilteredvalues(List<Reportes> filteredvalues) {
-		this.filteredvalues = filteredvalues;
-	}
-
-	public List<Reportes> getReportesList() {
-		return reportesList;
-	}
-
-	public void setReportesList(List<Reportes> reportesList) {
-		this.reportesList = reportesList;
-	}*/
-	
+		
 }
