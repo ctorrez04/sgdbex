@@ -44,13 +44,11 @@ public class UsuariosDAOImpl implements UsuariosDAO{
 		Session session = sessionFactory.openSession();
 		List<Usuarios> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_CrearUsuarios :nombre, :carnet, :correo, :departamento, :telefono, :proyecto_id, :rol_id ")
+			Query query = session.createSQLQuery("SP_CrearUsuarios :nombre, :carnet, :correo, :proyecto_id, :rol_id ")
 					.setResultTransformer(Transformers.aliasToBean(Usuarios.class))
 					.setParameter("nombre", usuario.getNombre_completo())
 					.setParameter("carnet", usuario.getCarnet())
 					.setParameter("correo", usuario.getCorreo_electronico())
-					.setParameter("departamento", usuario.getDepartamento())
-					.setParameter("telefono", usuario.getTelefono())
 					.setParameter("proyecto_id", usuario.getUsuario_proyecto_fk())
 					.setParameter("rol_id", usuario.getUsuario_rol_fk());
 			list = (List<Usuarios>)query.list();
@@ -71,15 +69,13 @@ public class UsuariosDAOImpl implements UsuariosDAO{
 		Session session = sessionFactory.openSession();
 		List<Usuarios> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_ActualizarUsuarios :usuario_id, :nombre, :carnet, :correo, :departamento, :telefono, :proyecto_id, :rol_id")
+			Query query = session.createSQLQuery("SP_ActualizarUsuarios :usuario_id, :nombre, :carnet, :correo, :proyecto_id, :rol_id")
 					.setResultTransformer(Transformers.aliasToBean(Usuarios.class))
 //					.setResultSetMapping(output)
 					.setParameter("usuario_id", usuario.getUsuario_id())
 					.setParameter("nombre", usuario.getNombre_completo())
 					.setParameter("carnet", usuario.getCarnet())
 					.setParameter("correo", usuario.getCorreo_electronico())
-					.setParameter("carnet", usuario.getDepartamento())
-					.setParameter("telefono", usuario.getTelefono())
 					.setParameter("proyecto_id", usuario.getUsuario_proyecto_fk())
 					.setParameter("rol_id", usuario.getUsuario_rol_fk());
 			list = (List<Usuarios>)query.list();

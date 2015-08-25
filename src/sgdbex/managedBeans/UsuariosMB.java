@@ -31,7 +31,7 @@ public class UsuariosMB {
 	
 	public String proyectos="";
 	
-	public String filtroUsuarios;
+	public List<Usuarios> filtroUsuarios;
 	
 	public String rolSeleccionado;
 	private String rol;
@@ -88,8 +88,9 @@ public class UsuariosMB {
 			proyectos += proyectosList.get(i).getProyecto_id()+",";
 		}
 		System.out.println("buscando en proyectos "+proyectos);
-		System.out.println("buscando en proyectos "+proyectos.substring(0, 1));
-		setUsuariosList(gs.getUsuariosPorProyecto(proyectos.substring(0,1)));
+		//System.out.println("buscando en proyectos "+proyectos.substring(0, 1));
+		//setUsuariosList(gs.getUsuariosPorProyecto(proyectos.substring(0,1)));
+		setUsuariosList(gs.getUsuariosPorProyecto(proyectos));
 		System.out.println("cantidad usuarios "+getUsuariosList().size());
 		setRol(m.getPerfil());
 		if(getRol().equalsIgnoreCase("LIDER")){
@@ -146,28 +147,30 @@ public class UsuariosMB {
 	public void agregar(Object objeto) {
     	String mensaje;
     	System.out.println("Entre a agregar ");
-    	if(objeto == null)System.out.println("null");
     	if(objeto instanceof Usuarios){
-    		Usuarios user = (Usuarios)objeto;
+    		Usuarios newUser = (Usuarios)objeto;
     		List<RolUsuarios> roles = gs.obtenerRolesUsuarios();
     		for(int i=0;i<roles.size();i++){
     			if(roles.get(i).getRol_nombre().equalsIgnoreCase(rolSeleccionado)){
-    				user.setUsuario_rol_fk(roles.get(i).getRol_id());
+    				newUser.setUsuario_rol_fk(roles.get(i).getRol_id());
     				rolSeleccionado="";
     				break;
     			}
     		}
     		for(int i=0;i<usuariosBeasaList.size();i++){
-        		if(usuariosBeasaList.get(i).getCarnet().equals(user.getCarnet())){
-        			user.setNombre_completo(usuariosBeasaList.get(i).getNombre_completo());
-        			user.setCorreo_electronico(usuariosBeasaList.get(i).getCorreo_electronico());
+        		if(usuariosBeasaList.get(i).getCarnet().equals(newUser.getCarnet())){
+        			newUser.setNombre_completo(usuariosBeasaList.get(i).getNombre_completo());
+        			newUser.setCorreo_electronico(usuariosBeasaList.get(i).getCorreo_electronico());
         			break;
         		}
         	}
-        	mensaje = gs.createUsuarios(user);
+        	mensaje = gs.createUsuarios(newUser);
             if(mensaje.equalsIgnoreCase("fallo")){
+            	System.out.println("mensaje: "+mensaje);
             	addMessage("El item seleccionado no pudo ser creado. Por favor intentelo nuevamente!");
             }else{
+            	System.out.println("Entre pryectos: "+proyectos);
+            	System.out.println("mensaje fino: "+mensaje);
             	addMessage("El item seleccionado ha sido creado!");
             	setUsuariosList(gs.getUsuariosPorProyecto(proyectos));
             }
@@ -193,11 +196,11 @@ public class UsuariosMB {
 	public void setUsuariosBeasaList(List<Usuarios> usuariosBeasaList) {
 		this.usuariosBeasaList = usuariosBeasaList;
 	}
-	public String getFiltroUsuarios() {
+	public List<Usuarios> getFiltroUsuarios() {
 		return filtroUsuarios;
 	}
 
-	public void setFiltroUsuarios(String filtroUsuarios) {
+	public void setFiltroUsuarios(List<Usuarios> filtroUsuarios) {
 		this.filtroUsuarios = filtroUsuarios;
 	}
 	

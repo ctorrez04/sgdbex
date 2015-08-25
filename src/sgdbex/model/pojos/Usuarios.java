@@ -15,9 +15,9 @@ public class Usuarios {
 	
 	private String correo_electronico;
 	
-	private String departamento;
+	//private String departamento;
 	
-	private String telefono;
+	//private String telefono;
 	
 	private Integer usuario_proyecto_fk;
 	
@@ -30,22 +30,18 @@ public class Usuarios {
 		this.nombre_completo = "";
 		this.carnet = "";
 		this.correo_electronico = "";
-		this.departamento = "";
-		this.telefono = "";
 		this.usuario_proyecto_fk = 0;
 		this.usuario_rol_fk = 0;
 		this.usuario_activo = 'N';
 	}
 
 	public Usuarios(Integer usuario_id, String nombre_completo, String carnet,
-			String correo_electronico, String departamento, String telefono,
+			String correo_electronico, 
 			Integer usuario_proyecto_fk, int usuario_rol_fk, char usuario_activo) {
 		this.usuario_id = usuario_id;
 		this.nombre_completo = nombre_completo;
 		this.carnet = carnet;
 		this.correo_electronico = correo_electronico;
-		this.departamento = departamento;
-		this.telefono = telefono;
 		this.usuario_proyecto_fk = usuario_proyecto_fk;
 		this.usuario_rol_fk = usuario_rol_fk;
 		this.usuario_activo = usuario_activo;
@@ -83,22 +79,6 @@ public class Usuarios {
 		this.correo_electronico = correo_electronico;
 	}
 
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
 	public Integer getUsuario_proyecto_fk() {
 		return usuario_proyecto_fk;
 	}
@@ -128,7 +108,6 @@ public class Usuarios {
 		return "Usuarios [usuario_id=" + usuario_id + ", nombre_completo="
 				+ nombre_completo + ", carnet=" + carnet
 				+ ", correo_electronico=" + correo_electronico
-				+ ", departamento=" + departamento + ", telefono=" + telefono
 				+ ", usuario_proyecto_fk=" + usuario_proyecto_fk
 				+ ", usuario_rol_fk=" + usuario_rol_fk + ", usuario_activo="
 				+ usuario_activo + "]";
