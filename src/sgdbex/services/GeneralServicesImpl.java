@@ -256,7 +256,22 @@ public class GeneralServicesImpl implements GeneralServices {
 	public List<Proyectos> getProyectosPorUsuario(String rol, String carnet) {
 		return proyectosDAO.getProyectosPorUsuario(rol, carnet);
 	}
+	
+	@Override
+	public String createMotivos(MotivoResolucion motivo) {
+		return motivosDAO.createMotivos(motivo);
+	}
 
+	@Override
+	public String updateMotivos(MotivoResolucion motivo) {
+		return motivosDAO.updateMotivos(motivo);
+	}
+
+	@Override
+	public String deleteMotivos(MotivoResolucion motivo) {
+		return motivosDAO.deleteMotivos(motivo);
+	}
+	
 	@Override
 	public List<MotivoResolucion> getMotivos() {
 		return motivosDAO.getMotivos();

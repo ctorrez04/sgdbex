@@ -21,16 +21,15 @@
    		 function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
             clearForm(formName);
             dialogName.hide(); 
-        }  
-    }
-    function clearForm(formName){
-        jQuery('#'+formName).each(function(){
-	        this.reset();
-	});
-    }
+        }
+    	function clearForm(formName){
+        	jQuery('#'+formName).each(function(){
+	        	this.reset();
+			});
+    	}
     </script>
 
-	<p:dialog id="dialogAdm" header="Nuevo Proyecto" widgetVar="dialog" appendToBody="true">   	  
+	<p:dialog id="dialogAdm" header="Nuevo Proyecto" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
             <p:panelGrid id="panelGridDialog" columns="2">
@@ -58,7 +57,7 @@
      <div align="center" style="width: 90%;">
      	<h:form id="formulario">
 			
-			<p:growl id="msjs" showDetail="true"/>
+			<p:growl id="msjs" showDetail="true" life="500"/>
 			
 			<p:dataTable id="table" var="proy" value="#{proyectosMB.proyectosList}" editable="true" style="margin-bottom:20px"
 			paginator="true"  paginatorPosition="bottom" rows="20"

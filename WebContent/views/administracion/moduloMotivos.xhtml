@@ -7,7 +7,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-
+<f:metadata>
+    <f:event listener="#{motivosMB.init}" type="preRenderView" />
+</f:metadata>
 <h:head>
 	<title>SGDBE</title>
 </h:head>
@@ -27,19 +29,19 @@
     	}
     </script>
 	
-	<p:dialog id="dialogAdm" header="Nuevo Motivo" widgetVar="dialog" appendToBody="true">   	  
+	<p:dialog id="dialogAdm" header="Nuevo Motivo" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
             <p:panelGrid id="panelGridDialog" columns="2">
 				
 				<h:outputLabel for="motivo_nombre"  value="Nombre " />
-                <p:inputText  id="motivo_nombre" value="#{generalController.motivo.motivo_nombre}" required="true"/>
+                <p:inputText  id="motivo_nombre" value="#{motivosMB.motivo.motivo_nombre}" required="true"/>
                 
                 <h:outputLabel for="motivo_descripcion" value="Descripcion " />
-                <p:inputText id="motivo_descripcion" value="#{generalController.motivo.motivo_descripcion}" />
+                <p:inputText id="motivo_descripcion" value="#{motivosMB.motivo.motivo_descripcion}" />
                 	
 				<f:facet name="footer">
-						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{generalController.agregar(generalController.motivo)}">
+						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{motivosMB.agregar(motivosMB.motivo)}">
 						 </p:commandButton> 
 			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
                 </f:facet>
@@ -48,11 +50,11 @@
 	</p:dialog>			
      <div align="center" style="width: 90%;">
      	<h:form id="formulario">
-     	  	<p:growl id="msjs" showDetail="true"/>
+     	  	<p:growl id="msjs" showDetail="true" life="2500"/>
 			
-			<p:dataTable id="table" var="mot" value="#{generalController.motivosList}" editable="true" style="margin-bottom:20px"
+			<p:dataTable id="table" var="mot" value="#{motivosMB.motivosList}" editable="true" style="margin-bottom:20px"
 			paginator="true"  paginatorPosition="bottom" rows="20" 
-				widgetVar="motTable" emptyMessage="No se encontraron motivos bajo este criterio" filteredValue="#{generalController.filtroMotivos}">
+				widgetVar="motTable" emptyMessage="No se encontraron motivos bajo este criterio" filteredValue="#{motivosMB.filtroMotivos}">
 			
 				<f:facet name="header" styleClass="headerAdm">
 					<div id="titleTable">Todos los motivos de resolucion</div>
@@ -64,8 +66,8 @@
             		</div>
     			</f:facet>
 				
-				<p:ajax event="rowEdit" listener="#{generalController.editar}" update=":formulario:table" />
-		        <p:ajax event="rowEditCancel" listener="#{generalController.cancelar}" update=":formulario:table" />
+				<p:ajax event="rowEdit" listener="#{motivosMB.editar}" update=":formulario:table" />
+		        <p:ajax event="rowEditCancel" listener="#{motivosMB.cancelar}" update=":formulario:table" />
 				
 			    <p:column headerText="Nombre" filterBy="#{mot.motivo_nombre}" filterStyle="display:none">
 			    	<p:cellEditor>
@@ -97,7 +99,7 @@
 					<f:facet name="header">
 				    	<h:outputText value="Borrar" />
 				    </f:facet>
-				    <p:commandButton icon="ui-icon ui-icon-trash" actionListener="#{generalController.borrarItem(mot)}" update=":formulario:table" >
+				    <p:commandButton icon="ui-icon ui-icon-trash" actionListener="#{motivosMB.borrarItem(mot)}" update=":formulario:table" >
 				    	<p:confirm header="Confirmacion" message="Esta seguro de borrar este motivo de resolucion?" icon="ui-icon-alert" />
 				    </p:commandButton>
  		         

@@ -29,7 +29,7 @@
     	}
     </script>
 	
-	<p:dialog id="dialogAdm" header="Nueva Categorias" widgetVar="dialog" appendToBody="true">   	  
+	<p:dialog id="dialogAdm" header="Nueva Categorias" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
             <p:panelGrid id="panelGridDialog" columns="2">
@@ -50,7 +50,7 @@
 	</p:dialog>			
      <div align="center" style="width: 90%;">
      	<h:form id="formulario">
-     	  	<p:growl id="msjs" showDetail="true"/>
+     	  	<p:growl id="msjs" showDetail="true" life="2500"/>
 			
 			<p:dataTable id="table" var="cat" value="#{categoriasMB.categoriasList}" editable="true" style="margin-bottom:20px"
 				paginator="true"  paginatorPosition="bottom" rows="20"

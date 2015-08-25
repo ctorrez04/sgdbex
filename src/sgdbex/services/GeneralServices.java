@@ -101,6 +101,12 @@ public interface GeneralServices {
 	
 	public String cambiarEstadoDefectos(Defectos defecto);
 	
+	public String createMotivos(MotivoResolucion motivo);
+
+	public String updateMotivos(MotivoResolucion motivo);
+
+	public String deleteMotivos(MotivoResolucion motivo);
+	
 	public List<MotivoResolucion> getMotivos();
 	
 	public List<Reportes> getReportesEstado();

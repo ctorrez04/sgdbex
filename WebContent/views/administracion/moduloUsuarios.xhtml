@@ -29,7 +29,7 @@
 	    }
     </script>
 
-	<p:dialog id="dialogAdm" header="Nuevo Usuario" widgetVar="dialog" appendToBody="true">   	  
+	<p:dialog id="dialogAdm" header="Nuevo Usuario" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
             <p:panelGrid id="panelGridDialog" columns="2" >
@@ -69,19 +69,21 @@
 	</p:dialog>	
     <div align="center" style="width: 90%;">
      	<h:form id="formulario">
+     		<p:growl id="msjs" showDetail="true" life="2500"/>
+     		
 			<p:dataTable id="table" var="user" value="#{usuariosMB.usuariosList}" style="text-align:center" 
 				 paginator="true"  paginatorPosition="bottom" editable="true" rows="20" 
 				widgetVar="userTable" emptyMessage="No se encontraron usuarios bajo este criterio" filteredValue="#{usuariosMB.filtroUsuarios}">
 				<f:facet styleClass="headerAdm" name="header">
 					<div id="titleTable">Todos los usuarios</div>
 					<div>
-	        			<p:outputPanel>
+	        			<p:outputPanel id="filtroAdm">
 	                	<h:outputText value="Buscar en tabla:" />
-	                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('userTable').filter()" style="width:150px" placeholder=""/>
+	                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('userTable').filter()" style="width:25%" placeholder=""/>
 	            		</p:outputPanel>
             		</div>
     			</f:facet>
-				
+    			
 				<p:ajax event="rowEdit" listener="#{usuariosMB.editar}" update=":formulario:table" />
 		        <p:ajax event="rowEditCancel" listener="#{usuariosMB.cancelar}" update=":formulario:table" />
 			
@@ -98,6 +100,7 @@
 		                <f:facet name="input"><p:inputText value="#{user.nombre_completo}" /></f:facet>
 			        </p:cellEditor>
 			    </p:column>
+			    
 			    <p:column headerText="Correo" filterBy="#{user.correo_electronico}" filterStyle="display:none">
 			    	<p:cellEditor>
 			        	<f:facet name="output"><h:outputText value="#{user.correo_electronico}" /></f:facet>
@@ -105,7 +108,7 @@
 			        </p:cellEditor>
 			    </p:column>
 			    
-			    <p:column headerText="Departamento" filterBy="#{user.departamento}" filterStyle="display:none">
+			    <!-- <p:column headerText="Departamento" filterBy="#{user.departamento}" filterStyle="display:none">
 			    	<p:cellEditor>
 			        	<f:facet name="output"><h:outputText value="#{user.departamento}" /></f:facet>
 		                <f:facet name="input"><p:inputText value="#{user.departamento}" /></f:facet>
@@ -117,7 +120,7 @@
 			        	<f:facet name="output"><h:outputText value="#{user.telefono}" /></f:facet>
 		                <f:facet name="input"><p:inputText value="#{user.telefono}" /></f:facet>
 			        </p:cellEditor>
-			    </p:column>
+			    </p:column>-->
 			    			    
 			    <p:column headerText="Rol" filterBy="#{roles.rol_nombre}" filterStyle="display:none">
 		             <p:cellEditor>
