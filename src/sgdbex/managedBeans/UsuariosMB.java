@@ -171,6 +171,7 @@ public class UsuariosMB {
             }else{
             	System.out.println("Entre pryectos: "+proyectos);
             	System.out.println("mensaje fino: "+mensaje);
+            	limpiar();
             	addMessage("El item seleccionado ha sido creado!");
             	setUsuariosList(gs.getUsuariosPorProyecto(proyectos));
             }
@@ -219,6 +220,9 @@ public class UsuariosMB {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-
+	
+	public void limpiar(){
+		setUsuario(new Usuarios());
+	}
 
 }

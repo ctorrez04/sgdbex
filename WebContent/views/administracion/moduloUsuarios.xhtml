@@ -17,18 +17,13 @@
 	<ui:composition template="/plantilla.xhtml">
 	  	<ui:define name="content">
 	  		<h:outputStylesheet library="css" name="administracion.css" />
+	  		<h:outputScript library="js" name="script.js" />
 	<script type="text/javascript">  
-   		 function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
-            clearForm(formName);
-            dialogName.hide(); 
+		function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
+			$("#formDialog").find('input:text, input:password,select, input:file, textarea').val('');
+            PF('dialog').hide();"
         }
-	    function clearForm(formName){
-	        jQuery('#'+formName).each(function(){
-		        this.reset();
-		});
-	    }
-    </script>
-
+	</script>
 	<p:dialog id="dialogAdm" header="Nuevo Usuario" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
@@ -42,7 +37,7 @@
 				
 				<h:outputLabel for="rol_analistas" value="Rol asignado: " rendered="#{usuariosMB.rol eq 'ADMINISTRADOR'}"/>
 				<h:selectOneMenu id="rol_analistas" value="#{usuariosMB.rolSeleccionado}"  displayValueOnly="true" rendered="#{usuariosMB.rol eq 'ADMINISTRADOR'}">
-					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue=""/>
 					<f:selectItem itemLabel="ANALISTA" noSelectionOption="true" itemValue="ANALISTA"/>
 					<f:selectItem itemLabel="LIDER" noSelectionOption="true" itemValue="LIDER_PROYECTO"/>
 					<p:ajax event="change" update="nombres" listener="#{usuariosMB.cargarUsuarios}"/>
@@ -55,14 +50,14 @@
 
 				<h:outputLabel for="nombres"  value="Nombres " />
                 <h:selectOneMenu id="nombres" value="#{usuariosMB.usuario.carnet}"  displayValueOnly="true" >
-					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue=""/>
 					<f:selectItems value="#{usuariosMB.usuariosBeasaList}" var="user" itemLabel="#{user.nombre_completo}" itemValue="#{user.carnet}"/>
 				</h:selectOneMenu>
                 
 				<f:facet name="footer">
 						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{usuariosMB.agregar(usuariosMB.usuario)}">
 						 </p:commandButton> 
-			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
+			             <p:commandButton value="Salir" action="#{usuariosMB.limpiar}" onclick="PF('dialog').hide()"/>
                 </f:facet>
 			</p:panelGrid>
        </h:form>

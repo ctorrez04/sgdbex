@@ -15,6 +15,13 @@
 	<h:outputStylesheet library="css" name="plantilla.css" />
 	<h:outputStylesheet library="css" name="crearDefecto.css" />
 	<h:outputScript library="js" name="script.js" />
+	<script type="text/javascript">  
+	function limpiarFormulario(){
+		console.log("voy a limpiar nuevamente");
+		$("#formDefecto").find('input:text, input:password, input:file, textarea').val('');
+		$("#formDefecto").find('select').val('0');
+	}
+	</script>
 	<p:dialog header="Crear Defecto" widgetVar="dlgx" appendTo="@(body)" modal="true">
 	    <h:form id="formDefecto">
 			<p:growl id="growl" sticky="true" showDetail="true" life="2500" />
@@ -60,14 +67,14 @@
 				
 				<f:facet name="footer">
 					<div id="botones" >
-						<p:commandButton value="Crear" update="growl" actionListener="#{generalController.agregar(generalController.defecto)}">
-						<p:confirm header="Confirmacion" message="Esta seguro de reportar este defecto?" icon="ui-icon-alert" />
-						<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-					    	<p:commandButton id="confirmacion" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-					    	<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					 	</p:confirmDialog>
+						<p:commandButton value="Crear" update="growl" actionListener="#{generalController.agregar(generalController.defecto)}" oncomplete="limpiarFormulario();">
+							<p:confirm header="Confirmacion" message="Esta seguro de reportar este defecto?" icon="ui-icon-alert" />
+							<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+					    		<p:commandButton id="confirmacion" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onclick="PF('dlgx').hide();"/>
+					    		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					 		</p:confirmDialog>
 					 	</p:commandButton>
-						<p:commandButton id="cancelar" value="Borrar" type="reset" update="growl" action="#{generalController.limpiar}"></p:commandButton>
+						<p:commandButton id="cancelar" value="Borrar" type="reset" update="growl" action="#{generalController.limpiar}" onsuccess="limpiarFormulario();"></p:commandButton>
 					</div>
 	        	</f:facet>
 			</p:panelGrid>
@@ -75,7 +82,7 @@
 	</p:dialog>
 	
 	<h:form id="form">
-	<!--	<p:growl id="messages" />
+	<!--	<p:growl id="messages" /> onclick="cerrarDialog();"
 		<p:selectOneMenu id="selecProy" value="#{generalController.filtro_proyecto}" style="float:right;" panelStyle="width:160px" filter="true" filterMatchMode="startsWith">-->
 			<!--  <p:ajax event="change" update=""/>-->
 			<!--<p:ajax update=":form:display :display2"/> 

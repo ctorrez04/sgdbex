@@ -24,11 +24,11 @@ public class Proyectos {
 	private String proy_usuario_modificacion;
 
 	public Proyectos(){
-//		this.proyecto_nombre = "";
-//		this.proyecto_descripcion = "";
+		this.proyecto_nombre = "";
+		this.proyecto_descripcion = "";
 //		this.estado = "";
 //		BigDecimal lider = new BigDecimal(String.valueOf(0)); 
-//		this.lider_proyecto = lider;
+		this.proyecto_lider = "";
 //		this.n_empleados = 0;
 //		this.proyecto_id = lider;
 //		this.activo_proy = 'S';

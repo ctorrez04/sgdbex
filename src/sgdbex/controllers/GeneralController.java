@@ -352,20 +352,6 @@ public class GeneralController {
     	String mensaje;
     	System.out.println("Entre a agregar ");
     	if(objeto == null)System.out.println("null");
-    	if(objeto instanceof Proyectos){
-	    	Proyectos p = (Proyectos)objeto;
-	    	p.setProy_usuario_modificacion(infoUsuario.getNombre());
-    		System.out.println("Soy de Proyectos Agregar" + p.toString());
-        	mensaje = gs.createProyectos(p);
-            addMessage("El item seleccionado ha sido creado!");
-            if(mensaje.equalsIgnoreCase("fallo")){
-            	System.out.println("Fallo al crear");
-            }else{
-            	proyectosList =  listarProyectos();
-            	infoUsuario.actualizarListaProyectosUsuario();
-            	System.out.println("Cantidad "+ proyectosList.size());
-            }
-    	}
     	if(objeto instanceof Defectos){
     		Defectos d = (Defectos)objeto;
     		d.setReportero_fk(infoUsuario.getCarnet());
@@ -417,19 +403,16 @@ public class GeneralController {
                         e.printStackTrace();
                     }
             	}
-            	System.out.println("tamano "+archAdjuntos.size());
-            	d.setAdjuntos(archAdjuntos);
+            	//System.out.println("tamano "+archAdjuntos.size());
+            	//d.setAdjuntos(archAdjuntos);
+            	limpiar();
             	addMessage("El item seleccionado ha sido creado!");
             }
     		//-----------termino adjuntos
         	adjuntosList = null;
             if(mensaje.equalsIgnoreCase("fallo")){
             	addMessage("Fallo al crear elemento, por favor intente de nuevo.");
-            }/*else{
-            	//adjuntosList = null;
-//            	defectosList =  getAllDefectos();
-            	System.out.println("Cantidad "+ defectosList.size());
-            }*/
+            }
     	}
     }
     private Defectos anadirArchivos(List<UploadedFile> adjuntosList, Defectos d) throws IOException {

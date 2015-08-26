@@ -17,18 +17,13 @@
 	<ui:composition template="/plantilla.xhtml">
 	  	<ui:define name="content">
 	  		<h:outputStylesheet library="css" name="administracion.css" />
+			<h:outputScript library="js" name="script.js" />
 	<script type="text/javascript">  
-   		 function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
-            clearForm(formName);
-            dialogName.hide(); 
+		function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
+			$("#formDialog").find('input:text, input:password,select, input:file, textarea').val('');
+            PF('dialog').hide();"
         }
-    	function clearForm(formName){
-        	jQuery('#'+formName).each(function(){
-	        	this.reset();
-			});
-    	}
-    </script>
-	
+	</script>
 	<p:dialog id="dialogAdm" header="Nuevo Motivo" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
@@ -43,7 +38,7 @@
 				<f:facet name="footer">
 						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{motivosMB.agregar(motivosMB.motivo)}">
 						 </p:commandButton> 
-			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
+			             <p:commandButton value="Salir" action="#{motivosMB.limpiar}" onclick="PF('dialog').hide()"/>
                 </f:facet>
 			</p:panelGrid>
        </h:form>

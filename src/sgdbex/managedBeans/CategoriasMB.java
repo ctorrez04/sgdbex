@@ -92,7 +92,7 @@ public class CategoriasMB {
             }
     	}
 	}
-	
+
 	public void editar(RowEditEvent event) {
 		String mensaje="";
 		System.out.println("Entre a editar Vere a que clase pertenezco");
@@ -124,9 +124,14 @@ public class CategoriasMB {
             	addMessage("El item seleccionado no pudo ser creado. Por favor intentelo nuevamente!");
             }else{
             	addMessage("El item seleccionado ha sido creado!");
+            	limpiar();
             	setCategoriasList(gs.getCategorias());
             }
     	}
+	}
+	
+	public void limpiar(){
+		setCategoria(new Categorias());
 	}
 
 }

@@ -123,8 +123,12 @@ public class MotivosMB {
             	addMessage("El item seleccionado no pudo ser creado. Por favor intentelo nuevamente!");
             }else{
             	addMessage("El item seleccionado ha sido creado!");
+            	limpiar();
             	setMotivosList(gs.getMotivos());
             }
     	}
+	}
+	public void limpiar(){
+		setMotivo(new MotivoResolucion());
 	}
 }

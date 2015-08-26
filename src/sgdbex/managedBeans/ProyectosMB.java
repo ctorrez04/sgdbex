@@ -112,6 +112,7 @@ public class ProyectosMB {
             	addMessage("Fallo al crear!");
             }else{
             	setProyectosList(gs.getProyectos());
+            	limpiar();
             	m.actualizarListaProyectosUsuario();
             	addMessage("El item seleccionado ha sido creado!");
             }
@@ -133,5 +134,9 @@ public class ProyectosMB {
             	addMessage("El item seleccionado ha sido eliminado!");
             }
     	}
+    }
+    public void limpiar(){
+    	System.out.println("voy a limpiar");
+    	setProyecto(new Proyectos());
     }
 }
