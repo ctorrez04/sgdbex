@@ -19,8 +19,8 @@
 			<h:outputStylesheet library="css" name="principal.css" />
 		    <div id="div1" class="box">
 		    	<h:form id="formulario1" rendered="#{principalMB.titulo1 ne ''}">					
-					<p:dataTable var="defec" value="#{principalMB.lista1}" 
-						widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
+					<p:dataTable var="defec1" value="#{principalMB.lista1}" 
+						widgetVar="defTable1" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
 						<f:facet name="header" styleClass="headerDefectos">
 							<div id="titleTable">
 								<h:outputLabel value="#{principalMB.titulo1}" />
@@ -28,26 +28,26 @@
 							<div>
 							<p:outputPanel id="filtroDefectos">
 		                	<h:outputText value="Buscar: " />
-		                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
+		                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable1').filter()" style="width:25%" placeholder=""/>
 		            		</p:outputPanel>
 		            		</div>
 						</f:facet>
-						<p:column headerText="ID" filterBy="#{defec.defecto_id}" filterStyle="display:none" style="width: 10%;">
-						    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec.defecto_id}">
-								<f:param name="id" value="#{defec.defecto_id}" />
+						<p:column headerText="ID" filterBy="#{defec1.defecto_id}" filterStyle="display:none" style="width: 10%;">
+						    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec1.defecto_id}">
+								<f:param name="id" value="#{defec1.defecto_id}" />
 							</h:link>
 						</p:column>
-						<p:column headerText="Asunto" filterBy="#{defec.asunto}" filterStyle="display:none" style="width: 30%;">
-						    <h:outputText value="#{defec.asunto}" />
+						<p:column headerText="Asunto" filterBy="#{defec1.asunto}" filterStyle="display:none" style="width: 30%;">
+						    <h:outputText value="#{defec1.asunto}" />
 						</p:column>
-						<p:column headerText="Prioridad" filterBy="#{defec.prioridad_tipo}" filterStyle="display:none" style="width: 15%;">
-						    <h:outputText value="#{defec.prioridad_tipo}" />
+						<p:column headerText="Prioridad" filterBy="#{defec1.prioridad_tipo}" filterStyle="display:none" style="width: 15%;">
+						    <h:outputText value="#{defec1.prioridad_tipo}" />
 						</p:column>
-						<p:column headerText="Estado" filterBy="#{defec.estado_nombre}" filterStyle="display:none" style="width: 20%;">
-						    <h:outputText value="#{defec.estado_nombre}" />
+						<p:column headerText="Estado" filterBy="#{defec1.estado_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec1.estado_nombre}" />
 						</p:column>
-						<p:column headerText="Categoria" filterBy="#{defec.categoria_nombre}" filterStyle="display:none" style="width: 20%;">
-						    <h:outputText value="#{defec.categoria_nombre}" />
+						<p:column headerText="Categoria" filterBy="#{defec1.categoria_nombre}" filterStyle="display:none" style="width: 20%;">
+						    <h:outputText value="#{defec1.categoria_nombre}" />
 						</p:column>
 					</p:dataTable>
 				</h:form>
