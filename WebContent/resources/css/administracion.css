@@ -55,9 +55,14 @@ th {
 	font-family: Arial, Helvetica, sans-serif !important;
 	font-size: 95%;
 }
+
+#formulario select option{
+	width: auto;
+	max-width: 120px;
+}
+
 .ui-datatable-header{
 	background-color: white !important; /*#333 tipo gris 000A6F azul #03C*/ 
-	/*color: # !important;*/
 	border: none !important;
 }
 .ui-datatable-header .ui-outputpanel{

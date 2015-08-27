@@ -82,59 +82,26 @@
 				<p:ajax event="rowEdit" listener="#{usuariosMB.editar}" update=":formulario:table" />
 		        <p:ajax event="rowEditCancel" listener="#{usuariosMB.cancelar}" update=":formulario:table" />
 			
-				<p:column headerText="Carnet" filterBy="#{user.carnet}" filterStyle="display:none">
-			    	<p:cellEditor>
-			        	<f:facet name="output"><h:outputText value="#{user.carnet}" /></f:facet>
-		                <f:facet name="input"><p:inputText value="#{user.carnet}" /></f:facet>
-			        </p:cellEditor>
+				<p:column headerText="Carnet" filterBy="#{user.carnet}" filterStyle="display:none" style="width: 15%;">
+			        <h:outputText value="#{user.carnet}" />
 			    </p:column>
 			    
-			    <p:column headerText="Nombre" filterBy="#{user.nombre_completo}" filterStyle="display:none">
-			    	<p:cellEditor>
-			        	<f:facet name="output"><h:outputText value="#{user.nombre_completo}" /></f:facet>
-		                <f:facet name="input"><p:inputText value="#{user.nombre_completo}" /></f:facet>
-			        </p:cellEditor>
+			    <p:column headerText="Nombre" filterBy="#{user.nombre_completo}" filterStyle="display:none" style="width: 15%;">
+			        <h:outputText value="#{user.nombre_completo}" />
 			    </p:column>
 			    
-			    <p:column headerText="Correo" filterBy="#{user.correo_electronico}" filterStyle="display:none">
-			    	<p:cellEditor>
-			        	<f:facet name="output"><h:outputText value="#{user.correo_electronico}" /></f:facet>
-		                <f:facet name="input"><p:inputText value="#{user.correo_electronico}" /></f:facet>
-			        </p:cellEditor>
+			    <p:column headerText="Correo" style="display:none">
+			    	<h:outputText value="#{user.correo_electronico}" />
 			    </p:column>
 			    
-			    <!-- <p:column headerText="Departamento" filterBy="#{user.departamento}" filterStyle="display:none">
-			    	<p:cellEditor>
-			        	<f:facet name="output"><h:outputText value="#{user.departamento}" /></f:facet>
-		                <f:facet name="input"><p:inputText value="#{user.departamento}" /></f:facet>
-			        </p:cellEditor>
-			    </p:column>
-			    
-			    <p:column headerText="Telefono" filterBy="#{user.telefono}" filterStyle="display:none">
-			    	<p:cellEditor>
-			        	<f:facet name="output"><h:outputText value="#{user.telefono}" /></f:facet>
-		                <f:facet name="input"><p:inputText value="#{user.telefono}" /></f:facet>
-			        </p:cellEditor>
-			    </p:column>-->
-			    			    
-			    <p:column headerText="Rol" filterBy="#{roles.rol_nombre}" filterStyle="display:none">
-		             <p:cellEditor>
-		                <f:facet name="output">
-	                		<h:selectOneMenu value="#{user.usuario_rol_fk}" disabled="true" displayValueOnly="true" >
-								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
-								<f:selectItems value="#{generalController.rolesList}" var="roles" itemLabel="#{roles.rol_nombre}" itemValue="#{roles.rol_id}"/>
-							</h:selectOneMenu>
-		                </f:facet>
-		                <f:facet name="input">
-							<h:selectOneMenu value="#{user.usuario_rol_fk}"  displayValueOnly="true" >
-								<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
-								<f:selectItems value="#{generalController.rolesList}" var="roles" itemLabel="#{roles.rol_nombre}" itemValue="#{roles.rol_id}"/>
-							</h:selectOneMenu>
-		                </f:facet>
-		             </p:cellEditor>
+			    <p:column headerText="Rol" filterBy="#{roles.rol_nombre}" filterStyle="display:none" style="width: 30%;">
+               		<h:selectOneMenu value="#{user.usuario_rol_fk}" disabled="true" displayValueOnly="true" >
+						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
+						<f:selectItems value="#{generalController.rolesList}" var="roles" itemLabel="#{roles.rol_nombre}" itemValue="#{roles.rol_id}"/>
+					</h:selectOneMenu>
 				</p:column>
 			    
-			    <p:column headerText="Proyecto" filterBy="#{proy.proyecto_nombre}" filterStyle="display:none">
+			    <p:column headerText="Proyecto" filterBy="#{proy.proyecto_nombre}" filterStyle="display:none" style="width: 30%;">
 		             <p:cellEditor>
 		                <f:facet name="output">
 	                		<h:selectOneMenu value="#{user.usuario_proyecto_fk}" disabled="true" displayValueOnly="true" >

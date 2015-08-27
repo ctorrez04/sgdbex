@@ -11,29 +11,20 @@
 
 <h:head>
 	<title>SGDBE</title>
-	<h:outputStylesheet library="css" name="reportes.css" />
-	<!--  <h:outputScript library="jquery" name="jquery-2.1.4.min.js" /> -->
-	<!-- http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js -->
-	<!--  <h:outputStylesheet library="css" name="reportes.css" />
-	<h:outputScript  library="jqplot-plugins" name="jqplot.pointLabels.min.js"  />
-	<h:outputScript  library="jqplot-plugins" name="jqplot.barRenderer.min.js"  />
-	<h:outputScript  library="jqplot-plugins" name="jqplot.categoryAxisRenderer.min.js"  />
-	<h:outputScript  library="jqplot-plugins" name="jquery.jqplot.min.js"  />
-	<h:outputScript  library="jqplot-plugins" name="jquery.min.js"  />  -->
 </h:head>
 <h:body>
 	<ui:composition template="/plantilla.xhtml">
 	  	<ui:define name="content">
-			<h3>Estadísticas de Reportes</h3>
-			
-			<!--  <p:selectOneMenu id="selectReport2" value="#{reportesController.reporteSeleccionado}" filter="true" filterMatchMode="startsWith" style="width:35%">
-						<p:ajax event="change" update="@this"/>
-						<f:selectItem itemLabel="Seleccione un tipo de Reporte" itemValue="vacio"/>
-						<f:selectItems value="#{reportesController.opcionesReportes}" var="report" itemLabel="#{report.reporte}" itemValue="#{report.reporte}"/>
-					</p:selectOneMenu>  -->
-				<p:panel id="panel1" header="Reportes" style="text-align:center">
+	  		<h:outputStylesheet library="css" name="reportes.css" />
+			<div>
+				<!--  <p:panel id="panel1" header="Reportes" style="text-align:center">-->
 		     	<h:form id="formularioReport">
-		     	<div align="center"> 
+		     	<!--<div id="divTitle">
+		     		<h3>Estadísticas de Reportes</h3>
+		     	</div>
+		     	<div id="divSelect">-->
+		     	<div align="center" >
+		     	<p>Estadísticas de Reportes</p> 
 		     	<h:panelGrid columns="2" cellpadding="5" style="text-align:center">
 		     		<p:selectOneMenu id="selectReport" value="#{reportesController.reporteSeleccionado}" style="width:103%;margin-right:10px" panelStyle="width:350px;" filter="true" filterMatchMode="startsWith">
 						<p:ajax event="change" update="@this"/>
@@ -45,7 +36,7 @@
 				</div>
 		     		<h:panelGrid id="GridReport" columns="2" cellpadding="10" style="text-align:center">
 					<p:dataTable rendered="#{reportesController.reportesEstadoRender}" id="table" var="reportes" value="#{reportesController.reportesEstado}" style="width:450px;text-align:center" filteredValue="#{reportesController.reportesfiltrados}" rows="5"
-                         paginator="true"
+                         paginator="true"  paginatorPosition="bottom" editable="true" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 					    <p:column filterBy="#{reportes.reporte}" filterMatchMode="contains" >
 					    	<f:facet name="header">
@@ -76,7 +67,8 @@
 		       
 		        	<p:chart rendered="#{reportesController.graficoEstadoRender}" type="bar" model="#{reportesController.barModel}" style="width:500px;height:300px" /> 
 		        
-		        	<p:dataTable rendered="#{reportesController.reportesTiempoAbiertoRender}" id="table2" var="reportes" value="#{reportesController.reportesTiempoAbierto}" style="width:450px;text-align:center" filteredValue="#{reportesController.reportesfiltradosTiempoAbierto}">
+		        	<p:dataTable rendered="#{reportesController.reportesTiempoAbiertoRender}" id="table2" var="reportes" value="#{reportesController.reportesTiempoAbierto}" style="width:450px;text-align:center" filteredValue="#{reportesController.reportesfiltradosTiempoAbierto}"
+		        		paginator="true"  paginatorPosition="bottom" editable="true" >
 					    <p:column>
 					    	<f:facet name="header">
 					             <h:outputText value="DefectoID"/>
@@ -115,7 +107,8 @@
 					
 					<p:chart rendered="#{reportesController.graficoTiempoAbiertoRender}" type="bar" model="#{reportesController.barModelTiempoAbierto}" style="width:500px;height:300px"/>
 		        
-		        	<p:dataTable rendered="#{reportesController.reportesFechaDiasRender}" id="table3" var="reportes" value="#{reportesController.reportesFechaDias}" style="width:360px;text-align:center" filteredValue="#{reportesController.reportesfiltradosFechaDias}">
+		        	<p:dataTable rendered="#{reportesController.reportesFechaDiasRender}" id="table3" var="reportes" value="#{reportesController.reportesFechaDias}" style="width:360px;text-align:center" filteredValue="#{reportesController.reportesfiltradosFechaDias}"
+		        	paginator="true"  paginatorPosition="bottom" editable="true" >>
 					    <p:column>
 					    	<f:facet name="header">
 					             <h:outputText value="Dia(s)"/>
@@ -153,7 +146,7 @@
 		        	<p:chart rendered="#{reportesController.graficoFechaDiasRender}" id="chart3" type="bar" model="#{reportesController.barModelFechaDias}" style="width:600px;height:300px"/>
 		        	
 		        	<p:dataTable rendered="#{reportesController.reportesCategoriaRender}" id="table4" var="reportes" value="#{reportesController.reportesCategoria}" style="width:440px;text-align:center" filteredValue="#{reportesController.reportesfiltradosCategoria}" rows="5"
-                         paginator="true"
+                         paginator="true"  paginatorPosition="bottom" editable="true" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 					    <p:column>
 					    	<f:facet name="header">
@@ -192,7 +185,7 @@
 		        	<p:chart rendered="#{reportesController.graficoCategoriaRender}" type="bar" model="#{reportesController.barModelCategoria}" style="width:655px;height:300px"/>
 		        	
 		        	<p:dataTable rendered="#{reportesController.reportesPrioridadRender}" id="table5" var="reportes" value="#{reportesController.reportesPrioridad}" style="width:450px;text-align:center" filteredValue="#{reportesController.reportesfiltradosPrioridad}" rows="5"
-                         paginator="true"
+                         paginator="true"  paginatorPosition="bottom" editable="true" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 					    <p:column>
 					    	<f:facet name="header">
@@ -231,7 +224,7 @@
 		        	<p:chart rendered="#{reportesController.graficoPrioridadRender}" type="bar" model="#{reportesController.barModelPrioridad}" style="width:655px;height:300px"/>
 		        	
 		        	<p:dataTable rendered="#{reportesController.reportesEstadisticasUsuariosRender}" id="table6" var="reportes" value="#{reportesController.reportesEstadisticasUsuarios}" style="width:500px;text-align:center" filteredValue="#{reportesController.reportesfiltradosEstadisticasUsuarios}" rows="6"
-                         paginator="true"
+                         paginator="true"  paginatorPosition="bottom" editable="true" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 					    <p:column style="width:200px;">
 					    	<f:facet name="header">
@@ -270,7 +263,7 @@
 		        	<p:chart rendered="#{reportesController.graficoEstadisticasUsuariosRender}" type="bar" model="#{reportesController.barModelEstadisticasUsuarios}" style="width:600px;height:300px"/>
 		        	
 		        	<p:dataTable rendered="#{reportesController.reportesEstadisticasReporterosRender}" id="table7" var="reportes" value="#{reportesController.reportesEstadisticasReporteros}" style="width:500px;text-align:center" filteredValue="#{reportesController.reportesfiltradosEstadisticasReporteros}" rows="5"
-                         paginator="true"
+                         paginator="true"  paginatorPosition="bottom" editable="true" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 					    <p:column>
 					    	<f:facet name="header">
@@ -309,7 +302,7 @@
 		        	<p:chart rendered="#{reportesController.graficoEstadisticasReporterosRender}" type="bar" model="#{reportesController.barModelEstadisticasReporteros}" style="width:600px;height:300px"/>
 		        	
 		        	<p:dataTable rendered="#{reportesController.reportesReporterosResolucionRender}" id="table8" var="reportes" value="#{reportesController.reportesReporterosResolucion}" style="width:500px;text-align:center" filteredValue="#{reportesController.reportesfiltradosReporterosResolucion}" rows="5"
-                         paginator="true"
+                         paginator="true"  paginatorPosition="bottom" editable="true" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 					    <p:column>
 					    	<f:facet name="header">
@@ -348,7 +341,7 @@
 		        	<p:chart rendered="#{reportesController.graficoReporterosResolucionRender}" type="bar" model="#{reportesController.barModelReporterosResolucion}" style="width:600px;height:300px"/>
 		        	
 		        	<p:dataTable rendered="#{reportesController.reportesUsuariosResolucionRender}" id="table9" var="reportes" value="#{reportesController.reportesUsuariosResolucion}" style="width:470px;text-align:center" filteredValue="#{reportesController.reportesfiltradosUsuariosResolucion}" rows="5"
-                         paginator="true"
+                         paginator="true"  paginatorPosition="bottom" editable="true" 
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 					    <p:column style="width:200px;">
 					    	<f:facet name="header">
@@ -388,17 +381,10 @@
 		        	<!--  <div><span>You Right Clicked: </span><span id="info3">Nothing yet</span></div>  -->
 		        </h:panelGrid>
 				</h:form>
-				</p:panel>
-			
-			<style type="text/css">
-				.ui-widget {
-				font-size: 90%;
-							}
-			</style>
-			
+				<!-- </p:panel> -->
+			</div>
 	<script type="text/javascript">  
 	function plotAxisInterval() {
-		//var ticks: [1,2,3,4,5,6,7,8,9,10];
 		$.jqplot.config.enablePlugins = true;
 		this.cfg.seriesDefaults = {
 				renderer:$.jqplot.BarRenderer,
@@ -406,20 +392,12 @@
 		};
 	      this.cfg.axes = {
 	          xaxis : {
-	                   //min : 0,
-	                   //max : 8,
-	                   //tickInterval : 1,
 	                   tickOptions : {
 	                      formatString : '%s'
 	                   },
 	                   label : 'Defectos Intervalos Dias por Estado',
-	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
 	                   renderer : $.jqplot.CategoryAxisRenderer,
-	                   //ticks: [1,2,3,7,30,60,90,180,365],
 	                   ticks: ['col 1', 'col 2','col 3', 'col 4','col 5', 'col 6','col 7', 'col 8', 'col 9'],
-	                   //labelticks: [1,2,3,4,5],
-	                   //numberTicks: 9,
-	                   //rendererOptions:{tickRenderer: $.jqplot.CanvasAxisTickRenderer},
 	                   labelOptions : {
 	                       fontFamily : 'Georgia, Serif',
 	                       fontSize : '12pt',
@@ -427,15 +405,9 @@
 	                   }
 	                 },
 	           yaxis : {
-	                   //min : 0,
-	                   //max : 365,
 	                   label : 'Dia(s)',
-	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
 	                   renderer : $.jqplot.CategoryAxisRenderer,
 	                   ticks: [1,2,3,7,30,60,90,180,365],
-	                   //ticks: [2,4,6.8],
-	                   //numberTicks: 9,
-	                   //tickInterval : 10,
 	                   tickOptions : {
 	                       formatString : '%d'
 	                   }
@@ -447,74 +419,25 @@
 		      };
 	      
 	      jQuery('#'+'chart3').bind('jqplotDataClick', 
-	    		    function (ev, seriesIndex, pointIndex, data) {
-	    		      jQuery('#'+'info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
-	    		    }
-	    		  );
+    		    function (ev, seriesIndex, pointIndex, data) {
+    		      jQuery('#'+'info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+    		    }
+    		  );
 	      }
     </script>
     
     <script type="text/javascript">  
 	function plotAxisInterval2() {
-		//var ticks: [1,2,3,4,5,6,7,8,9,10];
-		//$.jqplot.config.enablePlugins = true;
 		this.cfg.seriesDefaults = {
 				renderer:$.jqplot.BarRenderer,
 				pointLabels: { show: true, hideZeros: true }
 		};
-	       /* this.cfg.axes = {
-	          xaxis : {
-	                   //min : 0,
-	                   //max : 8,
-	                   //tickInterval : 1,
-	                   tickOptions : {
-	                      formatString : '%s'
-	                   },
-	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-	                   renderer : $.jqplot.CategoryAxisRenderer,
-	                   //ticks: [1,2,3,7,30,60,90,180,365],
-	                   //labelticks: [1,2,3,4,5],
-	                   //numberTicks: 9,
-	                   //rendererOptions:{tickRenderer: $.jqplot.CanvasAxisTickRenderer},
-	                   labelOptions : {
-	                       fontFamily : 'Georgia, Serif',
-	                       fontSize : '12pt',
-	                       width : '10px'
-	                   }
-	                 },
-	           yaxis : {
-	                   //min : 0,
-	                   //max : 365,
-	                   //labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-	                   renderer : $.jqplot.CategoryAxisRenderer,
-	                   //ticks: [2,4,6.8],
-	                   //numberTicks: 9,
-	                   //tickInterval : 10,
-	                   tickOptions : {
-	                       formatString : '%d'
-	                   }
-	                }
-	            }; */
-	      
-	       this.cfg.highlighter= {
-		          show : false
-	    		   //useAxesFormatters: false,
-	               //tooltipAxes: 'x'
-		      };
-	      
-	      /* jQuery('#'+'chart3').bind('jqplotDataClick', 
-	    		    function (ev, seriesIndex, pointIndex, data) {
-	    		      jQuery('#'+'info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
-	    		    }
-	    		  ); */
-	      }
+	    this.cfg.highlighter= {
+			show : false
+		};
+	}
     </script>
-    
-	  	</ui:define>
-		<!-- <ui:define name="footer">
-			<ui:include src="/footer.xhtml"  />
-		</ui:define> -->
-		
+	</ui:define>
 	</ui:composition>
 	
 </h:body>

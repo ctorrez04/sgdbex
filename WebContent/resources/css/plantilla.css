@@ -15,7 +15,8 @@
 }
 
 #contentBody .ui-layout-unit-content.ui-widget-content {
-	width: 1024px !important;
+	/*width: 1024px !important;*/
+	width: 1200px !important;
 	margin-right: auto !important;
 	margin-left: auto !important;
 	text-align: left !important;
@@ -35,7 +36,8 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 #header .ui-layout-unit-content.ui-widget-content {
-	width: 1024px !important;
+	/*width: 1024px !important;*/
+	width: 1200px !important;
 	margin-right: auto !important;
 	margin-left: auto !important;
 	text-align: left !important;
@@ -54,7 +56,8 @@
 #nav {
 	clear: both;
 	height: 27px;
-	width: 1024px;
+	/*width: 1024px !important;*/
+	width: 1200px !important;
 	padding-top: 10px;
 }
 #buscar{
@@ -70,29 +73,6 @@
 html, body {
     height:100%
 }
-
-
-/*#overlay { 
-    position:absolute;
-    z-index:10;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    background-color:#f00;
-    filter:alpha(opacity=10);
-    -moz-opacity:0.1;
-    opacity:0.1;
-    cursor:pointer;
-
-} 
-
-#dialog {
-    position:absolute;
-    border:2px solid #3366CC;
-    width:auto;
-    height:700px;
-    background-color:#ffffff;
-    z-index:150; 
-    overflow:visible;
-}*/
+#nav .ui-menu-list .ui-widget-content {
+    min-width:95%;
+}
