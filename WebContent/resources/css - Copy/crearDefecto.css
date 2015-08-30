@@ -1,9 +1,9 @@
 /* ESTILOS CONTENT BODY*/
-/*#contentBody .ui-widget{
+#contentBody .ui-widget{
   	font-size: 90%;
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: #FFFEEE;
-}*/
+}
 
 form#formDefecto {
 	font-family: inherit !important;

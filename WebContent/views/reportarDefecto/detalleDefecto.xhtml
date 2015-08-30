@@ -18,6 +18,7 @@
 <h:body>
 	<ui:composition template="/plantilla.xhtml">
 	<ui:define name="content">
+	<h:outputStylesheet library="css" name="defectos.css" />
     <div align="center">
 		<h:form id="formDetalle">
 			<p:panel id="basic" header="Defecto No. #{defectosMB.defecto.defecto_id}" style="margin-bottom:20px">
@@ -134,7 +135,7 @@
     					</p:column>
 		    		</p:dataTable>
 		    	</h:panelGrid>
-		    	<h:panelGrid>
+		    	<h:panelGrid rendered="#{fn:length(defectosMB.adjuntosList) gt 0}">
 		    		<p:galleria value="#{defectosMB.imagenes}" var="imagen" panelWidth="500" panelHeight="313" showCaption="true">
     					<p:graphicImage name="#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}"/>
 					</p:galleria>

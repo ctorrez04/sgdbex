@@ -1,13 +1,13 @@
 /* ESTILOS CONTENT BODY*/
-#contentBody .ui-widget{
+/*#contentBody .ui-widget{
   	font-size: 90%;
 	font-family: Arial, Helvetica, sans-serif !important;
 	background-color: #FFF;
-}
+}*/
 #formulario{
 	text-align: center;
 	width: 75%;
-	font-size: 95%;
+	/*font-size: 95%;*/
 }
 #formulario .ui-datatable-header{
 	margin-bottom: 1%;
@@ -45,7 +45,7 @@
 /*estilo de los nombres de las columnas*/
 th {
 	background-color: #3F59FF !important;
-  color: black !important;
+	color: black !important;
 	border:disabled !important;
 }
 /*estilo contenido de tablas*/
@@ -53,7 +53,7 @@ th {
 	border: none !important;
 	color: black;
 	font-family: Arial, Helvetica, sans-serif !important;
-	font-size: 95%;
+	font-size: 95% !important;
 }
 
 #formulario select option{

@@ -1,13 +1,13 @@
 /* ESTILOS CONTENT BODY*/
-/*#contentBody .ui-widget{
+#contentBody .ui-widget{
   	font-size: 90%;
 	font-family: Arial, Helvetica, sans-serif !important;
 	background-color: #FFF;
-}*/
+}
 #formulario{
 	text-align: center;
-	width: 95%;
-	font-size: 90%;
+	width: 75%;
+	font-size: 95%;
 }
 #formulario .ui-datatable-header{
 	margin-bottom: 1%;
@@ -19,19 +19,14 @@
 #formulario .ui-outputpanel {
 	background-color:  inherit;	
 }
-#formDetalle .ui-panel-titlebar {
-	background-color: #3F59FF !important;
-}
+
 #dialogAdm label{
 	float: left;
 	position: relative;
 	text-align: right;
 	width: 80px;
 }
-#formulario .ui-inputfield {/*.dateTimeField input {*/
-  width:75px;
-	color: black !important;
-}
+
 #dialogAdm select, #dialogAdm input{
 	width: 240px;
 }
@@ -58,11 +53,16 @@ th {
 	border: none !important;
 	color: black;
 	font-family: Arial, Helvetica, sans-serif !important;
-	font-size: 90%;
+	font-size: 95%;
 }
+
+#formulario select option{
+	width: auto;
+	max-width: 120px;
+}
+
 .ui-datatable-header{
 	background-color: white !important; /*#333 tipo gris 000A6F azul #03C*/ 
-	/*color: # !important;*/
 	border: none !important;
 }
 .ui-datatable-header .ui-outputpanel{
@@ -70,7 +70,7 @@ th {
 }
 .ui-datatable-header div#titleTable{
 	text-align: left !important;
-	font-family: Arial, Helvetica, sans-serif !important;
+	font-family:  Comic Sans MS, cursive, sans-serif !important;	
 }
 .ui-datatable-footer{
 	background-color: #3F59FF !important;
@@ -90,6 +90,9 @@ th {
 	height: 200px;
 }
 
+.ui-dialog-titlebar {
+	background-color: #3F59FF !important;
+}
 #formDialog .ui-panelgrid{
 	border: none !important;
 }
@@ -109,28 +112,4 @@ th {
 }
 .ui-paginator{
 	background-color: white !important;
-}
-
-#formDetalle{
-	width: 80%;
-	font-size: 90%;
-}
-
-#formDetalle select,#formDetalle input{
-	float: left !important;
-	text-align: center !important;
-	width: 80% !important;
-}
-#formDetalle label{
-	float: left;
-	position: relative;
-	text-align: right;
-	width: 80%;
-}
-#formDetalle textarea{
-	float: left !important;
-}
-#formDetalle button{
-	background-color: #3F59FF !important;
-	color: black !important;
 }

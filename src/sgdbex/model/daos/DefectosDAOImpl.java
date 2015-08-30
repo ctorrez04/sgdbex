@@ -57,7 +57,8 @@ public class DefectosDAOImpl implements DefectosDAO{
 					.setParameter("carnet_modif", Defecto.getCarnet_modificacion());
 			list = (List<Defectos>)query.list();
 			System.out.println("Defectos Create " + list.get(0).getDefecto_id());
-			if(list.get(0).getDefecto_id() != 0 && Defecto.getAdjuntos() != null){
+			System.out.println("Adjuntos error: " + Defecto.getAdjuntos().size());
+			if(list.get(0).getDefecto_id() != 0 && Defecto.getAdjuntos() != null && Defecto.getAdjuntos().size() > 0){
 				for(int i=0;i<Defecto.getAdjuntos().size();i++){
 					Defecto.getAdjuntos().get(i).setArchivo_defecto_fk(list.get(0).getDefecto_id());
 					query = session.createSQLQuery("SP_CrearArchivosAdjuntos :nombre, :formato, :ubicacion,"
@@ -79,7 +80,7 @@ public class DefectosDAOImpl implements DefectosDAO{
 				}
 				return "exito";
 			}
-			return "fallo";
+			return "exito";
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defec " +e.getMessage() );
 			return "fallo";

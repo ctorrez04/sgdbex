@@ -1,26 +1,58 @@
 /* ESTILOS CONTENT BODY*/
-/*#contentBody .ui-widget{
-  	font-size: 90%;
+#contentBody{
+  	/*font-size: 90%;*/
+  	height: 100% !important;
 	font-family: Arial, Helvetica, sans-serif !important;
-	background-color: #FFF;
-}*/
-#formulario{
+ 	border:1px solid black;
+    margin:0 auto;
+    position:relative !important;
+}
+
+.box {
+    width:49.5%;
+    min-height: 25% !important;
+	position:absolute !important;
+}
+
+#div1 { 
+    margin:0 auto;
+    top:0% !important;
+	left: 0% !important;	
+		
+/*  right: 25% !important;
+	left: !important;
+    margin-top:-110px;
+    margin-left:-110px;*/
+}
+#div2 { 
+  margin:0 auto;
+  top:0% !important;
+right: 0% !important;
+}
+#div3 { 
+  	margin:0 auto;
+	position: relative !important;
+	top: 25% !important;
+	right: 25% !important;
+}
+#div4 {
+	margin:0 auto;
+	position: absolute !important;
+	top: 25% !important;
+	right:0% !important;
+}
+#formulario1, #formulario2, #formulario3, #formulario4 {
 	text-align: center;
-	width: 95%;
 	font-size: 90%;
 }
-#formulario .ui-datatable-header{
+#formulario1 .ui-datatable-header, #formulario2 .ui-datatable-header, #formulario3 .ui-datatable-header, #formulario4 .ui-datatable-header{
 	margin-bottom: 1%;
 }
-#formulario #titleTable{
+#formulario1 #titleTable, #formulario2 #titleTable, #formulario3 #titleTable, #formulario4 #titleTable{
 	float: left;
-	
 }
-#formulario .ui-outputpanel {
+#formulario1 .ui-outputpanel , #formulario2 .ui-outputpanel , #formulario3 .ui-outputpanel, #formulario4 .ui-outputpanel {
 	background-color:  inherit;	
-}
-#formDetalle .ui-panel-titlebar {
-	background-color: #3F59FF !important;
 }
 #dialogAdm label{
 	float: left;
@@ -28,7 +60,7 @@
 	text-align: right;
 	width: 80px;
 }
-#formulario .ui-inputfield {/*.dateTimeField input {*/
+#formulario1 .ui-inputfield, #formulario2 .ui-inputfield, #formulario3 .ui-inputfield, #formulario4 .ui-inputfield{/*.dateTimeField input {*/
   width:75px;
 	color: black !important;
 }
@@ -54,11 +86,11 @@ th {
 	border:disabled !important;
 }
 /*estilo contenido de tablas*/
-#formulario .ui-widget-content{
+#formulario1 .ui-widget-content, #formulario2 .ui-widget-content, #formulario3 .ui-widget-content, #formulario4 .ui-widget-content{
 	border: none !important;
 	color: black;
 	font-family: Arial, Helvetica, sans-serif !important;
-	font-size: 90%;
+	font-size: 95%;
 }
 .ui-datatable-header{
 	background-color: white !important; /*#333 tipo gris 000A6F azul #03C*/ 
@@ -70,7 +102,7 @@ th {
 }
 .ui-datatable-header div#titleTable{
 	text-align: left !important;
-	font-family: Arial, Helvetica, sans-serif !important;
+	font-family:  Comic Sans MS, cursive, sans-serif !important;	
 }
 .ui-datatable-footer{
 	background-color: #3F59FF !important;
@@ -90,6 +122,9 @@ th {
 	height: 200px;
 }
 
+.ui-dialog-titlebar {
+	background-color: #3F59FF !important;
+}
 #formDialog .ui-panelgrid{
 	border: none !important;
 }
@@ -109,28 +144,4 @@ th {
 }
 .ui-paginator{
 	background-color: white !important;
-}
-
-#formDetalle{
-	width: 80%;
-	font-size: 90%;
-}
-
-#formDetalle select,#formDetalle input{
-	float: left !important;
-	text-align: center !important;
-	width: 80% !important;
-}
-#formDetalle label{
-	float: left;
-	position: relative;
-	text-align: right;
-	width: 80%;
-}
-#formDetalle textarea{
-	float: left !important;
-}
-#formDetalle button{
-	background-color: #3F59FF !important;
-	color: black !important;
 }

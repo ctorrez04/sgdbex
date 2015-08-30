@@ -12,7 +12,6 @@
 	<h:outputStylesheet library="awesome" name="css/font-awesome.css" />
 </h:head>
 <h:body>
-	<h:outputStylesheet library="css" name="plantilla.css" />
 	<h:outputStylesheet library="css" name="crearDefecto.css" />
 	<h:outputScript library="js" name="script.js" />
 	<script type="text/javascript">  
@@ -67,10 +66,12 @@
 				
 				<f:facet name="footer">
 					<div id="botones" >
-						<p:commandButton value="Crear" update="growl" actionListener="#{generalController.agregar(generalController.defecto)}" oncomplete="limpiarFormulario();">
+						<p:commandButton value="Crear" update="growl :contentBody" actionListener="#{generalController.agregar(generalController.defecto)}" oncomplete="limpiarFormulario();">
 							<p:confirm header="Confirmacion" message="Esta seguro de reportar este defecto?" icon="ui-icon-alert" />
 							<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-					    		<p:commandButton id="confirmacion" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onclick="PF('dlgx').hide();"/>
+					    		<p:commandButton id="confirmacion" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onclick="PF('dlgx').hide();">
+					    			<!-- <p:ajax process="@this" update=":contentBody"/> -->
+					    		</p:commandButton>
 					    		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					 		</p:confirmDialog>
 					 	</p:commandButton>

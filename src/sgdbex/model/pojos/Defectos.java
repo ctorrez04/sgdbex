@@ -73,6 +73,8 @@ public class Defectos {
 	private Integer motivo_fk;
 	private String motivo_nombre;
 	private List<ArchivosAdjuntos> adjuntos;
+	
+	
 	public Defectos(){
 		
 	}

@@ -1,33 +1,21 @@
 /* ESTILOS CONTENT BODY*/
-#contentBody{
-  	/*font-size: 90%;*/
-  	height: 100% !important;
-	font-family: Arial, Helvetica, sans-serif !important;
- 	border:1px solid black;
-    margin:0 auto;
-    position:relative !important;
-}
 
-.box {
+#contentBody .box {
     width:49.5%;
     min-height: 25% !important;
-		position:absolute !important;
+	position:absolute !important;
 }
 
 #div1 { 
     margin:0 auto;
     top:0% !important;
 	left: 0% !important;	
-		
-/*  right: 25% !important;
-	left: !important;
-    margin-top:-110px;
-    margin-left:-110px;*/
+
 }
 #div2 { 
   margin:0 auto;
   top:0% !important;
-right: 0% !important;
+	right: 0% !important;
 }
 #div3 { 
   	margin:0 auto;
@@ -68,13 +56,13 @@ right: 0% !important;
 	width: 240px;
 }
 
-.panelgrid.ui-panelgrid>*>tr, .panelgrid.ui-panelgrid .ui-panelgrid-cell {
+#contentBody .panelgrid.ui-panelgrid>*>tr, .panelgrid.ui-panelgrid .ui-panelgrid-cell {
     border: none;
 }
 #botones{
 	float: right;
 }
-.ui-panelgrid-footer button.ui-widget{
+#contentBody .ui-panelgrid-footer button.ui-widget{
 	background-color: #3F59FF !important;
 	color: #FFF !important;
 }
@@ -82,7 +70,7 @@ right: 0% !important;
 /*estilo de los nombres de las columnas*/
 th {
 	background-color: #3F59FF !important;
-  color: black !important;
+	color: black !important;
 	border:disabled !important;
 }
 /*estilo contenido de tablas*/
@@ -92,39 +80,36 @@ th {
 	font-family: Arial, Helvetica, sans-serif !important;
 	font-size: 95%;
 }
-.ui-datatable-header{
+#contentBody .ui-datatable-header{
 	background-color: white !important; /*#333 tipo gris 000A6F azul #03C*/ 
-	/*color: # !important;*/
 	border: none !important;
 }
-.ui-datatable-header .ui-outputpanel{
+#contentBody .ui-datatable-header .ui-outputpanel{
 	text-align: right !important;
 }
-.ui-datatable-header div#titleTable{
+#contentBody .ui-datatable-header div#titleTable{
 	text-align: left !important;
-	font-family:  Comic Sans MS, cursive, sans-serif !important;	
+	/*font-family:  Comic Sans MS, cursive, sans-serif !important;	*/
+	font-family: Arial, Helvetica, sans-serif !important;
 }
-.ui-datatable-footer{
+#contentBody .ui-datatable-footer{
 	background-color: #3F59FF !important;
 }
-.ui-datatable thead th,
-.ui-datatable tbody,
-.ui-datatable tbody tr,
-.ui-datatable tbody td {
+#contentBody .ui-datatable thead th,
+#contentBody .ui-datatable tbody,
+#contentBody .ui-datatable tbody tr,
+#contentBody .ui-datatable tbody td {
     border: none !important;
 }
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
+#contentBody .ui-state-default,
+#contentBody .ui-widget-content .ui-state-default,
+#contentBody .ui-widget-header .ui-state-default {
     border: none !important;
 }
 #dialogAdm{
 	height: 200px;
 }
 
-.ui-dialog-titlebar {
-	background-color: #3F59FF !important;
-}
 #formDialog .ui-panelgrid{
 	border: none !important;
 }
@@ -139,9 +124,8 @@ th {
 	border: none !important;
 }
 #formDialog .ui-widget-header td{
-	/*background-color: white !important;*/
 	text-align: right !important;
 }
-.ui-paginator{
+#contentBody .ui-paginator{
 	background-color: white !important;
 }

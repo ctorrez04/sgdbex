@@ -558,7 +558,7 @@ public class GeneralController {
 //--------------------------------------------------------------------------------------------------------------------------------
 	
 	public void limpiar(){
-		setDefecto(null);
+		setDefecto(new Defectos());
 	}
 
 	public Defectos getDefecto() {
