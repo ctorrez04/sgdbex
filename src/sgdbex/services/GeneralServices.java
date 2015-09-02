@@ -89,6 +89,8 @@ public interface GeneralServices {
 
 	public List<Defectos> getDefectosReportadosPorMi(String usuario, String rol, String proyecto);
 	
+	public List<Defectos> buscarDefectos(String nombre, String proyecto, String categoria, String prioridad);
+	
 	public List<HistoricoEstados> getHistorico(Integer id);
 
 //	public void createPrioridad(Prioridades prioridad);

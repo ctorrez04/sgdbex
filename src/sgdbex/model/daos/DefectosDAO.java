@@ -37,5 +37,7 @@ public interface DefectosDAO {
 
 	public List<Defectos> getDefectosReportadosPorMi(String usuario, String rol, String proyecto);
 
+	public List<Defectos> buscarDefectos(String nombre, String proyecto, String categoria, String prioridad);
+
 	
 }

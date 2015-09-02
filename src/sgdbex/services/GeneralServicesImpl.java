@@ -337,4 +337,9 @@ public class GeneralServicesImpl implements GeneralServices {
 		return reportesDAO.getReportesMasActivos();
 	}
 
+	@Override
+	public List<Defectos> buscarDefectos(String nombre, String proyecto, String categoria, String prioridad) {
+		return defectosDAO.buscarDefectos(nombre,proyecto,categoria,prioridad);
+	}
+
 }

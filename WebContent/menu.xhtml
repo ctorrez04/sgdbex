@@ -153,10 +153,12 @@
 					<f:selectItems value="#{menu.proyectosUsuarioList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
 				</p:selectOneMenu>
 				<div id="buscar">
-					<p:inputText placeholder="Buscar" value="#{menu.buscar}" style="width: 100px; height: 15px;"/>
+					<h:inputText placeholder="Buscar" binding="#{text}" style="width: 100px; height: 15px;"/>
+					<p:commandButton action="#{menu.doSearch(text.value)}" icon="ui-icon-search"/>
+					<!-- <p:inputText placeholder="Buscar" value="#{menu.buscar}" style="width: 100px; height: 15px;"/>
 					<p:button outcome="/views/reportarDefecto/buscarDefecto" icon="ui-icon-search">
-						<f:param name="nombre" value="#{menu.buscar}" />
-					</p:button>
+						<f:param name="nombre" value="#{input1.value}" />
+					</p:button>-->
 				</div>
 			</f:facet>
 		</p:menubar>

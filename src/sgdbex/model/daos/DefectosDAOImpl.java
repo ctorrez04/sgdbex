@@ -508,4 +508,30 @@ public class DefectosDAOImpl implements DefectosDAO{
 		}
 		return list;
 	}
+
+	@Override
+	public List<Defectos> buscarDefectos(String nombre, String proyecto, String categoria, String prioridad) {
+		Session session = sessionFactory.openSession();
+		List<Defectos> resultado = null;
+		Query query = null;
+		try {
+			System.out.println("\nParametros: "+nombre);
+			System.out.println("Parametros: "+proyecto);
+			System.out.println("Parametros: "+categoria);
+			System.out.println("Parametros: "+prioridad);
+			query = session.createSQLQuery("SP_BuscarDefectos :nombre, :proyecto, :categoria, :prioridad")
+					.setResultTransformer(Transformers.aliasToBean(Defectos.class))
+					.setParameter("nombre", nombre)
+					.setParameter("proyecto", proyecto)
+					.setParameter("categoria", categoria)
+					.setParameter("prioridad",prioridad);
+			resultado = (List<Defectos>)query.list();
+			System.out.println("Cntidad resultados: "+resultado.size());
+		} catch (HibernateException e) {
+			System.out.println("Error obteniendo Defectos en busqueda" +e.getMessage() );
+		} finally {
+			session.close();
+		}
+		return resultado;
+	}
 }
