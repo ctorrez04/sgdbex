@@ -242,9 +242,6 @@ public class Menu implements Serializable{
 	}
 	public void doSearch(String valor) throws IOException{
 		System.out.println("value"+valor);
-		FacesContext context = FacesContext.getCurrentInstance();  
-    	HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-    	HttpSession sesion = ((HttpServletRequest) request).getSession();
     	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/reportarDefecto/buscarDefecto.jsf?q="+valor);
 	}
 }

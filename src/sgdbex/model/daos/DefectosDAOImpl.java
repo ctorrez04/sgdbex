@@ -513,14 +513,20 @@ public class DefectosDAOImpl implements DefectosDAO{
 	public List<Defectos> buscarDefectos(String nombre, String proyecto, String categoria, String prioridad) {
 		Session session = sessionFactory.openSession();
 		List<Defectos> resultado = null;
+		Integer id=0;
 		Query query = null;
 		try {
-			System.out.println("\nParametros: "+nombre);
+			System.out.println("\nParametros: "+nombre);   
+		    if (nombre.trim().matches("\\d*")){
+		      System.out.println("Es un número");
+		      	id=Integer.valueOf(nombre.trim());
+		    }
 			System.out.println("Parametros: "+proyecto);
 			System.out.println("Parametros: "+categoria);
 			System.out.println("Parametros: "+prioridad);
-			query = session.createSQLQuery("SP_BuscarDefectos :nombre, :proyecto, :categoria, :prioridad")
+			query = session.createSQLQuery("SP_BuscarDefectos :id, :nombre, :proyecto, :categoria, :prioridad")
 					.setResultTransformer(Transformers.aliasToBean(Defectos.class))
+					.setParameter("id", id)
 					.setParameter("nombre", nombre)
 					.setParameter("proyecto", proyecto)
 					.setParameter("categoria", categoria)

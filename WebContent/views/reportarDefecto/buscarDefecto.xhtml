@@ -18,10 +18,77 @@
 <h:body>
 	<ui:composition template="/plantilla.xhtml">
 	<ui:define name="content">
-	<h:outputStylesheet library="css" name="defectos.css" />
+	<h:outputStylesheet library="css" name="busqueda.css" />
     <div align="center">
-		<h:form id="formDetalle">
+		<h:form id="formBusqueda">
 			<h:outputText value="#{busquedaMB.buscar}" />
+			<p:growl id="msjs" showDetail="true"/>
+			<div>
+				<ul>
+					<li>
+						<span class="fieldLabel">Proyecto:</span>
+						<h:selectOneMenu id="proyecto_id" value="#{busquedaMB.proyecto}"  displayValueOnly="true" >
+							<f:selectItem itemLabel="Todos" noSelectionOption="true" itemValue="0"/>
+							<f:selectItems value="#{busquedaMB.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
+							<f:ajax listener="#{busquedaMB.search}" render="results" />
+						</h:selectOneMenu>
+					</li>
+					<li>
+						<span class="fieldLabel">Categoria:</span>
+						<h:selectOneMenu id="categoria_id" value="#{busquedaMB.categoria}"  displayValueOnly="true" >
+							<f:selectItem itemLabel="Todos" noSelectionOption="true" itemValue="0"/>
+							<f:selectItems value="#{generalController.categoriasList}" var="cat" itemLabel="#{cat.categoria_nombre}" itemValue="#{cat.categoria_id}"/>
+							<f:ajax listener="#{busquedaMB.search}" render="results" />
+						</h:selectOneMenu>
+					</li>
+					<li>
+						<span class="fieldLabel">Prioridad:</span>
+						<h:selectOneMenu id="prioridad_id" value="#{busquedaMB.prioridad}"  displayValueOnly="true" >
+							<f:selectItem itemLabel="Todos" noSelectionOption="true" itemValue="0"/>
+							<f:selectItems value="#{generalController.prioridadesList}" var="prio" itemLabel="#{prio.prioridad_tipo}" itemValue="#{prio.prioridad_id}"/>
+							<f:ajax listener="#{busquedaMB.search}" render="results" />
+						</h:selectOneMenu>
+					</li>
+				</ul>
+			</div>					
+			<p:dataTable id="results" var="defec" value="#{busquedaMB.defectosEncontrados}" paginator="true"  paginatorPosition="bottom" rows="20"
+				widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{busquedaMB.filtroDefectos}">
+				<f:facet name="header" styleClass="headerDefectos">
+					<div id="titleTable">Defectos Encontrados</div>
+					<div>
+					<p:outputPanel id="filtroDefectos">
+                	<h:outputText value="Buscar en tabla:" />
+                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
+            		</p:outputPanel>
+            		</div>
+				</f:facet>
+				<p:column headerText="ID" filterBy="#{defec.defecto_id}" filterStyle="display:none" style="width: 13%;">
+				    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec.defecto_id}">
+						<f:param name="id" value="#{defec.defecto_id}" />
+					</h:link>
+				</p:column>
+				<p:column headerText="Asunto" filterBy="#{defec.asunto}" filterStyle="display:none" style="width: 25%;">
+				    <h:outputText value="#{defec.asunto}" />
+				</p:column>
+				<p:column headerText="Responsable" filterBy="#{defec.responsable_nombre}" filterStyle="display:none" style="width: 20%;">
+					<h:outputText value="#{defec.responsable_nombre}"/>
+				</p:column>
+				<p:column headerText="Reportero" filterBy="#{defec.reportero_nombre}" filterStyle="display:none" style="width: 20%;">
+		            <h:outputText value="#{defec.reportero_fk.concat('-').concat(defec.reportero_nombre)}" />
+		        </p:column>
+				<p:column headerText="Prioridad" filterBy="#{defec.prioridad_tipo}" filterStyle="display:none" style="width: 13%;">
+				    <h:outputText value="#{defec.prioridad_tipo}" />
+				</p:column>
+				<p:column headerText="Estado" filterBy="#{defec.estado_nombre}" filterStyle="display:none" style="width: 20%;">
+				    <h:outputText value="#{defec.estado_nombre}" />
+				</p:column>
+				<p:column headerText="Categoria" filterBy="#{defec.categoria_nombre}" filterStyle="display:none" style="width: 15%;">
+				    <h:outputText value="#{defec.categoria_nombre}" />
+				</p:column>
+				<p:column headerText="Fecha Creacion" filterBy="#{defec.fecha_creacion}" filterStyle="display:none" style="width: 20%;">
+				    <p:calendar value="#{defec.fecha_creacion}" pattern="dd/MM/yyyy" disabled="true" inputStyleClass="datetimeField"/>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</div>
 	</ui:define>
