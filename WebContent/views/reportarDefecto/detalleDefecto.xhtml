@@ -117,7 +117,8 @@
 		        	</f:facet>
 		        </h:panelGrid>
 		        <h:panelGrid>
-		    		<p:dataTable id="tablaAdjuntos" var="adj" value="#{defectosMB.adjuntosList}" style="margin-bottom:20px" >
+		    		<p:dataTable id="tablaAdjuntos" var="adj" value="#{defectosMB.adjuntosList}" style="margin-bottom:20px" 
+		    					emptyMessage="No se encontraron archivos adjuntos para este defecto" >
 						<f:facet name="header">
 				        	<h:outputText value="Archivos adjuntos del defecto" />
 				    	</f:facet>
@@ -147,7 +148,9 @@
 				    	</f:facet>
 
 						<p:column headerText="Fecha" style="font-weight: bold;">
-							<h:outputText value="#{hist.fecha_estatus}" />
+							<h:outputText value="#{hist.fecha_estatus}" >
+						    	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
 						</p:column>
 						<p:column headerText="Usuario" style="font-weight: bold;">
 							<h:outputText value="#{hist.usuario_estatus_anterior}" />

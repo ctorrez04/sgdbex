@@ -80,6 +80,7 @@ th {
 .ui-datatable tbody tr,
 .ui-datatable tbody td {
     border: none !important;
+    text-align: center !important;
 }
 .ui-state-default,
 .ui-widget-content .ui-state-default,
