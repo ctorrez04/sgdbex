@@ -5,8 +5,8 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
-		<enabled>true</enabled>
-		<async-supported>false</async-supported>
+		<!--  <enabled>true</enabled>
+		<async-supported>false</async-supported>  -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -14,6 +14,10 @@
 		<url-pattern>*.jsf</url-pattern>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/applicationContext.xml</param-value>		
@@ -39,6 +43,15 @@
     	<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
     	<param-value>server</param-value>
   	</context-param>
+  	<!--  <context-param>
+		<param-name>org.ocpsoft.rewrite.config.CONFIG_RELOADING</param-name>
+		<param-value>true</param-value>
+	</context-param>  -->
+	<context-param>
+		<param-name>com.ocpsoft.pretty.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/pretty-config.xml</param-value>
+	</context-param>  
+
   	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -47,6 +60,7 @@
 	    <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
 	 <!-- Agregado 8-6-15 -->
+ 
 	<listener>
     	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class> 
 	</listener>
@@ -61,6 +75,67 @@
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<servlet-name>Faces Servlet</servlet-name>
 	</filter-mapping>
+	
+	<!--  
+	<filter>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
+		<filter-class>org.ocpsoft.rewrite.servlet.RewriteFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter-mapping>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	 	<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>  -->
+	
+	<!--  
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+
+	</filter-mapping>
+
+	<filter>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
+		<filter-class>org.ocpsoft.rewrite.servlet.RewriteFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter-mapping>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping> -->
+	
+	
+	<!--  <listener>
+   <listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletRequestListener</listener-class>
+</listener>
+
+<listener>
+   <listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletContextListener</listener-class>
+</listener>  -->
+	
+	
+	<!-- <url-mapping id="menu2">
+		<pattern value="/menu2" />
+		<view-id value="/faces/views/menu2.xhtml" />
+	</url-mapping> -->
+	
 	
 	<!-- mime types para Awesome Font/Icons  en PrimeFaces-->
 	<mime-mapping>

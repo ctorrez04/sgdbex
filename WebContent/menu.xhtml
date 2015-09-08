@@ -155,11 +155,13 @@
 	</h:form>
 	
 	<p:dialog header="Sesión Expirada" widgetVar="dlg1" modal="true" appendTo="@(body)" closable="false" height="100" style="text-align:center;" resizable="false">
+		<h:form>
 		<h:panelGrid id="GridDialog" columns="1">
     		<h:outputText value="La sesión ha expirado, por favor inicie sesión nuevamente!" />
     		<br />
     		<p:commandButton value="Ir a login" action="#{menu.SesionExpirada}" />
     	</h:panelGrid>
+    	</h:form>
 	</p:dialog>
 	
 </h:body>

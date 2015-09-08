@@ -22,6 +22,7 @@
             clearForm(formName);
             dialogName.hide(); 
         }
+   		}
     	function clearForm(formName){
         	jQuery('#'+formName).each(function(){
 	        	this.reset();
@@ -41,7 +42,8 @@
                 <p:inputText id="motivo_descripcion" value="#{motivosMB.motivo.motivo_descripcion}" />
                 	
 				<f:facet name="footer">
-						 <p:commandButton value="Crear" update=":formDialog:panelGridDialog" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{motivosMB.agregar(motivosMB.motivo)}">
+						 <p:commandButton value="Crear" update=":formulario:table" oncomplete="handleSubmitRequest(xhr, status, args, dialog,formDialog" actionListener="#{motivosMB.agregar(motivosMB.motivo)}">
+						 <!--  <f:ajax render="@form" resetValues="true" />  -->
 						 </p:commandButton> 
 			             <p:commandButton value="Salir" onclick="PF('dialog').hide()"/>
                 </f:facet>
@@ -50,7 +52,7 @@
 	</p:dialog>			
      <div align="center" style="width: 90%;">
      	<h:form id="formulario">
-     	  	<p:growl id="msjs" showDetail="true" life="2500"/>
+     	  	<p:growl id="msjs" showDetail="true" life="2500" autoUpdate="true" />
 			
 			<p:dataTable id="table" var="mot" value="#{motivosMB.motivosList}" editable="true" style="margin-bottom:20px"
 			paginator="true"  paginatorPosition="bottom" rows="20" 
@@ -109,7 +111,7 @@
 					 </p:confirmDialog>
         		 </p:column> 
 		         <f:facet name="footer" styleClass="footerAdm">
-		         	<p:commandButton icon="ui-icon-plusthick" value="Agregar" update=":formDialog:panelGridDialog" onclick="PF('dialog').show()"/>
+		         	<p:commandButton icon="ui-icon-plusthick" value="Agregar"  onclick="PF('dialog').show()"/>
               	 </f:facet>
 			</p:dataTable>
 			

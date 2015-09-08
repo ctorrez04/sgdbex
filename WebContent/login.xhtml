@@ -5,9 +5,9 @@
       xmlns:f="http://java.sun.com/jsf/core"     
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-<f:metadata>      
+<!--  <f:metadata>      
 <f:event listener="#{login.logueadoInicial}" type="preRenderView" />
-</f:metadata>
+</f:metadata>  -->
     <h:head>
         <title>SGDBEX</title>
         <h:outputStylesheet name="css/style.css" />
@@ -37,7 +37,7 @@
 		        <p:password id="clave" value="#{login.clave}" required="true" label="clave"/>
 		 			
 		        <f:facet name="footer" >
-		        	<p:commandButton value="Ingresar" update="growl"  action="#{login.login}" />
+		        	<p:commandButton value="Ingresar" update="growl"  action="#{login.loguear}" />
 		        	<p:commandButton value="Borrar" type="reset" update="growl" action="#{login.limpiar}" ></p:commandButton>
 		        </f:facet>
 		     </h:panelGrid>

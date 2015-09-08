@@ -19,6 +19,7 @@ import org.primefaces.model.chart.LegendPlacement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import sgdbex.model.pojos.MotivoResolucion;
 import sgdbex.model.pojos.Reportes;
 import sgdbex.services.GeneralServices;
 
@@ -36,6 +37,8 @@ public class ReportesController {
 	private GeneralServices gs;
 	
 	private String reporteSeleccionado;
+	
+	private List<MotivoResolucion> motivosList;
 	
 	//Cada reporte va enumerado para identificar que instrucciones realizar segun el que se pase 
 	//por parametro al metodo initBarModel()
@@ -102,6 +105,14 @@ public class ReportesController {
 
 	public void setOpcionesReportes(List<Reportes> opcionesReportes) {
 		this.opcionesReportes = opcionesReportes;
+	}
+
+	public List<MotivoResolucion> getMotivosList() {
+		return motivosList;
+	}
+
+	public void setMotivosList(List<MotivoResolucion> motivosList) {
+		this.motivosList = motivosList;
 	}
 
 	public boolean isGraficoEstadoRender() {
@@ -556,6 +567,7 @@ public class ReportesController {
 	
 	public void reportesGeneral(ActionEvent e){
 		try{
+			motivosList = gs.getMotivos();
 			reportesEstado = gs.getReportesEstado();
 			reportesTiempoAbierto = gs.getReportesMayorTiempoAbierto();
 			reportesFechaDias = gs.getReportesFechaDias();
@@ -637,8 +649,8 @@ public class ReportesController {
         Axis xAxis2 = barModelTiempoAbierto.getAxis(AxisType.X);
         xAxis2.setLabel("Defectos Mayor Tiempo Abiertos");
         
-        //Axis xAxis3 = barModelFechaDias.getAxis(AxisType.X);
-        //xAxis3.setLabel("Defectos Intervalos Dias por Estado");
+        Axis xAxis3 = barModelFechaDias.getAxis(AxisType.X);
+        xAxis3.setLabel("Defectos Intervalos Dias por Estado");
         
         Axis xAxis4 = barModelCategoria.getAxis(AxisType.X);
         xAxis4.setLabel("Defectos por Categoria y por Estado");
@@ -672,10 +684,22 @@ public class ReportesController {
         int CotaMaxY2 = CotaEjeY(MaxTotalDefectos2);
         yAxis2.setMax(CotaMaxY2);
         
-        //Axis yAxis3 = barModelFechaDias.getAxis(AxisType.Y); ////////////
-        //yAxis3.setLabel("Total");                            ////////////
-        //yAxis3.setMin(0);                                    ////////////
-        //yAxis3.setMax(8);                                    ////////////
+        Axis yAxis3 = barModelFechaDias.getAxis(AxisType.Y); ////////////
+        yAxis3.setLabel("Total Defectos");                            ////////////
+        yAxis3.setMin(0);                                    ////////////
+        int MaxTotalDefectosAbiertos3 = ValorDefectosAbiertosMaximoReporte(reportesFechaDias);
+        //System.out.println("Valor MaxTotalDefectosAbiertos3: "+MaxTotalDefectosAbiertos3);
+        int MaxTotalDefectosResueltos3 = ValorDefectosResueltosMaximoReporte(reportesFechaDias);
+        //System.out.println("Valor MaxTotalDefectosResueltos3: "+MaxTotalDefectosResueltos3);
+        if(MaxTotalDefectosAbiertos3>MaxTotalDefectosResueltos3){
+	        int CotaMaxY3 = CotaEjeY(MaxTotalDefectosAbiertos3);
+	        //System.out.println("If Valor de CotaMaxY3: "+CotaMaxY3);
+	        yAxis3.setMax(CotaMaxY3);
+        }else{
+        	int CotaMaxY3 = CotaEjeY(MaxTotalDefectosResueltos3);
+        	//System.out.println("Else Valor de CotaMaxY3: "+CotaMaxY3);
+        	yAxis3.setMax(CotaMaxY3);
+        	}
         
         Axis yAxis4 = barModelCategoria.getAxis(AxisType.Y);
         yAxis4.setLabel("Total Defectos");
@@ -723,12 +747,38 @@ public class ReportesController {
 	
 	//Calcular valor maximo de la columna 'total' de los reportes:
 	public int ValorTotalMaximoReporte(List<Reportes> lista){
-		int max=lista.get(0).getTotal();
-        for(int i=0;i<lista.size();i++){
-        	if(lista.get(i).getTotal()>max)
-        		max=lista.get(i).getTotal();
-        }
-        return max;
+		if(!(lista.isEmpty())){
+			int max=lista.get(0).getTotal();
+	        for(int i=0;i<lista.size();i++){
+	        	if(lista.get(i).getTotal()>max)
+	        		max=lista.get(i).getTotal();
+	        }
+	        return max;
+		}else{ return 4;}
+	}
+	
+	//Calcular valor maximo de la columna 'CantidadAbiertos' de los reportes:
+	public int ValorDefectosAbiertosMaximoReporte(List<Reportes> lista){
+		if(!(lista.isEmpty())){
+			int max=lista.get(0).getCantidadAbiertos();
+	        for(int i=0;i<lista.size();i++){
+	        	if(lista.get(i).getCantidadAbiertos()>max)
+	        		max=lista.get(i).getCantidadAbiertos();
+	        }
+	        return max;
+		}else{ return 4;}
+	}
+	
+	//Calcular valor maximo de la columna 'CantidadResueltos' de los reportes:
+	public int ValorDefectosResueltosMaximoReporte(List<Reportes> lista){
+		if(!(lista.isEmpty())){
+			int max=lista.get(0).getCantidadResueltos();
+	        for(int i=0;i<lista.size();i++){
+	        	if(lista.get(i).getCantidadResueltos()>max)
+	        		max=lista.get(i).getCantidadResueltos();
+	        }
+	        return max;
+		}else{ return 4;}
 	}
 	
 	//Calcular valor maximo de la columna 'dias' de los reportes:
@@ -744,11 +794,11 @@ public class ReportesController {
 	//Valor multiplo de 4 ya que los BarChart tienen por defecto tickInterval=4
 	public int CotaEjeY(int max){
 		if(max<=4){
-        	return (8)+24;
+        	return 12;
         }
 		else{
         	if(max%4==0){
-        		return (max+4)+24;
+        		return (max+4)+12;
         	}else{
 	        	while(max%4!=0){
 	        		if(max%4!=0){
@@ -758,7 +808,7 @@ public class ReportesController {
 	        			break;
 	        		}
 	        	}
-	        return (max)+24;
+	        return (max)+12;
         	}
         }
 	}
@@ -772,36 +822,66 @@ public class ReportesController {
         ChartSeries estados5 = new ChartSeries();
         
         if(idreporte==1){
+        	if(!(reportesList.isEmpty())){
 	        estados.setLabel("Estados");
 	        estados.set("Abierto", (Number)reportesList.get(0).getTotal());
 	        estados.set("Asignado", (Number)reportesList.get(1).getTotal());
 	        estados.set("Cerrado", (Number)reportesList.get(2).getTotal());
 	        estados.set("Re-Abierto", (Number)reportesList.get(3).getTotal());
 	        estados.set("Resuelto", (Number)reportesList.get(4).getTotal());
-	        
+        	}else{
+        		estados.setLabel("Estados");
+        		estados.set("No records found", (Number)0);
+        	}
 	        model.addSeries(estados);
 	        model.setDatatipFormat(getDatatipFormatX());
         }
         
         if(idreporte==2){
+        	if(!(reportesList.isEmpty())){
             estados.setLabel("DefectosAbiertosMasAntiguos");
             for(int i=0;i<reportesList.size();i++){
             	estados.set("ID "+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getDias());
             }
+        	}else{
+        		estados.setLabel("DefectosAbiertosMasAntiguos");
+        		estados.set("No records found", (Number)0);
+        	}
      
             model.addSeries(estados);
             model.setDatatipFormat(getDatatipFormatX());
         }
         
         if(idreporte==3){
-        	estados.setLabel("Defectos Abiertos");
-        	for(int i=0;i<reportesList.size();i++){
-        		estados.set("id"+i, (Number)reportesList.get(i).getCantidadAbiertos());
-        	}
-        	estados2.setLabel("Defectos Resueltos");
-        	for(int i=0;i<reportesList.size();i++){
-        		estados2.set("id"+i, (Number)reportesList.get(i).getCantidadResueltos());
-        	}
+        	List<Number> valordias = new ArrayList<Number>();
+    		valordias.add(1);
+    		valordias.add(2);
+    		valordias.add(3);
+    		valordias.add(7);
+    		valordias.add(30);
+    		valordias.add(60);
+    		valordias.add(90);
+    		valordias.add(180);
+    		valordias.add(365);
+    		if(!(reportesList.isEmpty())){
+	        	estados.setLabel("Defectos Abiertos");
+	        	for(int i=0;i<reportesList.size();i++){
+	        		estados.set(valordias.get(i), (Number)reportesList.get(i).getCantidadAbiertos());
+	        	}
+	        	estados2.setLabel("Defectos Resueltos");
+	        	for(int i=0;i<reportesList.size();i++){
+	        		estados2.set(valordias.get(i), (Number)reportesList.get(i).getCantidadResueltos());
+	        	}
+    		}else{
+    			estados.setLabel("Defectos Abiertos");
+            	for(int i=0;i<reportesList.size();i++){
+            		estados.set(valordias.get(i), (Number)0);
+            	}
+            	estados2.setLabel("Defectos Resueltos");
+            	for(int i=0;i<reportesList.size();i++){
+            		estados2.set(valordias.get(i), (Number)0);
+            	}
+    		}
         	
         	model.addSeries(estados);
         	model.addSeries(estados2);
@@ -809,26 +889,39 @@ public class ReportesController {
         }
         
 		if(idreporte==4){
-			estados.setLabel("Defectos Abiertos");
-        	for(int i=0;i<reportesList.size();i=i+5){
-        		estados.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados2.setLabel("Defectos Asignados");
-        	for(int i=1;i<reportesList.size();i=i+5){
-        		estados2.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados3.setLabel("Defectos Cerrados");
-        	for(int i=2;i<reportesList.size();i=i+5){
-        		estados3.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados4.setLabel("Defectos Re-Abiertos");
-        	for(int i=3;i<reportesList.size();i=i+5){
-        		estados4.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados5.setLabel("Defectos Resueltos");
-        	for(int i=4;i<reportesList.size();i=i+5){
-        		estados5.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
+			if(!(reportesList.isEmpty())){
+				estados.setLabel("Defectos Abiertos");
+	        	for(int i=0;i<reportesList.size();i=i+5){
+	        		estados.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados2.setLabel("Defectos Asignados");
+	        	for(int i=1;i<reportesList.size();i=i+5){
+	        		estados2.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados3.setLabel("Defectos Cerrados");
+	        	for(int i=2;i<reportesList.size();i=i+5){
+	        		estados3.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados4.setLabel("Defectos Re-Abiertos");
+	        	for(int i=3;i<reportesList.size();i=i+5){
+	        		estados4.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados5.setLabel("Defectos Resueltos");
+	        	for(int i=4;i<reportesList.size();i=i+5){
+	        		estados5.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+			}else{
+				estados.setLabel("Defectos Abiertos");
+				estados.set("No records found", (Number)0);
+				estados2.setLabel("Defectos Asignados");
+				estados2.set("No records found", (Number)0);
+				estados3.setLabel("Defectos Cerrados");
+				estados3.set("No records found", (Number)0);
+				estados4.setLabel("Defectos Re-Abiertos");
+				estados4.set("No records found", (Number)0);
+				estados5.setLabel("Defectos Resueltos");
+				estados5.set("No records found", (Number)0);
+			}
         	
         	model.addSeries(estados);
         	model.addSeries(estados2);
@@ -839,27 +932,39 @@ public class ReportesController {
 		}
 		        
 		if(idreporte==5){
-			estados.setLabel("Defectos Abiertos");
-        	for(int i=0;i<reportesList.size();i=i+5){
-        		estados.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados2.setLabel("Defectos Asignados");
-        	for(int i=1;i<reportesList.size();i=i+5){
-        		estados2.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados3.setLabel("Defectos Cerrados");
-        	for(int i=2;i<reportesList.size();i=i+5){
-        		estados3.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados4.setLabel("Defectos Re-Abiertos");
-        	for(int i=3;i<reportesList.size();i=i+5){
-        		estados4.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados5.setLabel("Defectos Resueltos");
-        	for(int i=4;i<reportesList.size();i=i+5){
-        		estados5.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	
+			if(!(reportesList.isEmpty())){
+				estados.setLabel("Defectos Abiertos");
+	        	for(int i=0;i<reportesList.size();i=i+5){
+	        		estados.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados2.setLabel("Defectos Asignados");
+	        	for(int i=1;i<reportesList.size();i=i+5){
+	        		estados2.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados3.setLabel("Defectos Cerrados");
+	        	for(int i=2;i<reportesList.size();i=i+5){
+	        		estados3.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados4.setLabel("Defectos Re-Abiertos");
+	        	for(int i=3;i<reportesList.size();i=i+5){
+	        		estados4.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados5.setLabel("Defectos Resueltos");
+	        	for(int i=4;i<reportesList.size();i=i+5){
+	        		estados5.set("ID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+			}else{
+				estados.setLabel("Defectos Abiertos");
+				estados.set("No records found", (Number)0);
+				estados2.setLabel("Defectos Asignados");
+				estados2.set("No records found", (Number)0);
+				estados3.setLabel("Defectos Cerrados");
+				estados3.set("No records found", (Number)0);
+				estados4.setLabel("Defectos Re-Abiertos");
+				estados4.set("No records found", (Number)0);
+				estados5.setLabel("Defectos Resueltos");
+				estados5.set("No records found", (Number)0);
+			}
         	model.addSeries(estados);
         	model.addSeries(estados2);
         	model.addSeries(estados3);
@@ -869,42 +974,60 @@ public class ReportesController {
 		}
 		
 		if(idreporte==6){
-			estados.setLabel("Defectos Asignados");
-        	for(int i=0;i<reportesList.size();i=i+2){
-        		estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados2.setLabel("Defectos Resueltos");
-        	for(int i=1;i<reportesList.size();i=i+2){
-        		estados2.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	
+			if(!(reportesList.isEmpty())){
+				estados.setLabel("Defectos Asignados");
+	        	for(int i=0;i<reportesList.size();i=i+2){
+	        		estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados2.setLabel("Defectos Resueltos");
+	        	for(int i=1;i<reportesList.size();i=i+2){
+	        		estados2.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+			}else{
+				estados.setLabel("Defectos Asignados");
+				estados.set("No records found", (Number)0);
+				estados2.setLabel("Defectos Resueltos");
+				estados2.set("No records found", (Number)0);
+			}
         	model.addSeries(estados);
         	model.addSeries(estados2);
         	model.setDatatipFormat(getDatatipFormatX());
 		}
 		
 		if(idreporte==7){
-			estados.setLabel("Defectos Abiertos");
-        	for(int i=0;i<reportesList.size();i=i+5){
-        		estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados2.setLabel("Defectos Asignados");
-        	for(int i=1;i<reportesList.size();i=i+5){
-        		estados2.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados3.setLabel("Defectos Cerrados");
-        	for(int i=2;i<reportesList.size();i=i+5){
-        		estados3.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados4.setLabel("Defectos Re-Abiertos");
-        	for(int i=3;i<reportesList.size();i=i+5){
-        		estados4.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados5.setLabel("Defectos Resueltos");
-        	for(int i=4;i<reportesList.size();i=i+5){
-        		estados5.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	
+			if(!(reportesList.isEmpty())){
+				estados.setLabel("Defectos Abiertos");
+	        	for(int i=0;i<reportesList.size();i=i+5){
+	        		estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados2.setLabel("Defectos Asignados");
+	        	for(int i=1;i<reportesList.size();i=i+5){
+	        		estados2.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados3.setLabel("Defectos Cerrados");
+	        	for(int i=2;i<reportesList.size();i=i+5){
+	        		estados3.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados4.setLabel("Defectos Re-Abiertos");
+	        	for(int i=3;i<reportesList.size();i=i+5){
+	        		estados4.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados5.setLabel("Defectos Resueltos");
+	        	for(int i=4;i<reportesList.size();i=i+5){
+	        		estados5.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+			}else{
+				estados.setLabel("Defectos Abiertos");
+				estados.set("No records found", (Number)0);
+				estados2.setLabel("Defectos Asignados");
+				estados2.set("No records found", (Number)0);
+				estados3.setLabel("Defectos Cerrados");
+				estados3.set("No records found", (Number)0);
+				estados4.setLabel("Defectos Re-Abiertos");
+				estados4.set("No records found", (Number)0);
+				estados5.setLabel("Defectos Resueltos");
+				estados5.set("No records found", (Number)0);
+			}
         	model.addSeries(estados);
         	model.addSeries(estados2);
         	model.addSeries(estados3);
@@ -914,38 +1037,93 @@ public class ReportesController {
 		}
 		
 		if(idreporte==8){
-			estados.setLabel("Resolucion Duplicada");
-        	for(int i=0;i<reportesList.size();i=i+5){
-        		estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados2.setLabel("Resolucion NoCorregible");
-        	for(int i=1;i<reportesList.size();i=i+5){
-        		estados2.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados3.setLabel("Resolucion NoReproducible");
-        	for(int i=2;i<reportesList.size();i=i+5){
-        		estados3.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados4.setLabel("Resolucion NoSeArreglara");
-        	for(int i=3;i<reportesList.size();i=i+5){
-        		estados4.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	estados5.setLabel("Resolucion Suspendida");
-        	for(int i=4;i<reportesList.size();i=i+5){
-        		estados5.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
-        	}
-        	
-        	model.addSeries(estados);
+			if(!(reportesList.isEmpty())){
+				
+				int i=0;
+				for(int k=0;k<motivosList.size();k++){
+					estados=new ChartSeries();
+					estados.setLabel(motivosList.get(k).getMotivo_nombre());
+					while(i<reportesList.size()){
+						estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+						i=i+motivosList.size();
+					}
+					model.addSeries(estados);
+					i=(i-reportesList.size())+1;
+				}
+				
+				/*estados.setLabel("Resolucion Duplicada");
+	        	for(int i=0;i<reportesList.size();i=i+5){
+	        		estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados2.setLabel("Resolucion NoCorregible");
+	        	for(int i=1;i<reportesList.size();i=i+5){
+	        		estados2.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados3.setLabel("Resolucion NoReproducible");
+	        	for(int i=2;i<reportesList.size();i=i+5){
+	        		estados3.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados4.setLabel("Resolucion NoSeArreglara");
+	        	for(int i=3;i<reportesList.size();i=i+5){
+	        		estados4.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}
+	        	estados5.setLabel("Resolucion Suspendida");
+	        	for(int i=4;i<reportesList.size();i=i+5){
+	        		estados5.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+	        	}*/
+			}else{
+				for(int j=0;j<motivosList.size();j++){
+					estados=new ChartSeries();
+					estados.setLabel(motivosList.get(j).getMotivo_nombre());
+					estados.set("No records found", (Number)0);
+					model.addSeries(estados);
+				}
+				/*estados.setLabel("Resolucion Duplicada");
+	        		estados.set("No records found", (Number)0);
+	        	estados2.setLabel("Resolucion NoCorregible");
+	        		estados2.set("No records found", (Number)0);
+	        	estados3.setLabel("Resolucion NoReproducible");
+	        		estados3.set("No records found", (Number)0);
+	        	estados4.setLabel("Resolucion NoSeArreglara");
+	        		estados4.set("No records found", (Number)0);
+	        	estados5.setLabel("Resolucion Suspendida");
+	        		estados5.set("No records found", (Number)0);*/
+			}
+			model.setDatatipFormat(getDatatipFormatX());
+						
+        	/*model.addSeries(estados);
         	model.addSeries(estados2);
         	model.addSeries(estados3);
         	model.addSeries(estados4);
         	model.addSeries(estados5);
-        	model.setDatatipFormat(getDatatipFormatX());
+        	model.setDatatipFormat(getDatatipFormatX());*/
 		}
 		
 		if(idreporte==9){
-			estados.setLabel("Resolucion Duplicada");
-        	for(int i=0;i<reportesList.size();i=i+5){
+			//////////////////estados.setLabel("Resolucion Duplicada");
+			if(!(reportesList.isEmpty())){
+				int i=0;
+				for(int k=0;k<motivosList.size();k++){
+					estados=new ChartSeries();
+					estados.setLabel(motivosList.get(k).getMotivo_nombre());
+					while(i<reportesList.size()){
+						estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
+						i=i+motivosList.size();
+					}
+					model.addSeries(estados);
+					i=(i-reportesList.size())+1;
+				}
+			}else{
+				for(int j=0;j<motivosList.size();j++){
+					estados=new ChartSeries();
+					estados.setLabel(motivosList.get(j).getMotivo_nombre());
+					estados.set("No records found", (Number)0);
+					model.addSeries(estados);
+				}
+			}
+			model.setDatatipFormat(getDatatipFormatX());
+
+        	/*for(int i=0;i<reportesList.size();i=i+5){
         		estados.set("UserID"+reportesList.get(i).getDefectoid(), (Number)reportesList.get(i).getTotal());
         	}
         	estados2.setLabel("Resolucion NoCorregible");
@@ -970,7 +1148,7 @@ public class ReportesController {
         	model.addSeries(estados3);
         	model.addSeries(estados4);
         	model.addSeries(estados5);
-        	model.setDatatipFormat(getDatatipFormatX());
+        	model.setDatatipFormat(getDatatipFormatX());*/
 		}
 		
 		//Faltaria es reporte Nº 10 que son lo defectos 'Más Vistos' o 'Más Consultados'
@@ -1247,5 +1425,4 @@ public class ReportesController {
     	opcionesReportes.add(obj9);
     	System.out.println("Termino carga de opcionesReportes");
     } 
-	
 }

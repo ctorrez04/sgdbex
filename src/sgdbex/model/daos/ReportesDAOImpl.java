@@ -96,7 +96,7 @@ public class ReportesDAOImpl implements ReportesDAO {
 			
 			for(int i=0;i<list.size();i++){
 				list.get(i).setCantidadResueltos(list2.get(i).getCantidadResueltos());
-				list.get(i).setDefectoid((int)valordias.get(i));
+				list.get(i).setDefectoid((Integer) valordias.get(i));
 			}
 			System.out.println("Defectos loaded complete " + list.get(0).toString());
 			
@@ -176,7 +176,7 @@ public class ReportesDAOImpl implements ReportesDAO {
 			Query query = session.createSQLQuery("SP_REPORTES_ESTADISTICAS_REPORTEROS")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
@@ -195,7 +195,9 @@ public class ReportesDAOImpl implements ReportesDAO {
 			Query query = session.createSQLQuery("SP_REPORTES_REPORTEROS_RESOLUCION")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
+			if(list.isEmpty())System.out.println("la lista REPORTES_REPORTEROS_RESOLUCION esta vacia");
+			System.out.println("tamano de lista REPORTES_REPORTEROS_RESOLUCION: "+list.size());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );

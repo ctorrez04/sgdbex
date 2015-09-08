@@ -87,8 +87,13 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 		setUsuario("");
 		setClave("");
 	}
+	
+	public void loguear() throws IOException{
+		limpiar();
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/indice");
+	}
 
-	public void logueadoInicial(ComponentSystemEvent event){
+	public void logueadoInicial(/*ComponentSystemEvent event*/){
     	System.out.println("Entre antes de logueoInicial... ");
     	FacesContext context = FacesContext.getCurrentInstance();  
     	HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
@@ -141,7 +146,9 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 			auditoria.toString();
 			gs.insertarAuditoria(auditoria);
 			limpiar();
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/principal.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/principal");
+			//return "principal?faces-redirect=true";
+			//return "principal";
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error","Su usuario y/o contrasena no es valido"));		    
 			loggedIn = false;
@@ -154,6 +161,7 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 			gs.insertarAuditoria(auditoria);
 			limpiar();
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
+			//return "login";
 		}
     }
 }
