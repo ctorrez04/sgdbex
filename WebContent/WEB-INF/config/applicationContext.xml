@@ -58,6 +58,7 @@
 				<value>sgdbex.model.pojos.RolUsuarios</value>
 				<value>sgdbex.model.pojos.Usuarios</value>
 				<value>sgdbex.model.pojos.Categorias</value>
+				<value>sgdbex.model.pojos.Correo</value>
 				<value>sgdbex.model.pojos.Impactos</value>
 				<value>sgdbex.model.pojos.Urgencias</value>
 				<value>sgdbex.model.pojos.Proyectos</value>

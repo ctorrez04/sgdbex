@@ -22,6 +22,7 @@ import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sgdbex.controllers.GeneralController;
 import sgdbex.model.pojos.ArchivosAdjuntos;
 import sgdbex.model.pojos.Defectos;
 import sgdbex.model.pojos.Estados;
@@ -34,6 +35,8 @@ import sgdbex.services.GeneralServices;
 public class DefectosMB {		     
     @Autowired
 	private GeneralServices gs;
+    @Autowired
+	private GeneralController gc;
     @Autowired
 	public Menu m;
     
@@ -306,6 +309,13 @@ public class DefectosMB {
             if(mensaje.equalsIgnoreCase("fallo")){
             	System.out.println("Fallo al crear");
             }else{
+            	try {
+					gc.invocarBeca(gs.enviarNotificacionDefectoActualizado(Integer.valueOf(mensaje)));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				this.editar =false;
 				this.asignar =false;
 				this.validar =false;
@@ -362,6 +372,13 @@ public class DefectosMB {
             if(mensaje.equalsIgnoreCase("fallo")){
             	System.out.println("Fallo al cambiar estatus");
             }else{
+    			try {
+					gc.invocarBeca(gs.enviarNotificacionDefectoActualizado(Integer.valueOf(mensaje)));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				this.editar =false;
 				this.asignar =false;
 				this.validar =false;

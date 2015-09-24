@@ -96,7 +96,7 @@ public class ReportesDAOImpl implements ReportesDAO {
 			
 			for(int i=0;i<list.size();i++){
 				list.get(i).setCantidadResueltos(list2.get(i).getCantidadResueltos());
-				list.get(i).setDefectoid((int)valordias.get(i));
+				list.get(i).setDefectoid(0);
 			}
 			System.out.println("Defectos loaded complete " + list.get(0).toString());
 			

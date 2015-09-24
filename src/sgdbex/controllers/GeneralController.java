@@ -21,6 +21,8 @@ import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import beca.correo.Cartero;
+import beca.correo.CarteroProxy;
 import sgdbex.services.GeneralServices;
 import sgdbex.managedBeans.Menu;
 import sgdbex.model.pojos.*;
@@ -348,6 +350,27 @@ public class GeneralController {
         	System.out.println("Nop, tampoco soy de Categorias");
         }
     }
+	public void invocarBeca(Correo cuerpoCorreo) throws Exception{
+	    //ip = InetAddress.getLocalHost().getHostAddress();
+		System.out.println("para "+cuerpoCorreo.getPara()+" Asunto "+ cuerpoCorreo.getAsunto());
+		System.out.println("encabezado "+cuerpoCorreo.getEncabezado());
+		System.out.println("firma "+cuerpoCorreo.getFirma());
+		System.out.println("cuerpo "+cuerpoCorreo.getCuerpo());
+		String smtpip,de, para,cc,cco,asunto,mensaje;
+		smtpip="";
+		de="SGDBEX";
+		para=cuerpoCorreo.getPara();
+		cc="";
+		cco="";
+		asunto=cuerpoCorreo.getAsunto();
+		mensaje=cuerpoCorreo.getEncabezado()+cuerpoCorreo.getCuerpo()+cuerpoCorreo.getFirma();
+		int formato=1,prioridad=1;
+		CarteroProxy proxy = new CarteroProxy();
+		Cartero servicio = proxy.getCartero();
+		servicio.enviar(smtpip, de, para, cc, cco, asunto, formato, mensaje, prioridad);
+		System.out.println("Enviado");
+	}
+	
     public void agregar(Object objeto) {
     	String mensaje;
     	System.out.println("Entre a agregar ");
@@ -370,6 +393,15 @@ public class GeneralController {
 			}
     		mensaje = gs.createDefectos(d);
     		System.out.println("mensaje "+mensaje);
+    		if(!mensaje.equalsIgnoreCase("fallo")){
+    			try {
+					invocarBeca(gs.enviarNotificacionDefectoCreado(Integer.valueOf(mensaje)));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+    		}
             if(adjuntosList != null && !mensaje.equalsIgnoreCase("fallo")) {
             	List<ArchivosAdjuntos> archAdjuntos=new ArrayList<ArchivosAdjuntos>();
             	for(int i=0;i<adjuntosList.size();i++){

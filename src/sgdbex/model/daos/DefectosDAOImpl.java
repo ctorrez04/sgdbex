@@ -78,9 +78,9 @@ public class DefectosDAOImpl implements DefectosDAO{
 						return "fallo";
 					}
 				}
-				return "exito";
+				return list.get(0).getDefecto_id().toString();
 			}
-			return "exito";
+			return list.get(0).getDefecto_id().toString();
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defec " +e.getMessage() );
 			return "fallo";
@@ -140,7 +140,7 @@ public class DefectosDAOImpl implements DefectosDAO{
 						return "fallo";
 					}
 				}
-				return "exito";
+				return list.get(0).getDefecto_id().toString();
 			}
 			return "fallo";
 		} catch (HibernateException e) {
@@ -342,7 +342,7 @@ public class DefectosDAOImpl implements DefectosDAO{
 					}
 				}
 				if (list.get(0).getDefecto_id().equals(defecto.getDefecto_id()))
-					return "exitoso";
+					return list.get(0).getDefecto_id().toString();
 				else{
 //					devolver todo
 					return "fallo";

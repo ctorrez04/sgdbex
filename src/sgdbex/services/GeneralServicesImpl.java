@@ -17,6 +17,9 @@ public class GeneralServicesImpl implements GeneralServices {
 	private PrioridadesDAO priorityDAO;
 	
 	@Autowired
+	private CorreoDAO correoDAO;
+	
+	@Autowired
 	private ArchivosAdjuntosDAO archivos_AdjuntosDAO;
 	
 	@Autowired
@@ -340,6 +343,26 @@ public class GeneralServicesImpl implements GeneralServices {
 	@Override
 	public List<Defectos> buscarDefectos(String nombre, String proyecto, String categoria, String prioridad) {
 		return defectosDAO.buscarDefectos(nombre,proyecto,categoria,prioridad);
+	}
+
+	@Override
+	public Correo enviarNotificacionDefectoCreado(Integer defecto) {
+		try {
+			return correoDAO.enviarNotificacionCreacion(defecto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public Correo enviarNotificacionDefectoActualizado(Integer defecto) {
+		try {
+			return correoDAO.enviarNotificacionActualizacion(defecto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

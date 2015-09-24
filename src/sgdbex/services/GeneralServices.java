@@ -16,6 +16,7 @@ import sgdbex.model.pojos.Usuarios;
 import sgdbex.model.pojos.Urgencias;
 import sgdbex.model.pojos.Impactos;
 import sgdbex.model.pojos.Reportes;
+import sgdbex.model.pojos.Correo;
 
 public interface GeneralServices {
 
@@ -130,5 +131,8 @@ public interface GeneralServices {
 	public List<Reportes> getReportesUsuariosResolucion();
 	
 	public List<Reportes> getReportesMasActivos();
+	
+	public Correo enviarNotificacionDefectoCreado(Integer defecto);
+	public Correo enviarNotificacionDefectoActualizado(Integer defecto);
 	
 }
