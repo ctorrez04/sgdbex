@@ -1,5 +1,6 @@
 package sgdbex.services;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import sgdbex.model.pojos.*;
 
 @Service
 @Transactional
-public class GeneralServicesImpl implements GeneralServices {
+public class GeneralServicesImpl implements GeneralServices{
 
 	@Autowired
 	private PrioridadesDAO priorityDAO;

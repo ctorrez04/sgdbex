@@ -7,12 +7,15 @@ import java.util.List;
 
 import beasa.generales.CargarUsuario;
 
+//import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+//import javax.faces.bean.ManagedBean;
+//import javax.faces.bean.SessionScoped;
+//import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,9 +27,11 @@ import sgdbex.model.pojos.Auditoria;
 import sgdbex.model.pojos.Proyectos;
 import sgdbex.services.GeneralServices;
  
-@ManagedBean
-@SessionScoped
-@ViewScoped
+//@ManagedBean
+//@SessionScoped
+//@ViewScoped
+@Named
+//@SessionScoped
 @Service
 public class Menu implements Serializable{
 
@@ -42,7 +47,8 @@ public class Menu implements Serializable{
 	
 	private List<Proyectos> proyectosUsuarioList;
 	
-	@Autowired
+	//@Autowired
+	@Inject
 	private GeneralServices gs;
 	
 	public Menu(){
@@ -221,6 +227,8 @@ public class Menu implements Serializable{
         auditoria.setResultado("EXITOSO");
         gs.insertarAuditoria(auditoria);
         sesion.invalidate();
+        //Otra forma de invalidar la session:
+        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
     }
     

@@ -113,9 +113,21 @@
 	</dependency>
 	<!-- Libreria PrettyFaces para enmascaramiento de URL's de una Aplicacion -->
 	<dependency>
-   <groupId>com.ocpsoft</groupId>
-   <artifactId>prettyfaces-jsf2</artifactId>
-   <version>3.3.3</version>
-</dependency>
+	   <groupId>com.ocpsoft</groupId>
+	   <artifactId>prettyfaces-jsf2</artifactId>
+	   <version>3.3.3</version>
+	</dependency>
+	<!-- Soporte para CDI (Contexto e Inyección de Dependencias) -->
+	<!--  <dependency>
+	    <groupId>org.jboss.weld.servlet</groupId>
+	    <artifactId>weld-servlet</artifactId>
+	    <version>2.2.9.Final</version>
+	</dependency>
+	<dependency>
+	  <groupId>javax.enterprise</groupId>
+	  <artifactId>cdi-api</artifactId>
+	  <version>1.2</version>
+	  <scope>provided</scope>
+	</dependency>  -->
   </dependencies>
 </project>

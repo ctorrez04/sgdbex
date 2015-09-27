@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,8 @@ import sgdbex.model.pojos.*;
 @ManagedBean
 @ViewScoped
 @Controller
-public class GeneralController {
-	
+public class GeneralController implements Serializable{
+
 	@Autowired
 	private GeneralServices gs;
 	

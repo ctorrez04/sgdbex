@@ -7,12 +7,14 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.Hashtable;
 
+//import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+//import javax.faces.bean.ManagedBean;
+//import javax.faces.bean.SessionScoped;
+//import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,9 +26,11 @@ import sgdbex.services.GeneralServices;
 import beasa.servicios.WS_Validar;
 import beasa.servicios.WS_ValidarProxy;
 
-@SessionScoped
-@ViewScoped
-@ManagedBean
+//@SessionScoped
+//@ViewScoped
+//@ManagedBean
+@Named
+//@SessionScoped
 @Service
 public class Login implements Serializable{  //Colocar este metodo que implemente de tipo Serializable
 
@@ -93,7 +97,7 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 		FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/indice");
 	}
 
-	public void logueadoInicial(/*ComponentSystemEvent event*/){
+	public void logueadoInicial(ComponentSystemEvent event){
     	System.out.println("Entre antes de logueoInicial... ");
     	FacesContext context = FacesContext.getCurrentInstance();  
     	HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
@@ -103,6 +107,7 @@ public class Login implements Serializable{  //Colocar este metodo que implement
     	sesion.setAttribute("user", "ninguno");
     	String logged = sesion.getAttribute("initlogin").toString();
     	System.out.println("initlogin "+logged);
+    	System.out.println("ID de session: "+sesion.getId());
     	limpiar();
 	}
 	
@@ -144,9 +149,9 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 			sesion.setAttribute("user", usuario);
 			auditoria.setResultado("EXITOSO");
 			auditoria.toString();
-			gs.insertarAuditoria(auditoria);
+			//gs.insertarAuditoria(auditoria);
 			limpiar();
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/principal");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/principal.jsf");
 			//return "principal?faces-redirect=true";
 			//return "principal";
 		}else{
