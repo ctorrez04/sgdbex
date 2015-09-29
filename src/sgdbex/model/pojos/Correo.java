@@ -24,6 +24,7 @@ public class Correo {
 		return asunto.getSubString(1, (int) asunto.length());
 	}
 	public void setAsunto(Clob asunto) {
+		System.out.println("asunot"+ asunto.getClass().getName());
 		this.asunto = asunto;
 	}
 	public String getEncabezado() throws Exception {
@@ -47,10 +48,11 @@ public class Correo {
 	@Override
 	public String toString() {
 		try {
-			return "Correo [para=" + getPara() + ", asunto=" + getAsunto() + ", encabezado="
+			return "Envio Correo"
+					//[para=" + getPara() + ", asunto=" + getAsunto() + ", encabezado="
 					+ getEncabezado() + ", cuerpo=" + getCuerpo() + ", firma=" + getFirma() + "]";
 		} catch (Exception e) {
-			return "algiun error";
+			return "algun error to String";
 		}
 	}
 		

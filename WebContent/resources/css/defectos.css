@@ -9,6 +9,11 @@
 	width: 95%;
 	font-size: 90%;
 }
+
+#formDetalle input[type="file"]{
+	transform: none;
+}
+
 #formulario .ui-datatable-header{
 	margin-bottom: 1%;
 }

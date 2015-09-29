@@ -20,7 +20,7 @@
 	<ui:define name="content">
 	<h:outputStylesheet library="css" name="defectos.css" />
     <div align="center">
-		<h:form id="formDetalle">
+		<h:form id="formDetalle" enctype="multipart/form-data">
 			<p:panel id="basic" header="Defecto No. #{defectosMB.defecto.defecto_id}" style="margin-bottom:20px">
 		        <h:panelGrid columns="4" cellpadding="10">
 		            <h:outputLabel value="Asunto: " />

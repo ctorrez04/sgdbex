@@ -22,7 +22,7 @@
 	}
 	</script>
 	<p:dialog header="Crear Defecto" widgetVar="dlgx" appendTo="@(body)" modal="true">
-	    <h:form id="formDefecto">
+	    <h:form id="formDefecto" enctype="multipart/form-data">
 			<p:growl id="growl" sticky="true" showDetail="true" life="2500" />
 	    	<p:panelGrid styleClass="panelgrid" columns="2">
 	    		
@@ -61,8 +61,8 @@
 					sizeLimit="2048000" fileLimit="3" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" />
 	
 				
-				<h:outputLabel for="comentarios"  value="Comentarios adicionales" />
-	            <p:inputTextarea rows="4" cols="50" id="comentarios" value="#{generalController.defecto.comentarios}"/>
+				<!-- <h:outputLabel for="comentarios"  value="Comentarios adicionales" />
+	            <p:inputTextarea rows="4" cols="50" id="comentarios" value="#{generalController.defecto.comentarios}"/> -->
 				
 				<f:facet name="footer">
 					<div id="botones" >

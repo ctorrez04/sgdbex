@@ -47,3 +47,7 @@ form#formDefecto select, input{
 	background-color:  lightblue;
 	color: black;
 }
+
+#formDefecto input[type="file"]{
+	transform: none;
+}

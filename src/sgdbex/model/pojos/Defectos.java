@@ -1,8 +1,8 @@
 package sgdbex.model.pojos;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -74,11 +74,44 @@ public class Defectos {
 	private String motivo_nombre;
 	private List<ArchivosAdjuntos> adjuntos;
 	
-	
-	public Defectos(){
-		
+	public Defectos() {
+		this.defecto_id = 0;
+		this.asunto = "";
+		this.descripcion = "";
+		this.prioridad_fk = 0;
+		this.impacto_fk = 0;
+		this.urgencia_fk = 0;
+		this.estado_fk = 0;
+		this.proyecto_fk = 0;
+		this.categoria_fk = 0;
+		this.reportero_fk = "";
+		this.reportero_nombre = "";
+		this.fecha_creacion = new Date();
+		this.fecha_estimada = new Date();
+		this.carnet_modificacion = "";
+		this.usuario_modificacion = "";
+		this.fecha_modificacion = new Date();
+		this.comentarios = "";
+		this.defecto_activo = '0';
+		this.prioridad_tipo = "";
+		this.impacto_tipo = "";
+		this.urgencia_tipo = "";
+		this.estado_nombre = "";
+		this.estado_descripcion = "";
+		this.proyecto_nombre = "";
+		this.proyecto_descripcion = "";
+		this.categoria_nombre = "";
+		this.direccionIp = "";
+		this.modulo = "";
+		this.accion = "";
+		this.responsable_fk = "";
+		this.responsable_nombre = "";
+		this.fecha_asignacion = new Date();
+		this.motivo_fk = 0;
+		this.motivo_nombre = "";
+		this.adjuntos = new ArrayList<ArchivosAdjuntos>();
 	}
-	
+
 	public Integer getDefecto_id() {
 		return defecto_id;
 	}
