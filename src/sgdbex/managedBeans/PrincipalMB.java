@@ -1,3 +1,27 @@
+/*************************************************************************************************************
+Banco Exterior 
+Sistema: Sistema de Gestion de Defectos Banco Exterior. 
+Siglas: SGDBEX
+Nombre: DefectosMB.java 
+Fecha creación: 01/07/2015 
+Versión: 1.0.0
+ 
+Descripción: 
+	Este managed bean controla todo lo relacionado a la pantalla principal.
+ 
+Autor: 
+       Claudio Torrez
+ ---o---
+
+Bitácora de Modificaciones:
+Autor             Descripción                                                      Fecha Inicio     Fecha Fin
+Claudio Torrez    Creación del managed bean											01/07/2015		13/07/2015
+
+---o---
+
+NOTA: Recuerda no eliminar código ya desarrollado, debes comentar la porción de
+código e incluir la nueva, documentando la fecha de la sustitución. 		                       
+***************************************************************************************************************/
 package sgdbex.managedBeans;
 
 import java.util.List;
@@ -30,13 +54,6 @@ public class PrincipalMB {
 	private List<Defectos> lista3;
 	private List<Defectos> lista4;
 	
-/*	private List<Defectos> modifReciente;
-	private List<Defectos> asignados;
-	private List<Defectos> porAsignar;
-	private List<Defectos> monitorizados;
-	private List<Defectos> reportados;
-	private List<Defectos> validar;
-	private List<Defectos> cerrados;*/
 	public String titulo1="";
 	public String titulo2="";
 	public String titulo3="";

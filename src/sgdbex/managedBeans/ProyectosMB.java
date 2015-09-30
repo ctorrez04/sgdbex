@@ -1,3 +1,27 @@
+/*************************************************************************************************************
+Banco Exterior 
+Sistema: Sistema de Gestion de Defectos Banco Exterior. 
+Siglas: SGDBEX
+Nombre: ProyectosMB.java 
+Fecha creación: 01/03/2015 
+Versión: 1.0.0
+ 
+Descripción: 
+	Este managed bean controla todo lo relacionado a los proyectos en la pantalla administracion de proyectos.
+ 
+Autor: 
+       Alvaro Marciales
+ ---o---
+
+Bitácora de Modificaciones:
+Autor             Descripción                                                      Fecha Inicio     Fecha Fin
+Alvaro Marciales  Creación del managed bean											01/03/2015		20/03/2015
+
+---o---
+
+NOTA: Recuerda no eliminar código ya desarrollado, debes comentar la porción de
+código e incluir la nueva, documentando la fecha de la sustitución. 		                       
+***************************************************************************************************************/
 package sgdbex.managedBeans;
 
 import java.util.List;
