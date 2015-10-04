@@ -30,7 +30,7 @@ import sgdbex.model.pojos.*;
 @ManagedBean
 @ViewScoped
 @Controller
-public class GeneralController implements Serializable{
+public class GeneralController{
 
 	@Autowired
 	private GeneralServices gs;
@@ -613,7 +613,7 @@ public class GeneralController implements Serializable{
 			filtro_proyecto= buscarEnProyectos(infoUsuario.getProyectosUsuarioList());
 		}
 		defectosList = gs.getDefectosValidar(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosResueltos.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Validar");
     }
 	
 	public void defectosModificar(ActionEvent e) throws IOException { //puede modificar los defectos creados por el
@@ -632,7 +632,7 @@ public class GeneralController implements Serializable{
 		}
 		defectosList = gs.getDefectosModificar(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
 //		Redirigir a interfaz eliminar
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosResueltos.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Validar");
     }
 	public void defectosResolver(ActionEvent e) throws IOException { //puede resolver el defecto que le fue asignado
 		if(filtro_proyecto.equals("0")){
@@ -640,7 +640,7 @@ public class GeneralController implements Serializable{
 			filtro_proyecto= buscarEnProyectos(infoUsuario.getProyectosUsuarioList());
 		}
 		defectosList = gs.getDefectosAsignados(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosAsignados.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Resolver");
     }
 	public void defectosPorAsignar(ActionEvent e) throws IOException { //Defectos no asignados a un desarrollador
 		if(filtro_proyecto.equals("0")){
@@ -648,7 +648,7 @@ public class GeneralController implements Serializable{
 			filtro_proyecto= buscarEnProyectos(infoUsuario.getProyectosUsuarioList());
 		}
 		defectosList = gs.getDefectosNoAsignados(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosAsignados.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Asignar");
     }
 	
 	public void defectosMonitorizados(ActionEvent e) throws IOException { //recientemente modificados y monitorizados, reportados por el

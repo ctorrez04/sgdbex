@@ -578,7 +578,7 @@ public class ReportesController {
 			reportesReporterosResolucion = gs.getReportesReporterosResolucion();
 			reportesUsuariosResolucion = gs.getReportesUsuariosResolucion();
 			createBarModel(reportesEstado, reportesTiempoAbierto,reportesFechaDias,reportesCategoria,reportesPrioridad,reportesEstadisticasUsuarios,reportesEstadisticasReporteros,reportesReporterosResolucion,reportesUsuariosResolucion);
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/reportes/reporteGeneral.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/ReporteGeneral");
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}

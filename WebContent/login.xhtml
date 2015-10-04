@@ -37,13 +37,40 @@
 		        <p:password id="clave" value="#{login.clave}" required="true" label="clave"/>
 		 			
 		        <f:facet name="footer" >
-		        	<p:commandButton value="Ingresar" update="growl"  action="#{login.login}" />
+		        	<p:commandButton value="Ingresar" update="growl"  action="#{login.login}" oncomplete="handleComplete(xhr, status, args);"/>
 		        	<p:commandButton value="Borrar" type="reset" update="growl" action="#{login.limpiar}" ></p:commandButton>
 		        </f:facet>
 		     </h:panelGrid>
 	       </p:panel>
 		</h:form>
  	 </div>
+ 	 
+ 	 <p:dialog header="Sesión Expirada" widgetVar="dlg1" modal="true" appendTo="@(body)" closable="false" height="100" style="text-align:center;" resizable="false">
+		<h:form>
+		<h:panelGrid id="GridDialog" columns="1">
+    		<h:outputText value="La sesión ha expirado, por favor inicie sesión nuevamente!" />
+    		<br />
+    		<p:commandButton value="Ir a login" action="#{menu.SesionExpirada}" oncomplete="redirect()"/>
+    	</h:panelGrid>
+    	</h:form>
+	</p:dialog>
+ 	 
+ 	 <script type="text/javascript">
+	function handleComplete(xhr, status, args) {
+		var isValid = args.isValid;
+		if(isValid==null){
+			PF('dlg1').show();
+		}
+	}
+	</script>
+	
+	<script type="text/javascript">  
+	function redirect() {
+		//var url = 'http://localhost:8080/sgdbex/login.jsf';
+		var url = 'http://localhost:8080/sgdbex/Autenticacion';
+		window.location.replace(url);
+	      }
+    </script>
  	 
  	 <style type="text/css">
 	.ui-widget {

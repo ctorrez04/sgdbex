@@ -33,9 +33,11 @@
 		            		</div>
 						</f:facet>
 						<p:column headerText="ID" filterBy="#{defec1.defecto_id}" filterStyle="display:none" style="width: 10%;">
-						    <h:link outcome="/views/reportarDefecto/detalleDefecto" value="#{defec1.defecto_id}">
+						    <h:link outcome="/faces/views/reportarDefecto/detalleDefecto.xhtml" value="#{defec1.defecto_id}">
 								<f:param name="id" value="#{defec1.defecto_id}" />
 							</h:link>
+							<!--outcome="/views/reportarDefecto/detalleDefecto" -->
+							<!-- outcome="/Views/Defecto/{defectosMB.id}/" -->
 						</p:column>
 						<p:column headerText="Asunto" filterBy="#{defec1.asunto}" filterStyle="display:none" style="width: 30%;">
 						    <h:outputText value="#{defec1.asunto}" />

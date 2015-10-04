@@ -101,7 +101,7 @@
 		</div>
 		<br />-->
 		<p:menubar id="menu">
-			<p:menuitem value="INICIO" rendered="#{menu.mostrar('DEFECTOS','MOSTRAR')}" icon="fa fa-home" url="/principal.jsf" />
+			<p:menuitem value="INICIO" rendered="#{menu.mostrar('DEFECTOS','MOSTRAR')}" icon="fa fa-home" url="/Principal" />
 			<!--<p:submenu label="Mi Vista" icon="fa fa-windows">
 				<p:menuitem value="Defectos monitorizados" actionListener="#{generalController.defectosMonitorizados}" />
 				<p:menuitem value="Defectos Modificados Recientemente" actionListener="#{generalController.defectosModificados}" />
@@ -132,10 +132,10 @@
 			</p:submenu>
 			
 			<p:submenu label="ADMINISTRACION" rendered="#{menu.mostrar('MENU','ADMINISTRACION')}" icon="fa fa-wrench">
-				<p:menuitem value="PROYECTOS" url="/views/administracion/moduloProyectos.jsf" rendered="#{menu.mostrar('ADMINISTRACION','PROYECTOS')}"/>
-				<p:menuitem value="USUARIOS" url="/views/administracion/moduloUsuarios.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
-				<p:menuitem value="CATEGORIAS" url="/views/administracion/moduloCategorias.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
-				<p:menuitem value="MOTIVOS RESOLUCION" url="/views/administracion/moduloMotivos.jsf" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
+				<p:menuitem value="PROYECTOS" url="/ModuloProyectos" rendered="#{menu.mostrar('ADMINISTRACION','PROYECTOS')}"/>
+				<p:menuitem value="USUARIOS" url="/ModuloUsuarios" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
+				<p:menuitem value="CATEGORIAS" url="/ModuloCategorias" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
+				<p:menuitem value="MOTIVOS RESOLUCION" url="/ModuloMotivosResolucion" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 			</p:submenu>
 
 			<f:facet name="options">
@@ -159,10 +159,18 @@
 		<h:panelGrid id="GridDialog" columns="1">
     		<h:outputText value="La sesión ha expirado, por favor inicie sesión nuevamente!" />
     		<br />
-    		<p:commandButton value="Ir a login" action="#{menu.SesionExpirada}" />
+    		<p:commandButton value="Ir a login" action="#{menu.SesionExpirada}" oncomplete="redirect()"/>
     	</h:panelGrid>
     	</h:form>
 	</p:dialog>
+	
+	<script type="text/javascript">  
+	function redirect() {
+		//var url = 'http://localhost:8080/sgdbex/login.jsf';
+		var url = 'http://localhost:8080/sgdbex/Autenticacion';
+		window.location.replace(url);
+	      }
+    </script>
 	
 </h:body>
 </html>
