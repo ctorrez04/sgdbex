@@ -385,19 +385,25 @@
 			</div>
 	<script type="text/javascript">  
 	function plotAxisInterval() {
-		$.jqplot.config.enablePlugins = true;
+		//var ticks: [1,2,3,4,5,6,7,8,9,10];
+		//$.jqplot.config.enablePlugins = true;
 		this.cfg.seriesDefaults = {
 				renderer:$.jqplot.BarRenderer,
-				pointLabels: { show: true }
+				pointLabels: { show: true, hideZeros: true }
 		};
-	      this.cfg.axes = {
+	      /*this.cfg.axes = {
 	          xaxis : {
 	                   tickOptions : {
 	                      formatString : '%s'
 	                   },
 	                   label : 'Defectos Intervalos Dias por Estado',
 	                   renderer : $.jqplot.CategoryAxisRenderer,
-	                   ticks: ['col 1', 'col 2','col 3', 'col 4','col 5', 'col 6','col 7', 'col 8', 'col 9'],
+	                   //ticks: [1,2,3,7,30,60,90,180,365],
+	                   //ticks: ['col 1', 'col 2','col 3', 'col 4','col 5', 'col 6','col 7', 'col 8', 'col 9'],
+	                   ticks: [1,2,3,7,30,60,90,180,365], 
+	                   //labelticks: [1,2,3,4,5],
+	                   //numberTicks: 9,
+	                   //rendererOptions:{tickRenderer: $.jqplot.CanvasAxisTickRenderer},
 	                   labelOptions : {
 	                       fontFamily : 'Georgia, Serif',
 	                       fontSize : '12pt',
@@ -405,24 +411,31 @@
 	                   }
 	                 },
 	           yaxis : {
-	                   label : 'Dia(s)',
-	                   renderer : $.jqplot.CategoryAxisRenderer,
-	                   ticks: [1,2,3,7,30,60,90,180,365],
+	                   //min : 1,  Determinar max y min desde el MB Reportes
+	                   //max : 365,
+	                   //label : 'Dia(s)',
+	                   labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+	                   //renderer : $.jqplot.CategoryAxisRenderer,
+	                   //ticks: [1,2,3,7,30,60,90,180,365],
+	                   //ticks: [1,2,3,7,30,60,90,180,365],
+	                   //ticks: [2,4,6.8],
+	                   //numberTicks: 7,
+	                   //tickInterval : 10,
 	                   tickOptions : {
 	                       formatString : '%d'
 	                   }
 	                }
-	            };
+	            };*/
 	      
 	      this.cfg.highlighter= {
 		          show : false
 		      };
 	      
-	      jQuery('#'+'chart3').bind('jqplotDataClick', 
-    		    function (ev, seriesIndex, pointIndex, data) {
-    		      jQuery('#'+'info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
-    		    }
-    		  );
+	      /*jQuery('#'+'chart3').bind('jqplotDataClick', 
+	    		    function (ev, seriesIndex, pointIndex, data) {
+	    		      jQuery('#'+'info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+	    		    }
+	    		  );*/
 	      }
     </script>
     

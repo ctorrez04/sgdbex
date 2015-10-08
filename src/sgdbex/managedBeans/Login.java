@@ -31,15 +31,19 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.util.Hashtable;
 
+
+//import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +52,8 @@ import sgdbex.services.GeneralServices;
 import beasa.servicios.WS_Validar;
 import beasa.servicios.WS_ValidarProxy;
 
+//@Named
+//@SessionScoped
 @SessionScoped
 @ViewScoped
 @ManagedBean
@@ -111,6 +117,11 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 		setUsuario("");
 		setClave("");
 	}
+	
+	public void loguear() throws IOException{
+		limpiar();
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/indice");
+	}
 
 	public void logueadoInicial(ComponentSystemEvent event){
     	System.out.println("Entre antes de logueoInicial... ");
@@ -122,6 +133,7 @@ public class Login implements Serializable{  //Colocar este metodo que implement
     	sesion.setAttribute("user", "ninguno");
     	String logged = sesion.getAttribute("initlogin").toString();
     	System.out.println("initlogin "+logged);
+    	System.out.println("ID de session: "+sesion.getId());
     	limpiar();
 	}
 	
@@ -152,6 +164,8 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 		FacesContext context = FacesContext.getCurrentInstance();  
 		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();  
 		HttpSession sesion = request.getSession(true);
+		RequestContext requestContext = RequestContext.getCurrentInstance();
+    	requestContext.addCallbackParam("isValid", "Activo");
 //----------------------------------------------------------
 		if(isError.isEmpty()){
 			System.out.println("No hubo error en XML ^^: ");
@@ -165,7 +179,10 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 			auditoria.toString();
 			gs.insertarAuditoria(auditoria);
 			limpiar();
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/principal.jsf");
+			//FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/principal.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Principal");
+			//return "principal?faces-redirect=true";
+			//return "principal";
 		}else{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Error","Su usuario y/o contrasena no es valido"));		    
 			loggedIn = false;
@@ -177,7 +194,9 @@ public class Login implements Serializable{  //Colocar este metodo que implement
 			auditoria.toString();
 			gs.insertarAuditoria(auditoria);
 			limpiar();
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
+			//FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Autenticacion");
+			//return "login";
 		}
     }
 }

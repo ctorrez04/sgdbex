@@ -40,6 +40,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.event.ComponentSystemEvent;
 
+import org.ocpsoft.rewrite.annotation.Join;
+import org.ocpsoft.rewrite.annotation.Parameter;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -57,6 +59,7 @@ import sgdbex.services.GeneralServices;
 		 
 @ManagedBean 
 @Service
+//@Join(path = "/customer/{id}", to="/faces/views/reportarDefecto/detalleDefecto")
 public class DefectosMB {		     
     @Autowired
 	private GeneralServices gs;
@@ -70,6 +73,7 @@ public class DefectosMB {
 	private boolean validar =false;
 	private boolean resolver =false;
 	
+	//@Parameter
 	private String id;
 	
 	private List<HistoricoEstados> historico = new ArrayList<HistoricoEstados>();

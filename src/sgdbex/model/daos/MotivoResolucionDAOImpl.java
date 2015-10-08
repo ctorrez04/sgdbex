@@ -44,7 +44,7 @@ public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
 			}
 			return "fallo";
 		} catch (HibernateException e) {
-			System.out.println("try Impl Cat " +e.getMessage() );
+			System.out.println("try Impl create Mot " +e.getMessage() );
 			return "fallo";
 		} finally {
 			session.close();
@@ -67,7 +67,7 @@ public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
 			}
 			return "fallo";
 		} catch (HibernateException e) {
-			System.out.println("try Impl Cat " +e.getMessage() );
+			System.out.println("try Impl Update Mot " +e.getMessage() );
 			return "fallo";
 		} finally {
 			session.close();
@@ -88,7 +88,7 @@ public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
 			}
 			return "fallo";
 		} catch (HibernateException e) {
-			System.out.println("try Impl delete categ " +e.getMessage() );
+			System.out.println("try Impl delete Mot " +e.getMessage() );
 			return "fallo";
 		} finally {
 			session.close();

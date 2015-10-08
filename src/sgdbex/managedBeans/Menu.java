@@ -32,12 +32,18 @@ import java.util.List;
 
 import beasa.generales.CargarUsuario;
 
+
+
+
+//import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,6 +55,8 @@ import sgdbex.model.pojos.Auditoria;
 import sgdbex.model.pojos.Proyectos;
 import sgdbex.services.GeneralServices;
  
+//@Named
+//@SessionScoped
 @ManagedBean
 @SessionScoped
 @ViewScoped
@@ -67,6 +75,7 @@ public class Menu implements Serializable{
 	
 	private List<Proyectos> proyectosUsuarioList;
 	
+	//@Inject
 	@Autowired
 	private GeneralServices gs;
 	
@@ -166,7 +175,7 @@ public class Menu implements Serializable{
 		    	if(logged ==null || logged.equalsIgnoreCase("no")){
 		    		//nav.performNavigation("login");
 		    		try {
-						FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
+						FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Autenticacion");
 					} catch (IOException e) {
 						e.getMessage();
 					}
@@ -203,8 +212,9 @@ public class Menu implements Serializable{
      * Devuelve: true si el usuario puede realizar la accion
      * 			false, en caso contrario.
      * 
-      ---------------------------------------------------------------------------*/
-    public boolean mostrar(String modulo, String accion){
+     *---------------------------------------------------------------------------*/
+
+	 public boolean mostrar(String modulo, String accion){
     	FacesContext context = FacesContext.getCurrentInstance();  
     	HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
     	HttpSession sesion = ((HttpServletRequest) request).getSession();
@@ -225,7 +235,7 @@ public class Menu implements Serializable{
 		return false;
     }
     public void miCuenta() throws IOException{  
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miCuenta/miCuenta.jsf");
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/InformacionAutenticacion");
     }
     public void logout() throws IOException{
     	FacesContext context = FacesContext.getCurrentInstance();  
@@ -246,12 +256,16 @@ public class Menu implements Serializable{
         auditoria.setResultado("EXITOSO");
         gs.insertarAuditoria(auditoria);
         sesion.invalidate();
-		FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
+        /*Otra forma de invalidar la session:
+         *FacesContext.getCurrentInstance().getExternalContext().invalidateSession();*/
+        
+		//FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Autenticacion");
     }
     
     public void SesionExpirada(){
     	try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Autenticacion");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.getMessage();
@@ -269,4 +283,5 @@ public class Menu implements Serializable{
 		System.out.println("value"+valor);
     	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/reportarDefecto/buscarDefecto.jsf?q="+valor);
 	}
+	
 }

@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +32,9 @@ import sgdbex.model.pojos.*;
 @ManagedBean
 @ViewScoped
 @Controller
-public class GeneralController {
-	
+public class GeneralController{
+
+
 	@Autowired
 	private GeneralServices gs;
 	
@@ -370,7 +372,7 @@ public class GeneralController {
 		servicio.enviar(smtpip, de, para, cc, cco, asunto, formato, mensaje, prioridad);
 		System.out.println("Enviado");
 	}
-	
+
     public void agregar(Object objeto) {
     	String mensaje;
     	System.out.println("Entre a agregar ");
@@ -435,15 +437,16 @@ public class GeneralController {
                         e.printStackTrace();
                     }
             	}
-            	//System.out.println("tamano "+archAdjuntos.size());
-            	//d.setAdjuntos(archAdjuntos);
-            	limpiar();
+            	System.out.println("tamano "+archAdjuntos.size());
+            	d.setAdjuntos(archAdjuntos);
+				limpiar();
             	addMessage("El item seleccionado ha sido creado!");
             }
     		//-----------termino adjuntos
         	adjuntosList = null;
             if(mensaje.equalsIgnoreCase("fallo")){
             	addMessage("Fallo al crear elemento, por favor intente de nuevo.");
+
             }
     	}
     }
@@ -627,7 +630,7 @@ public class GeneralController {
 			filtro_proyecto= buscarEnProyectos(infoUsuario.getProyectosUsuarioList());
 		}
 		defectosList = gs.getDefectosValidar(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosResueltos.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Validar");
     }
 	
 	public void defectosModificar(ActionEvent e) throws IOException { //puede modificar los defectos creados por el
@@ -646,7 +649,7 @@ public class GeneralController {
 		}
 		defectosList = gs.getDefectosModificar(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
 //		Redirigir a interfaz eliminar
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosResueltos.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Validar");
     }
 	public void defectosResolver(ActionEvent e) throws IOException { //puede resolver el defecto que le fue asignado
 		if(filtro_proyecto.equals("0")){
@@ -654,7 +657,7 @@ public class GeneralController {
 			filtro_proyecto= buscarEnProyectos(infoUsuario.getProyectosUsuarioList());
 		}
 		defectosList = gs.getDefectosAsignados(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosAsignados.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Resolver");
     }
 	public void defectosPorAsignar(ActionEvent e) throws IOException { //Defectos no asignados a un desarrollador
 		if(filtro_proyecto.equals("0")){
@@ -662,7 +665,7 @@ public class GeneralController {
 			filtro_proyecto= buscarEnProyectos(infoUsuario.getProyectosUsuarioList());
 		}
 		defectosList = gs.getDefectosNoAsignados(infoUsuario.getCarnet(), infoUsuario.getPerfil(), filtro_proyecto);
-    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/views/miVista/defectosAsignados.jsf");
+    	FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Asignar");
     }
 	
 	public void defectosMonitorizados(ActionEvent e) throws IOException { //recientemente modificados y monitorizados, reportados por el

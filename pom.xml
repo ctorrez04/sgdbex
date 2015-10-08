@@ -7,6 +7,7 @@
   <name>sgdbex</name>
   <description>Sistema gestor de defectos del Banco Exterior</description>
   <repositories>
+  		<!-- Repositorio Maven descarga de archivos .jar -->
 		<repository>
 			<id>prime-repo</id>
 			<name>PrimeFaces Maven Repository</name>
@@ -41,11 +42,13 @@
     </plugins>
   </build>
   <dependencies>
+  	<!-- Version de Libreria PrimeFaces -->
   	<dependency>
   		<groupId>org.primefaces</groupId>
   		<artifactId>primefaces</artifactId>
   		<version>5.1</version>
   	</dependency>
+  	<!-- Componentes del Servidor -->
   	<dependency>
   		<groupId>org.glassfish.web</groupId>
   		<artifactId>el-impl</artifactId>
@@ -73,38 +76,73 @@
 		<artifactId>commons-pool</artifactId>
 		<version>1.3</version>
 	</dependency>
+	<!-- Dependencia necesaria para carga y descarga de archivos en PrimeFaces V5.1-->
 	<dependency>
 		<groupId>commons-io</groupId>
 		<artifactId>commons-io</artifactId>
 		<version>2.4</version>
 	</dependency>
+	<!-- Componente para carga y descarga de archivos en PrimeFaces V5.1 -->
 	<dependency>
 		<groupId>commons-fileupload</groupId>
 		<artifactId>commons-fileupload</artifactId>
 		<version>1.3</version>
 	</dependency>
+	<!-- Extension de la libreria PrimeFaces -->
 	<dependency>
 	    <groupId>org.primefaces.extensions</groupId>
 	    <artifactId>primefaces-extensions</artifactId>
 	    <version>3.0.0</version>
 	</dependency>
+	<!-- Dependencia para descargar informacion en formato .pdf -->
 	<dependency>
 		<groupId>com.lowagie</groupId>
 		<artifactId>itext</artifactId>
 		<version>2.1.7</version>
 	</dependency>
-	
+	<!-- Dependencia necesaria para descargar informacion en formato .xlsx -->
 	<dependency>
 		<groupId>org.apache.poi</groupId>
 		<artifactId>poi</artifactId>
 		<version>3.7</version>
 	</dependency>
-	
 	<dependency>
 		<groupId>org.apache.poi</groupId>
 		<artifactId>poi-ooxml</artifactId>
 		<version>3.7</version>
 	</dependency>
-	
+	<!-- Libreria PrettyFaces para enmascaramiento de URL's de una Aplicacion -->
+	<!--  <dependency>
+	   <groupId>com.ocpsoft</groupId>
+	   <artifactId>prettyfaces-jsf2</artifactId>
+	   <version>3.3.3</version>
+	</dependency> -->
+	<dependency>
+	    <groupId>org.ocpsoft.rewrite</groupId>
+	    <artifactId>rewrite-servlet</artifactId>
+	    <version>2.0.12.Final</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.ocpsoft.rewrite</groupId>
+	    <artifactId>rewrite-config-prettyfaces</artifactId>
+	    <version>2.0.12.Final</version>
+	</dependency>
+	<!--  <dependency>
+		<groupId>org.ocpsoft.rewrite</groupId>
+		<artifactId>rewrite-integration-spring</artifactId>
+		<version>2.0.12.Final</version>
+	</dependency> -->
+	<!-- Soporte para CDI (Contexto e Inyección de Dependencias) -->
+	<!--  <dependency>
+	    <groupId>org.jboss.weld.servlet</groupId>
+	    <artifactId>weld-servlet</artifactId>
+	    <version>2.2.9.Final</version>
+	</dependency>  -->
+	<!--  <dependency>
+	  <groupId>javax.enterprise</groupId>
+	  <artifactId>cdi-api</artifactId>
+	  <version>1.2</version>
+	  <scope>provided</scope>
+	</dependency>  -->
   </dependencies>
 </project>

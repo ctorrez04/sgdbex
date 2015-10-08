@@ -15,11 +15,11 @@ import sgdbex.model.pojos.Proyectos;
 
 @Component
 @Repository("proyectosDAO")
-
 public class ProyectosDAOImpl implements ProyectosDAO{
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

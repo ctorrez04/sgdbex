@@ -24,6 +24,8 @@ código e incluir la nueva, documentando la fecha de la sustitución.
 ***************************************************************************************************************/
 package sgdbex.managedBeans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -37,7 +39,7 @@ import beasa.generales.CargarUsuario;
 @ManagedBean
 @SessionScoped
 @ViewScoped
-public class MiCuenta {
+public class MiCuenta implements Serializable{
 
 	private String nombre;
 	private String carnet;
