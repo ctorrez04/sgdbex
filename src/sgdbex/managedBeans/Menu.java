@@ -42,8 +42,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 

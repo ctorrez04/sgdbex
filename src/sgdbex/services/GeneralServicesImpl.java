@@ -92,6 +92,9 @@ public class GeneralServicesImpl implements GeneralServices{
 	@Override
 	public String createDefectos(Defectos Defecto) {
 		String mensaje = defectosDAO.createDefectos(Defecto);
+		if (!mensaje.equalsIgnoreCase("fallo") && Integer.valueOf(mensaje) > 0){
+			usuariosDAO.createUsuariosDesdeBeasa(Defecto.getReportero_fk(), 0, "USUARIO_FUNCIONAL");
+		}
 		return mensaje;
 	}
 
@@ -123,9 +126,12 @@ public class GeneralServicesImpl implements GeneralServices{
 	}
 
 	@Override
-	public String createProyectos(Proyectos Proyecto) {
-		String mensaje = proyectosDAO.createProyectos(Proyecto);
-		System.out.println("sali service create");
+	public String createProyectos(Proyectos proyecto) {
+		String mensaje = proyectosDAO.createProyectos(proyecto);
+		/*Verificar si existe el lider de proyecto en nuestra BD*/
+		if (!mensaje.equalsIgnoreCase("fallo") &&  Integer.valueOf(mensaje) > 0){
+			usuariosDAO.createUsuariosDesdeBeasa(proyecto.getProyecto_lider(), Integer.valueOf(mensaje), "LIDER_PROYECTO");
+		} 
 		return mensaje;
 	}
 
@@ -213,9 +219,7 @@ public class GeneralServicesImpl implements GeneralServices{
 	}
 	
 	@Override
-	public List<Defectos> getDefectosCerrados(String usuario, String rol,
-			String proyecto) {
-		// TODO Auto-generated method stub
+	public List<Defectos> getDefectosCerrados(String usuario, String rol, String proyecto) {
 		return defectosDAO.getDefectosCerrados(usuario,rol,proyecto);
 	}
 

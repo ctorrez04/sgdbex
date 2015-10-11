@@ -42,7 +42,7 @@ public class ProyectosDAOImpl implements ProyectosDAO{
 					.setParameter("usuarioCreacion", Proyecto.getProy_usuario_modificacion());
 			list = (List<Proyectos>)query.list();
 			if(list.get(0).getProyecto_id() != 0){
-				return "exito";	
+				return list.get(0).getProyecto_id().toString();	
 			}
 			return "fallo";
 		} catch (HibernateException e) {

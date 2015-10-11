@@ -7,9 +7,7 @@ import org.ocpsoft.rewrite.config.Configuration;
 import org.ocpsoft.rewrite.config.ConfigurationBuilder;
 import org.ocpsoft.rewrite.servlet.config.HttpConfigurationProvider;
 import org.ocpsoft.rewrite.servlet.config.rule.Join;
-import org.springframework.stereotype.Component;
 
-//@Component
 @RewriteConfiguration
 public class MyConfigurationProvider extends HttpConfigurationProvider{
 

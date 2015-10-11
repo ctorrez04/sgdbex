@@ -40,8 +40,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.event.ComponentSystemEvent;
 
-import org.ocpsoft.rewrite.annotation.Join;
-import org.ocpsoft.rewrite.annotation.Parameter;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;

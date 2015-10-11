@@ -18,4 +18,6 @@ public interface UsuariosDAO {
 	public List<Usuarios> getUsuariosLider();
 	
 	public List<Usuarios> getUsuariosAnalistas();
+
+	public String createUsuariosDesdeBeasa(String carnet, Integer proyectoAsociado, String rol);
 }

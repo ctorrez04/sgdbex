@@ -63,6 +63,26 @@ public class UsuariosDAOImpl implements UsuariosDAO{
 			session.close();
 		}
 	}
+	
+	@Override
+	public String createUsuariosDesdeBeasa(String carnet, Integer proyectoAsociado, String rol) {
+		Session session = sessionFactory.openSession();
+		List<Usuarios> list = null;
+		try {
+			Query query = session.createSQLQuery("SP_InsertarUsuarioDesdeBeasa :carnet, :proyecto, :rol ")
+					.setResultTransformer(Transformers.aliasToBean(Usuarios.class))
+					.setParameter("carnet", carnet)
+					.setParameter("proyecto", proyectoAsociado)
+					.setParameter("rol", rol);
+			list = (List<Usuarios>)query.list();
+			return "exito";
+		} catch (HibernateException e) {
+			System.out.println("No se pudo crear usuario " +e.getMessage() );
+			return "fallo";
+		} finally {
+			session.close();
+		}
+	}
 
 	@Override
 	public String updateUsuarios(Usuarios usuario) {
