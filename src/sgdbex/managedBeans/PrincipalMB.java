@@ -59,6 +59,43 @@ public class PrincipalMB {
 	public String titulo3="";
 	public String titulo4="";
 	
+	private boolean title1=true;
+	private boolean title2=true;
+	private boolean title3=true;
+	private boolean title4=true;
+	
+	public boolean isTitle1() {
+		return title1;
+	}
+
+	public void setTitle1(boolean title1) {
+		this.title1 = title1;
+	}
+
+	public boolean isTitle2() {
+		return title2;
+	}
+
+	public void setTitle2(boolean title2) {
+		this.title2 = title2;
+	}
+
+	public boolean isTitle3() {
+		return title3;
+	}
+
+	public void setTitle3(boolean title3) {
+		this.title3 = title3;
+	}
+
+	public boolean isTitle4() {
+		return title4;
+	}
+
+	public void setTitle4(boolean title4) {
+		this.title4 = title4;
+	}
+
 	public String getTitulo1() {
 		return titulo1;
 	}
@@ -169,6 +206,72 @@ public class PrincipalMB {
 		}*/
 		if (proyectos !=null){
 			if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR")){
+				title1=false;
+				title2=false;
+				title3=true;
+				title4=true;
+				titulo1="Actividad Reciente";
+				titulo2="Cerrados";
+				setLista1(gs.getDefectosModifReciente(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista2(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
+			}
+			if(m.getPerfil().equalsIgnoreCase("LIDER")){
+				title1=false;
+				title2=false;
+				title3=false;
+				title4=true;
+				titulo1="Sin asignar";
+				titulo2="Actividad Reciente";
+				titulo3="Cerrados";
+				setLista1(gs.getDefectosNoAsignados(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista2(gs.getDefectosModifReciente(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista3(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
+			}
+			if(m.getPerfil().equalsIgnoreCase("ANALISTA")){
+				title1=false;
+				title2=false;
+				title3=false;
+				title4=false;
+				titulo1="Asignados";
+				titulo2="Actividad Reciente";
+				titulo3="Monitorizados";
+				titulo4="Cerrados";
+				setLista1(gs.getDefectosAsignados(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista2(gs.getDefectosModifReciente(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista3(gs.getDefectosMonitorizados(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista4(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
+			}
+			if(m.getPerfil().equalsIgnoreCase("FUNCIONAL")){
+				title1=false;
+				title2=false;
+				title3=false;
+				title4=false;
+				titulo1="Reportados por mi";
+				titulo2="Por Validar";
+				titulo3="Monitorizados";
+				titulo4="Cerrados";
+				setLista1(gs.getDefectosReportadosPorMi(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista2(gs.getDefectosValidar(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista3(gs.getDefectosMonitorizados(m.getCarnet(), m.getPerfil(), proyectos));
+				setLista4(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
+			}
+		}
+	}
+	public void cargarDatos2(){
+		titulo1="";
+		titulo2="";
+		titulo3="";
+		titulo4="";
+		String proyectos = gc.getFiltro_proyecto();
+		if(proyectos == null || (proyectos != null && proyectos.equals("0"))){
+			proyectos = gc.buscarEnProyectos(m.getProyectosUsuarioList());
+		}
+		/*if(proyectos.equals("0")){
+			//Son todos los proyectos relacionados al usuario, entonces hago un concat de la lista de proyectos
+			proyectos = gc.buscarEnProyectos(m.getProyectosUsuarioList());
+		}*/
+		if (proyectos !=null){
+			if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR")){
 				titulo1="Actividad Reciente";
 				titulo2="Cerrados";
 				setLista1(gs.getDefectosModifReciente(m.getCarnet(), m.getPerfil(), proyectos));
@@ -203,6 +306,12 @@ public class PrincipalMB {
 				setLista4(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
 			}
 		}
+	}
+	public void ReinicializarBooleanos(){
+		title1=true;
+		title2=true;
+		title3=true;
+		title4=true;
 	}
 
 }

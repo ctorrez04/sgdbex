@@ -74,10 +74,20 @@ public class Menu implements Serializable{
 	
 	private List<Proyectos> proyectosUsuarioList;
 	
-	//@Inject
 	@Autowired
 	private GeneralServices gs;
 	
+	@Autowired
+	private PrincipalMB ppalMB;
+	
+	public PrincipalMB getPpalMB() {
+		return ppalMB;
+	}
+
+	public void setPpalMB(PrincipalMB ppalMB) {
+		this.ppalMB = ppalMB;
+	}
+
 	public Menu(){
 	}
 	
@@ -159,6 +169,7 @@ public class Menu implements Serializable{
     	FacesContext context = FacesContext.getCurrentInstance();  
     	HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
     	HttpSession sesion = ((HttpServletRequest) request).getSession();
+    	ppalMB.ReinicializarBooleanos();
 
     	if(sesion.getAttribute("logged")==null){
     		RequestContext contexto = RequestContext.getCurrentInstance();
