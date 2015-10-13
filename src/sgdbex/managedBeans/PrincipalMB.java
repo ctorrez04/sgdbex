@@ -257,55 +257,8 @@ public class PrincipalMB {
 			}
 		}
 	}
-	public void cargarDatos2(){
-		titulo1="";
-		titulo2="";
-		titulo3="";
-		titulo4="";
-		String proyectos = gc.getFiltro_proyecto();
-		if(proyectos == null || (proyectos != null && proyectos.equals("0"))){
-			proyectos = gc.buscarEnProyectos(m.getProyectosUsuarioList());
-		}
-		/*if(proyectos.equals("0")){
-			//Son todos los proyectos relacionados al usuario, entonces hago un concat de la lista de proyectos
-			proyectos = gc.buscarEnProyectos(m.getProyectosUsuarioList());
-		}*/
-		if (proyectos !=null){
-			if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR")){
-				titulo1="Actividad Reciente";
-				titulo2="Cerrados";
-				setLista1(gs.getDefectosModifReciente(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista2(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
-			}
-			if(m.getPerfil().equalsIgnoreCase("LIDER")){
-				titulo1="Sin asignar";
-				titulo2="Actividad Reciente";
-				titulo3="Cerrados";
-				setLista1(gs.getDefectosNoAsignados(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista2(gs.getDefectosModifReciente(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista3(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
-			}
-			if(m.getPerfil().equalsIgnoreCase("ANALISTA")){
-				titulo1="Asignados";
-				titulo2="Actividad Reciente";
-				titulo3="Monitorizados";
-				titulo4="Cerrados";
-				setLista1(gs.getDefectosAsignados(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista2(gs.getDefectosModifReciente(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista3(gs.getDefectosMonitorizados(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista4(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
-			}
-			if(m.getPerfil().equalsIgnoreCase("FUNCIONAL")){
-				titulo1="Reportados por mi";
-				titulo2="Por Validar";
-				titulo3="Monitorizados";
-				titulo4="Cerrados";
-				setLista1(gs.getDefectosReportadosPorMi(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista2(gs.getDefectosValidar(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista3(gs.getDefectosMonitorizados(m.getCarnet(), m.getPerfil(), proyectos));
-				setLista4(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
-			}
-		}
+	public void cargarDatosAjax(){
+		cargarDatos(null);
 	}
 	public void ReinicializarBooleanos(){
 		title1=true;

@@ -148,10 +148,10 @@
 			<f:facet name="options">
 				<p:selectOneMenu id="selecProy" value="#{generalController.filtro_proyecto}" filter="true" filterMatchMode="startsWith">
 					<!--  <p:ajax event="change" update="@this"/> -->
-					<p:ajax listener="#{principalMB.cargarDatos2}" update=":formulario1:tabla1 :formulario2:tabla2" disabled="#{principalMB.title1}"/>
-					<p:ajax listener="#{principalMB.cargarDatos2}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3" disabled="#{principalMB.title2}"/>
-					<p:ajax listener="#{principalMB.cargarDatos2}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title3}"/>
-					<p:ajax listener="#{principalMB.cargarDatos2}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title4}"/>
+					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2" disabled="#{principalMB.title1}"/>
+					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3" disabled="#{principalMB.title2}"/>
+					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title3}"/>
+					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title4}"/>
 					<f:selectItem itemLabel="Todos los Proyectos" noSelectionOption="true" itemValue="0"/>
 					<f:selectItems value="#{menu.proyectosUsuarioList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
 				</p:selectOneMenu>
