@@ -66,16 +66,15 @@
 				
 				<f:facet name="footer">
 					<div id="botones" >
-						<p:commandButton value="Crear" update="growl :contentBody" actionListener="#{generalController.agregar(generalController.defecto)}" oncomplete="limpiarFormulario();">
+						<p:commandButton update="growl" value="Crear" actionListener="#{generalController.agregar(generalController.defecto)}" oncomplete="limpiarFormulario();" >
 							<p:confirm header="Confirmacion" message="Esta seguro de reportar este defecto?" icon="ui-icon-alert" />
-							<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-					    		<p:commandButton id="confirmacion" value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onclick="PF('dlgx').hide();">
-					    			<!-- <p:ajax process="@this" update=":contentBody"/> -->
-					    		</p:commandButton>
-					    		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					 		</p:confirmDialog>
-					 	</p:commandButton>
-						<p:commandButton id="cancelar" value="Borrar" type="reset" update="growl" action="#{generalController.limpiar}" onsuccess="limpiarFormulario();"></p:commandButton>
+							<!--  <f:ajax event="click" listener="#{principalMB.cargarDatosAjax}" render=":formulario1" disabled="#{!menu.principal}"/>-->
+						</p:commandButton>
+						<p:commandButton id="cancelar" value="Borrar" action="#{generalController.limpiar}" oncomplete="limpiarFormulario();"></p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+							<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onclick="PF('dlgx').hide();"/>
+							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
 					</div>
 	        	</f:facet>
 			</p:panelGrid>

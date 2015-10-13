@@ -20,6 +20,9 @@
 <!-- 		<property name="PrioridadesDAO" ref="PrioridadesDAO" /> -->
 <!-- 	</bean> -->
 
+	<bean id="menu" class="sgdbex.managedBeans.Menu" scope="session">
+    	<aop:scoped-proxy/>
+	</bean>
 
 	<!-- User DAO Declaration -->
 

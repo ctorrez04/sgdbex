@@ -35,10 +35,10 @@ import beasa.generales.CargarUsuario;
 
 
 
+
 //import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
@@ -47,16 +47,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import sgdbex.model.pojos.Auditoria;
 import sgdbex.model.pojos.Proyectos;
 import sgdbex.services.GeneralServices;
  
-//@Named
-//@SessionScoped
+
 @ManagedBean
-@SessionScoped
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 @ViewScoped
 @Service
 public class Menu implements Serializable{

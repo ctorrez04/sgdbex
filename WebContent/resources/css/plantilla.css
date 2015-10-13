@@ -20,9 +20,11 @@
 	margin-right: auto !important;
 	margin-left: auto !important;
 	text-align: left !important;
+	height : 100% !important;
+	min-height: 1200px !important;
 }
 .ui-widget-content{
-	border: 0px none !importante;
+	border: 0px none !important;
 }
 #contentBody{
   	/*font-size: 90%;*/
