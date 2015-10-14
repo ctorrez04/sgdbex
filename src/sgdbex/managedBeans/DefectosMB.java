@@ -57,7 +57,6 @@ import sgdbex.services.GeneralServices;
 		 
 @ManagedBean 
 @Service
-//@Join(path = "/customer/{id}", to="/faces/views/reportarDefecto/detalleDefecto")
 public class DefectosMB {		     
     @Autowired
 	private GeneralServices gs;
@@ -66,12 +65,12 @@ public class DefectosMB {
     @Autowired
 	public Menu m;
     
+    private boolean edit =false;
     private boolean editar =false;
 	private boolean asignar =false;
 	private boolean validar =false;
 	private boolean resolver =false;
 	
-	//@Parameter
 	private String id;
 	
 	private List<HistoricoEstados> historico = new ArrayList<HistoricoEstados>();
@@ -195,6 +194,7 @@ public class DefectosMB {
 		System.out.println("tamano adjuntos" + adjuntosList.size());
     }
 	public void opcEditar() {
+		this.edit = true;
 	    this.editar = !this.editar;
 		this.asignar = puedeAsignar();
 		this.resolver = puedeResolver();
@@ -211,6 +211,7 @@ public class DefectosMB {
 	}
 	
 	public void opcCancelar() {
+		this.edit =false;
 		this.editar =false;
 		this.asignar =false;
 		this.validar =false;
@@ -420,5 +421,11 @@ public class DefectosMB {
 		InputStream stream = new FileInputStream(adjuntos.getArchivo_ubicacion());
         archivo = new DefaultStreamedContent(stream, adjuntos.getArchivo_formato(), adjuntos.getArchivo_nombre());
     }
+	public boolean isEdit() {
+		return edit;
+	}
+	public void setEdit(boolean edit) {
+		this.edit = edit;
+	}
 
 }

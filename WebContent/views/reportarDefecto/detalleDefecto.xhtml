@@ -24,19 +24,19 @@
 			<p:panel id="basic" header="Defecto No. #{defectosMB.defecto.defecto_id}" style="margin-bottom:20px">
 		        <h:panelGrid columns="4" cellpadding="10">
 		            <h:outputLabel value="Asunto: " />
-					<p:inputText value="#{defectosMB.defecto.asunto}" disabled = "true"/>
+					<h:outputText value="#{defectosMB.defecto.asunto}" rendered="#{!defectosMB.edit}"/>
+					<p:inputText value="#{defectosMB.defecto.asunto}" rendered="#{defectosMB.edit}" />
 		            
 		            <h:outputLabel value="Proyecto: " />
-	                <h:selectOneMenu id="proyecto" value="#{defectosMB.defecto.proyecto_fk}"  displayValueOnly="true" disabled = "true">
-						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
-						<f:selectItems value="#{generalController.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
-					</h:selectOneMenu>
-
+					<h:outputText value="#{defectosMB.defecto.proyecto_nombre}"/>
+					
 		            <h:outputLabel value="Descripcion del defecto: " />
-					<p:inputTextarea rows="3" cols="30" value="#{defectosMB.defecto.descripcion}" disabled = "#{!defectosMB.validar}"/>
+					<h:outputText value="#{defectosMB.defecto.descripcion}" rendered="#{!defectosMB.edit}"/>
+					<p:inputTextarea rows="3" cols="30" value="#{defectosMB.defecto.descripcion}" rendered="#{defectosMB.edit}"/>
 										
 		            <h:outputLabel value="Categoria: " />
-		            <h:selectOneMenu id="categoria" value="#{defectosMB.defecto.categoria_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+		            <h:outputText value="#{defectosMB.defecto.categoria_nombre}" rendered="#{!defectosMB.edit}"/>
+		            <h:selectOneMenu id="categoria" value="#{defectosMB.defecto.categoria_fk}"  rendered="#{defectosMB.edit}" displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
 						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 						<f:selectItems value="#{generalController.categoriasList}" var="cat" itemLabel="#{cat.categoria_nombre}" itemValue="#{cat.categoria_id}"/>
 					</h:selectOneMenu>
@@ -45,7 +45,7 @@
 		            <h:outputText value="#{defectosMB.defecto.reportero_fk.concat('-').concat(defectosMB.defecto.reportero_nombre)}" />
 					
 		            <h:outputLabel value="Fecha Creacion: " />
-		            <h:outputText value="#{defectosMB.defecto.fecha_creacion}" />
+   					<p:calendar id="dateCreacion" value="#{defectosMB.defecto.fecha_creacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true"/>
 					
 		            <h:outputLabel value="Estado: " />
 		            <h:selectOneMenu id="estado" value="#{defectosMB.defecto.estado_fk}"  displayValueOnly="true" disabled = "true">
