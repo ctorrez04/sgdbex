@@ -24,19 +24,19 @@
 			<p:panel id="basic" header="Defecto No. #{defectosMB.defecto.defecto_id}" style="margin-bottom:20px">
 		        <h:panelGrid columns="4" cellpadding="10">
 		            <h:outputLabel value="Asunto: " />
-					<h:outputText value="#{defectosMB.defecto.asunto}" rendered="#{!defectosMB.edit}"/>
-					<p:inputText value="#{defectosMB.defecto.asunto}" rendered="#{defectosMB.edit}" />
+					<h:outputText value="#{defectosMB.defecto.asunto}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
+					<p:inputText value="#{defectosMB.defecto.asunto}" rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}" />
 		            
 		            <h:outputLabel value="Proyecto: " />
 					<h:outputText value="#{defectosMB.defecto.proyecto_nombre}"/>
 					
 		            <h:outputLabel value="Descripcion del defecto: " />
-					<h:outputText value="#{defectosMB.defecto.descripcion}" rendered="#{!defectosMB.edit}"/>
-					<p:inputTextarea rows="3" cols="30" value="#{defectosMB.defecto.descripcion}" rendered="#{defectosMB.edit}"/>
+					<h:outputText value="#{defectosMB.defecto.descripcion}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
+					<p:inputTextarea rows="3" cols="30" value="#{defectosMB.defecto.descripcion}" rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}"/>
 										
 		            <h:outputLabel value="Categoria: " />
-		            <h:outputText value="#{defectosMB.defecto.categoria_nombre}" rendered="#{!defectosMB.edit}"/>
-		            <h:selectOneMenu id="categoria" value="#{defectosMB.defecto.categoria_fk}"  rendered="#{defectosMB.edit}" displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+		            <h:outputText value="#{defectosMB.defecto.categoria_nombre}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
+		            <h:selectOneMenu id="categoria" value="#{defectosMB.defecto.categoria_fk}"  rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}" displayValueOnly="true">
 						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 						<f:selectItems value="#{generalController.categoriasList}" var="cat" itemLabel="#{cat.categoria_nombre}" itemValue="#{cat.categoria_id}"/>
 					</h:selectOneMenu>
@@ -48,40 +48,42 @@
    					<p:calendar id="dateCreacion" value="#{defectosMB.defecto.fecha_creacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true"/>
 					
 		            <h:outputLabel value="Estado: " />
-		            <h:selectOneMenu id="estado" value="#{defectosMB.defecto.estado_fk}"  displayValueOnly="true" disabled = "true">
-						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
-						<f:selectItems value="#{generalController.estadosList}" var="esta" itemLabel="#{esta.estado_nombre}" itemValue="#{esta.estado_id}"/>
-					</h:selectOneMenu>
+		            <h:outputText value="#{defectosMB.defecto.estado_nombre}"/>
 					
 					<h:outputLabel value="Motivo: " />
-		            <h:selectOneMenu id="motivo" value="#{defectosMB.defecto.motivo_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.resolver}">
+					<h:outputText value="#{defectosMB.defecto.motivo_nombre}" rendered="#{defectosMB.botones or (!defectosMB.resolver and !defectosMB.rechazar)}"/>
+		            <h:selectOneMenu id="motivo" value="#{defectosMB.defecto.motivo_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and (defectosMB.resolver or defectosMB.rechazar)}">
 						<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 						<f:selectItems value="#{generalController.motivosList}" var="mot" itemLabel="#{mot.motivo_nombre}" itemValue="#{mot.motivo_id}"/>
 					</h:selectOneMenu>
 					
 		            <h:outputLabel value="Prioridad: " />
-					<h:selectOneMenu id="prioridad" value="#{defectosMB.defecto.prioridad_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+		            <h:outputText value="#{defectosMB.defecto.prioridad_tipo}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
+					<h:selectOneMenu id="prioridad" value="#{defectosMB.defecto.prioridad_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}">
 							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 							<f:selectItems value="#{generalController.prioridadesList}" var="pr" itemLabel="#{pr.prioridad_tipo}" itemValue="#{pr.prioridad_id}"/>
 					</h:selectOneMenu>
 					
 		            <h:outputLabel value="Impacto: " />
-					<h:selectOneMenu id="impacto" value="#{defectosMB.defecto.impacto_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+		            <h:outputText value="#{defectosMB.defecto.impacto_tipo}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
+					<h:selectOneMenu id="impacto" value="#{defectosMB.defecto.impacto_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}">
 							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 							<f:selectItems value="#{generalController.impactosList}" var="im" itemLabel="#{im.impacto_tipo}" itemValue="#{im.impacto_id}"/>
 					</h:selectOneMenu>
 					
 		            <h:outputLabel value="Urgencia: " />
-					<h:selectOneMenu id="urgencia" value="#{defectosMB.defecto.urgencia_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar and !defectosMB.validar}">
+		            <h:outputText value="#{defectosMB.defecto.urgencia_tipo}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
+					<h:selectOneMenu id="urgencia" value="#{defectosMB.defecto.urgencia_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}">
 							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 							<f:selectItems value="#{generalController.urgenciasList}" var="ur" itemLabel="#{ur.urgencia_tipo}" itemValue="#{ur.urgencia_id}"/>
 					</h:selectOneMenu>
 					
 		            <h:outputLabel value="Fecha Estimada: " />
-		            <p:calendar id="datetime" value="#{defectosMB.defecto.fecha_estimada}" pattern="dd/MM/yyyy HH:mm:ss" disabled="#{!defectosMB.asignar and !defectosMB.resolver and !defectosMB.validar}"/>
+		            <p:calendar id="datetime" value="#{defectosMB.defecto.fecha_estimada}" pattern="dd/MM/yyyy HH:mm:ss" disabled="#{defectosMB.botones or !defectosMB.editarAsignado}"/>
 					
 					<h:outputLabel value="Usuario Asignado" />
-		            <h:selectOneMenu id="asignado" value="#{defectosMB.defecto.responsable_fk}"  displayValueOnly="true" disabled = "#{!defectosMB.asignar}">
+					<h:outputText value="#{defectosMB.defecto.responsable_nombre}" rendered="#{defectosMB.botones or !defectosMB.asignar}"/>
+		            <h:selectOneMenu id="asignado" value="#{defectosMB.defecto.responsable_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and defectosMB.asignar}" >
 							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 							<f:selectItems value="#{defectosMB.usuariosAnalistas}" var="user" itemLabel="#{user.nombre_completo}" itemValue="#{user.carnet}"/>
 					</h:selectOneMenu>
@@ -96,24 +98,20 @@
 		            <p:calendar id="datetime_mod" value="#{defectosMB.defecto.fecha_modificacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true" />
 					
 					<h:outputLabel value="Comentarios: " />
-					<p:inputTextarea rows="6" cols="30" value="#{defectosMB.defecto.comentarios}" disabled="#{!defectosMB.editar and !defectosMB.asignar and !defectosMB.resolver and !defectosMB.validar}"/>
+					<p:inputTextarea rows="6" cols="30" value="#{defectosMB.defecto.comentarios}" disabled="#{defectosMB.botones}"/>
 		
-					<h:outputLabel for="adjuntar"  value="Anadir archivo adjuntos al defecto: " rendered="#{!defectosMB.resolver and !defectosMB.asignar}"/> <!-- rendered = #{defectosMB.puedeResolver()} -->
+					<h:outputLabel for="adjuntar"  value="Anadir archivo adjuntos al defecto: "/>
  					<p:fileUpload id="adjuntar" fileUploadListener="#{defectosMB.manejadorCargaArchivos}" mode="advanced"
- 					sizeLimit="2048000" fileLimit="3" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" rendered="#{!defectosMB.resolver and !defectosMB.asignar}" disabled="#{!defectosMB.resolver and !defectosMB.validar}"/>
+ 					sizeLimit="2048000" fileLimit="3" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" disabled="#{defectosMB.botones}"/>
 		            
-		            <f:facet name="footer">
-		            	<p:commandButton value="Editar Defecto" rendered="#{defectosMB.puedeEditar() and !defectosMB.editar}" update=":formDetalle" actionListener="#{defectosMB.opcEditar}"></p:commandButton>
-
-		            	<p:commandButton value="Asignar Defecto" rendered="#{defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'ASIGNADO')}"></p:commandButton>
-						<p:commandButton value="Resolver Defecto" rendered="#{defectosMB.resolver or defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'RESUELTO')}"></p:commandButton>
-						<p:commandButton value="Rechazar Defecto" rendered="#{defectosMB.resolver}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'RE-ABIERTO')}"></p:commandButton>
-						<p:commandButton value="Validar Defecto" rendered="#{defectosMB.validar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'CERRADO')}"></p:commandButton>
-						<p:commandButton value="Defecto No Resuelto" rendered="#{defectosMB.validar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto , 'RE-ABIERTO')}"></p:commandButton>
-						<p:commandButton value="Guardar Cambios" rendered="#{defectosMB.editar}" update=":formDetalle" actionListener="#{defectosMB.opcGuardarCambios(defectosMB.defecto)}"></p:commandButton>
-
-						<p:commandButton value="Cancelar" rendered="#{defectosMB.editar}" update=":formDetalle" actionListener="#{defectosMB.opcCancelar}"></p:commandButton>
-						<!--<p:commandButton value="Confirmar" rendered="#{defectosMB.validar or defectosMB.resolver or defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcCambiarEstado(defectosMB.defecto)}"></p:commandButton> -->
+		        	<f:facet name="footer">
+		            	<p:commandButton value="Editar" rendered="#{defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto or defectosMB.editarAsignado)}" update=":formDetalle" actionListener="#{defectosMB.opcEdit}"></p:commandButton>
+		            	<p:commandButton value="Asignar" rendered="#{defectosMB.botones and defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcAsignar}"></p:commandButton>
+						<p:commandButton value="Resuelto" rendered="#{defectosMB.botones and defectosMB.resolver}" update=":formDetalle" actionListener="#{defectosMB.opcResolver}"></p:commandButton>
+						<p:commandButton value="Rechazar" rendered="#{defectosMB.botones and defectosMB.rechazar}" update=":formDetalle" actionListener="#{defectosMB.opcRechazar}"></p:commandButton>
+						<p:commandButton value="Aceptar" rendered="#{defectosMB.botones and defectosMB.aceptar}" update=":formDetalle" actionListener="#{defectosMB.opcAceptar}"></p:commandButton>
+						<p:commandButton value="Guardar Cambios" rendered="#{defectosMB.opciones}" update=":formDetalle" actionListener="#{defectosMB.opcGuardar(defectosMB.defecto)}"></p:commandButton>
+						<p:commandButton value="Cancelar" rendered="#{defectosMB.opciones}" update=":formDetalle" actionListener="#{defectosMB.opcCancelar}"></p:commandButton>
 		        	</f:facet>
 		        </h:panelGrid>
 		        <h:panelGrid>

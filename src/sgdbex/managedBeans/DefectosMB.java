@@ -32,12 +32,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ComponentSystemEvent;
 
 import org.primefaces.event.FileUploadEvent;
@@ -45,6 +47,8 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import sgdbex.controllers.GeneralController;
@@ -57,19 +61,28 @@ import sgdbex.services.GeneralServices;
 		 
 @ManagedBean 
 @Service
-public class DefectosMB {		     
-    @Autowired
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
+@ViewScoped
+public class DefectosMB implements Serializable{		     
+    
+	private static final long serialVersionUID = 1L;
+	@Autowired
 	private GeneralServices gs;
     @Autowired
 	private GeneralController gc;
     @Autowired
 	public Menu m;
     
-    private boolean edit =false;
-    private boolean editar =false;
+    private boolean editarAbierto =false;
+    private boolean editarReabierto =false;
+    private boolean editarAsignado =false;
 	private boolean asignar =false;
 	private boolean validar =false;
 	private boolean resolver =false;
+	private boolean rechazar =false;
+	private boolean aceptar =false;
+	private boolean opciones =false;
+	private boolean botones =true;
 	
 	private String id;
 	
@@ -105,7 +118,24 @@ public class DefectosMB {
 	public void setHistorico(List<HistoricoEstados> historico) {
 		this.historico = historico;
 	}
-	
+	public boolean isEditarAbierto() {
+		return editarAbierto;
+	}
+	public void setEditarAbierto(boolean editarAbierto) {
+		this.editarAbierto = editarAbierto;
+	}
+	public boolean isEditarReabierto() {
+		return editarReabierto;
+	}
+	public void setEditarReabierto(boolean editarReabierto) {
+		this.editarReabierto = editarReabierto;
+	}
+	public boolean isEditarAsignado() {
+		return editarAsignado;
+	}
+	public void setEditarAsignado(boolean editarAsignado) {
+		this.editarAsignado = editarAsignado;
+	}
 	public boolean isAsignar() {
 		return asignar;
 	}
@@ -120,14 +150,6 @@ public class DefectosMB {
 
 	public void setResolver(boolean resolver) {
 		this.resolver = resolver;
-	}
-
-	public boolean isEditar() {
-		return editar;
-	}
-
-	public void setEditar(boolean editar) {
-		this.editar = editar;
 	}
 
 	public String getId() {
@@ -178,6 +200,14 @@ public class DefectosMB {
 		this.estadosList = estadosList;
 	}	
 	public void detalle(ComponentSystemEvent event){
+		/*edit =false;	    
+		asignar =false;
+		validar =false;
+		resolver =false;
+		rechazar =false;
+		aceptar =false;
+		opciones =false;
+		botones =true;*/
     	defecto=gs.getDetalleDefecto(Integer.parseInt(getId()));
     	historico = gs.getHistorico(Integer.parseInt(getId()));
     	adjuntosList = new ArrayList<ArchivosAdjuntos>();
@@ -192,73 +222,142 @@ public class DefectosMB {
     	System.out.println("id defecto: "+getId());
 		System.out.println("tamano historico" + historico.size());
 		System.out.println("tamano adjuntos" + adjuntosList.size());
+		if(!opciones){
+			switch(defecto.getEstado_nombre()){
+				case "ABIERTO" :
+					if(m.getCarnet().equals(defecto.getReportero_fk())) //Puede editar si es el usuario que creo el defecto
+						this.editarAbierto=true;
+					if(m.getCarnet().equals(defecto.getResponsable_fk()) || m.getCarnet().equals(defecto.getProyecto_lider())){ //En este instante el lider es el responsable, el debe asignar
+						this.asignar=true;
+						this.resolver=true;
+					}
+					if(m.getPerfil().equals("ADMINISTRADOR")){
+						this.editarAbierto=true;
+						this.asignar=true;
+						this.resolver=true;
+					}
+					break;
+				case "ASIGNADO" :
+					if(m.getCarnet().equals(defecto.getResponsable_fk())){ //El usuario responsable puede resolver el defecto
+						this.editarAsignado=true;
+						this.resolver=true;
+						this.rechazar=true;
+					}
+					if(m.getCarnet().equals(defecto.getProyecto_lider())){ //Si soy el lider puedo editar el usuario asignado
+						this.editarAsignado=true;
+					}
+					if(m.getPerfil().equals("ADMINISTRADOR")){
+						this.editarAsignado=true;
+						this.rechazar=true;
+						this.resolver=true;
+					}
+					break;
+				case "RESUELTO" :
+					if(m.getCarnet().equals(defecto.getReportero_fk()) || m.getPerfil().equals("ADMINISTRADOR")){ //Puede editar si es el usuario que creo el defecto
+						this.rechazar=true;
+						this.aceptar=true;
+					}
+					break;
+				case "CERRADO" :
+					this.botones=false;
+					this.opciones=false;
+					break;
+				case "RE-ABIERTO" :
+					if(m.getCarnet().equals(defecto.getProyecto_lider()) || m.getPerfil().equals("ADMINISTRADOR")){ //Si soy el lider puedo editar el usuario asignado
+						this.editarReabierto=true;
+						this.asignar=true;
+						this.resolver=true;
+					}
+					break;
+			}
+		}
+		System.out.println("botones" + botones);
     }
-	public void opcEditar() {
-		this.edit = true;
-	    this.editar = !this.editar;
-		this.asignar = puedeAsignar();
-		this.resolver = puedeResolver();
-		this.validar = puedeValidar();
-	}
-	public void opcValidar() {
-	    this.validar = !this.validar ;
-	}
-	public void opcAsignar() {
-	    this.asignar = !this.asignar ;
-	}
-	public void opcResolver() {
-	    this.resolver = !this.resolver ;
-	}
 	
-	public void opcCancelar() {
-		this.edit =false;
-		this.editar =false;
-		this.asignar =false;
-		this.validar =false;
-		this.resolver =false;
+	public void opcEdit(){
+		this.opciones=true;
+		this.botones=false;
+		this.rechazar=false;
+		this.aceptar=false;
+		this.asignar=false;
+		this.resolver=false;
+		this.editarAbierto=false;
+		this.editarReabierto=false;
+		this.editarAsignado=false;
 	}
-	public boolean puedeAsignar() {
-		if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR")
-				&& (defecto.getEstado_nombre().equalsIgnoreCase("ABIERTO") || defecto.getEstado_nombre().equalsIgnoreCase("RE-ABIERTO")))
-			return true;
-		if(m.getPerfil().equalsIgnoreCase("LIDER") && 
-			(defecto.getEstado_nombre().equalsIgnoreCase("ABIERTO") || defecto.getEstado_nombre().equalsIgnoreCase("RE-ABIERTO")))
-		{
-			return true;
-		}
-		return false;
+	public void opcAsignar(){
+		this.opciones=true;
+		this.botones=false;
+		this.rechazar=false;
+		this.aceptar=false;
+		this.asignar=true;
+		this.resolver=false;
+		this.editarAbierto=false;
+		this.editarReabierto=false;
+		this.editarAsignado=false;
 	}
-	public boolean puedeValidar() {
-		if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR") && defecto.getEstado_nombre().equalsIgnoreCase("RESUELTO"))
-			return true;
-		if(defecto.getReportero_fk().equals(m.getCarnet()) && defecto.getEstado_nombre().equalsIgnoreCase("RESUELTO"))
-		{
-			return true;
-		}
-		return false;
+	public void opcResolver(){
+		this.opciones=true;
+		this.botones=false;
+		this.rechazar=false;
+		this.aceptar=false;
+		this.asignar=false;
+		this.resolver=true;
+		this.editarAbierto=false;
+		this.editarReabierto=false;
+		this.editarAsignado=false;
 	}
-	public boolean puedeResolver() {
-		if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR") && defecto.getEstado_nombre().equalsIgnoreCase("ASIGNADO")){
-			return true;
-			}
-		if(defecto.getResponsable_fk() !=null && defecto.getResponsable_fk().equals(m.getCarnet()) && defecto.getEstado_nombre().equalsIgnoreCase("ASIGNADO")){
-			return true;
-		}
-		return false;
+	public void opcRechazar(){
+		this.opciones=true;
+		this.botones=false;
+		this.rechazar=true;
+		this.aceptar=false;
+		this.asignar=false;
+		this.resolver=false;
+		this.editarAbierto=false;
+		this.editarReabierto=false;
+		this.editarAsignado=false;
 	}
-	public boolean puedeEditar() {
-		if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR") && defecto.getEstado_nombre().equalsIgnoreCase("ABIERTO"))
-			return true;
-		else if(defecto.getReportero_fk().equals(m.getCarnet()) && defecto.getEstado_nombre().equalsIgnoreCase("ABIERTO") )
-			{
-			return true;
-			}
-			else if(puedeResolver() || puedeAsignar() || puedeValidar()){
-				return true;
-			}
-		return false;
+	public void opcAceptar(){
+		this.opciones=true;
+		this.botones=false;
+		this.rechazar=false;
+		this.aceptar=true;
+		this.asignar=false;
+		this.resolver=false;
+		this.editarAbierto=false;
+		this.editarReabierto=false;
+		this.editarAsignado=false;
 	}
-	
+	public void opcCancelar(){
+		this.opciones=false;
+		this.rechazar=false;
+		this.aceptar=false;
+		this.asignar=false;
+		this.resolver=false;
+		this.editarAbierto=false;
+		this.editarReabierto=false;
+		this.editarAsignado=false;
+		this.botones=true;
+	}
+	public void opcGuardar(Object objeto){
+		if(editarAbierto || editarReabierto || editarAsignado)
+			opcGuardarCambios(objeto);
+		if(asignar) opcCambiarEstado(objeto, "ASIGNADO");
+		if(rechazar) opcCambiarEstado(objeto, "RE-ABIERTO");
+		if(aceptar) opcCambiarEstado(objeto, "CERRADO");
+		if(resolver) opcCambiarEstado(objeto, "RESUELTO");
+		this.opciones=false;
+		this.rechazar=false;
+		this.aceptar=false;
+		this.asignar=false;
+		this.resolver=false;
+		this.editarAbierto=false;
+		this.editarReabierto=false;
+		this.editarAsignado=false;
+		this.botones=true;
+	}
+		
 	public List<UploadedFile> getAdjuntosSolucion() {
 		return adjuntosSolucion;
 	}
@@ -267,8 +366,6 @@ public class DefectosMB {
 		this.adjuntosSolucion = adjuntosSolucion;
 	}
     public void manejadorCargaArchivos(FileUploadEvent event) {
-//        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-//        FacesContext.getCurrentInstance().addMessage(null, message);
         boolean b= adjuntosSolucion.add(event.getFile());
         System.out.println("¿Inserto bien el archivo? "+b);
         System.out.println(adjuntosSolucion.size());
@@ -315,7 +412,7 @@ public class DefectosMB {
     }
 
 	public void opcGuardarCambios(Object objeto) {
-	    this.editar =false;
+	    //this.editar =false;
 		this.asignar =false;
 		this.validar =false;
 		this.resolver =false;
@@ -344,7 +441,7 @@ public class DefectosMB {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				this.editar =false;
+			//	this.editar =false;
 				this.asignar =false;
 				this.validar =false;
 				this.resolver =false;
@@ -407,7 +504,7 @@ public class DefectosMB {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				this.editar =false;
+				//this.editar =false;
 				this.asignar =false;
 				this.validar =false;
 				this.resolver =false;
@@ -421,11 +518,30 @@ public class DefectosMB {
 		InputStream stream = new FileInputStream(adjuntos.getArchivo_ubicacion());
         archivo = new DefaultStreamedContent(stream, adjuntos.getArchivo_formato(), adjuntos.getArchivo_nombre());
     }
-	public boolean isEdit() {
-		return edit;
+	
+	public boolean isRechazar() {
+		return rechazar;
 	}
-	public void setEdit(boolean edit) {
-		this.edit = edit;
+	public void setRechazar(boolean rechazar) {
+		this.rechazar = rechazar;
+	}
+	public boolean isAceptar() {
+		return aceptar;
+	}
+	public void setAceptar(boolean aceptar) {
+		this.aceptar = aceptar;
+	}
+	public boolean isOpciones() {
+		return opciones;
+	}
+	public void setOpciones(boolean opciones) {
+		this.opciones = opciones;
+	}
+	public boolean isBotones() {
+		return botones;
+	}
+	public void setBotones(boolean botones) {
+		this.botones = botones;
 	}
 
 }

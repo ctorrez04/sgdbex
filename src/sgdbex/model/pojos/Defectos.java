@@ -60,6 +60,7 @@ public class Defectos {
     
 	private String proyecto_nombre;
 	private String proyecto_descripcion;
+	private String proyecto_lider;
     
 	private String categoria_nombre;
 //	private String categoria_descripcion;
@@ -100,6 +101,7 @@ public class Defectos {
 		this.estado_descripcion = "";
 		this.proyecto_nombre = "";
 		this.proyecto_descripcion = "";
+		this.proyecto_lider = "";
 		this.categoria_nombre = "";
 		this.direccionIp = "";
 		this.modulo = "";
@@ -350,6 +352,14 @@ public class Defectos {
 		this.motivo_nombre = motivo_nombre;
 	}
 	
+	public String getProyecto_lider() {
+		return proyecto_lider;
+	}
+
+	public void setProyecto_lider(String proyecto_lider) {
+		this.proyecto_lider = proyecto_lider;
+	}
+
 	@Override
 	public String toString() {
 		return "Defectos [defecto_id=" + defecto_id + ", asunto=" + asunto
@@ -369,6 +379,7 @@ public class Defectos {
 				+ ", urgencia_tipo=" + urgencia_tipo + ", estado_nombre="
 				+ estado_nombre + ", estado_descripcion=" + estado_descripcion
 				+ ", proyecto_nombre=" + proyecto_nombre
+				+ ", proyecto_lider=" + proyecto_lider
 				+ ", proyecto_descripcion=" + proyecto_descripcion
 				+ ", categoria_nombre=" + categoria_nombre + ", direccionIp="
 				+ direccionIp + ", modulo=" + modulo + ", accion=" + accion

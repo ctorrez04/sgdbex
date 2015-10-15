@@ -23,6 +23,9 @@
 	<bean id="menu" class="sgdbex.managedBeans.Menu" scope="session">
     	<aop:scoped-proxy/>
 	</bean>
+	<bean id="defectosMB" class="sgdbex.managedBeans.DefectosMB" scope="session">
+    	<aop:scoped-proxy/>
+	</bean>
 
 	<!-- User DAO Declaration -->
 
