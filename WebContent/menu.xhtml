@@ -132,11 +132,11 @@
 				<p:menuitem value="ASIGNAR DEFECTOS" rendered="#{menu.mostrar('DEFECTOS','ASIGNAR')}" actionListener="#{generalController.defectosPorAsignar}" />
 				
 			</p:submenu>
-
-			<p:submenu label="REPORTES" rendered="#{menu.mostrar('MENU','REPORTES')}" icon="fa fa-table">
+			<p:menuitem value="REPORTES" rendered="#{menu.mostrar('MENU','REPORTES')}" icon="fa fa-table" actionListener="#{reportesController.reportesGeneral}"/>
+			<!--  <p:submenu label="REPORTES" rendered="#{menu.mostrar('MENU','REPORTES')}" icon="fa fa-table">
 				<p:menuitem value="GENERAL" rendered="#{menu.mostrar('REPORTES','GENERAL')}" actionListener="#{reportesController.reportesGeneral}"/>
 				<p:menuitem value="PERSONAL" url="#" rendered="#{menu.mostrar('REPORTES','PERSONAL')}"/>
-			</p:submenu>
+			</p:submenu>-->
 			
 			<p:submenu label="ADMINISTRACION" rendered="#{menu.mostrar('MENU','ADMINISTRACION')}" icon="fa fa-wrench">
 				<p:menuitem value="PROYECTOS" url="/ModuloProyectos" rendered="#{menu.mostrar('ADMINISTRACION','PROYECTOS')}"/>

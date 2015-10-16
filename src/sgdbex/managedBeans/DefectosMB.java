@@ -40,6 +40,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 
 import org.primefaces.event.FileUploadEvent;
@@ -199,79 +200,79 @@ public class DefectosMB implements Serializable{
 	public void setEstadosList(List<Estados> estadosList) {
 		this.estadosList = estadosList;
 	}	
-	public void detalle(ComponentSystemEvent event){
-		/*edit =false;	    
-		asignar =false;
-		validar =false;
-		resolver =false;
-		rechazar =false;
-		aceptar =false;
-		opciones =false;
-		botones =true;*/
-    	defecto=gs.getDetalleDefecto(Integer.parseInt(getId()));
-    	historico = gs.getHistorico(Integer.parseInt(getId()));
-    	adjuntosList = new ArrayList<ArchivosAdjuntos>();
-    	adjuntosList=defecto.getAdjuntos();
-    	imagenes = new ArrayList<String>();
-        for (int i = 0; i < adjuntosList.size(); i++) {
-            imagenes.add(adjuntosList.get(i).getArchivo_ubicacion());
-        }
-    	setUsuariosAnalistas(gs.getUsuariosPorProyecto(defecto.getProyecto_fk().toString()));
-    	//obtener siguientes estados de defecto
-    	setEstadosList(gs.obtenerEstados());
-    	System.out.println("id defecto: "+getId());
-		System.out.println("tamano historico" + historico.size());
-		System.out.println("tamano adjuntos" + adjuntosList.size());
-		if(!opciones){
-			switch(defecto.getEstado_nombre()){
-				case "ABIERTO" :
-					if(m.getCarnet().equals(defecto.getReportero_fk())) //Puede editar si es el usuario que creo el defecto
-						this.editarAbierto=true;
-					if(m.getCarnet().equals(defecto.getResponsable_fk()) || m.getCarnet().equals(defecto.getProyecto_lider())){ //En este instante el lider es el responsable, el debe asignar
-						this.asignar=true;
-						this.resolver=true;
-					}
-					if(m.getPerfil().equals("ADMINISTRADOR")){
-						this.editarAbierto=true;
-						this.asignar=true;
-						this.resolver=true;
-					}
-					break;
-				case "ASIGNADO" :
-					if(m.getCarnet().equals(defecto.getResponsable_fk())){ //El usuario responsable puede resolver el defecto
-						this.editarAsignado=true;
-						this.resolver=true;
-						this.rechazar=true;
-					}
-					if(m.getCarnet().equals(defecto.getProyecto_lider())){ //Si soy el lider puedo editar el usuario asignado
-						this.editarAsignado=true;
-					}
-					if(m.getPerfil().equals("ADMINISTRADOR")){
-						this.editarAsignado=true;
-						this.rechazar=true;
-						this.resolver=true;
-					}
-					break;
-				case "RESUELTO" :
-					if(m.getCarnet().equals(defecto.getReportero_fk()) || m.getPerfil().equals("ADMINISTRADOR")){ //Puede editar si es el usuario que creo el defecto
-						this.rechazar=true;
-						this.aceptar=true;
-					}
-					break;
-				case "CERRADO" :
-					this.botones=false;
-					this.opciones=false;
-					break;
-				case "RE-ABIERTO" :
-					if(m.getCarnet().equals(defecto.getProyecto_lider()) || m.getPerfil().equals("ADMINISTRADOR")){ //Si soy el lider puedo editar el usuario asignado
-						this.editarReabierto=true;
-						this.asignar=true;
-						this.resolver=true;
-					}
-					break;
+	public void detalle(ComponentSystemEvent event) throws IOException{
+		try {
+			if(getId() == null || getId().isEmpty()){
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/error.jsf");
 			}
-		}
-		System.out.println("botones" + botones);
+	        Integer idUrl=Integer.parseInt(getId());
+	    
+	    	defecto=gs.getDetalleDefecto(idUrl);
+	    	historico = gs.getHistorico(idUrl);
+	    	adjuntosList = new ArrayList<ArchivosAdjuntos>();
+	    	adjuntosList=defecto.getAdjuntos();
+	    	imagenes = new ArrayList<String>();
+	        for (int i = 0; i < adjuntosList.size(); i++) {
+	            imagenes.add(adjuntosList.get(i).getArchivo_ubicacion());
+	        }
+	    	setUsuariosAnalistas(gs.getUsuariosPorProyecto(defecto.getProyecto_fk().toString()));
+	    	//obtener siguientes estados de defecto
+	    	setEstadosList(gs.obtenerEstados());
+	    	System.out.println("id defecto: "+getId());
+			System.out.println("tamano historico" + historico.size());
+			System.out.println("tamano adjuntos" + adjuntosList.size());
+			if(!opciones){
+				switch(defecto.getEstado_nombre()){
+					case "ABIERTO" :
+						if(m.getCarnet().equals(defecto.getReportero_fk())) //Puede editar si es el usuario que creo el defecto
+							this.editarAbierto=true;
+						if(m.getCarnet().equals(defecto.getResponsable_fk()) || m.getCarnet().equals(defecto.getProyecto_lider())){ //En este instante el lider es el responsable, el debe asignar
+							this.asignar=true;
+							this.resolver=true;
+						}
+						if(m.getPerfil().equals("ADMINISTRADOR")){
+							this.editarAbierto=true;
+							this.asignar=true;
+							this.resolver=true;
+						}
+						break;
+					case "ASIGNADO" :
+						if(m.getCarnet().equals(defecto.getResponsable_fk())){ //El usuario responsable puede resolver el defecto
+							this.editarAsignado=true;
+							this.resolver=true;
+							this.rechazar=true;
+						}
+						if(m.getCarnet().equals(defecto.getProyecto_lider())){ //Si soy el lider puedo editar el usuario asignado
+							this.editarAsignado=true;
+						}
+						if(m.getPerfil().equals("ADMINISTRADOR")){
+							this.editarAsignado=true;
+							this.rechazar=true;
+							this.resolver=true;
+						}
+						break;
+					case "RESUELTO" :
+						if(m.getCarnet().equals(defecto.getReportero_fk()) || m.getPerfil().equals("ADMINISTRADOR")){ //Puede editar si es el usuario que creo el defecto
+							this.rechazar=true;
+							this.aceptar=true;
+						}
+						break;
+					case "CERRADO" :
+						this.botones=false;
+						this.opciones=false;
+						break;
+					case "RE-ABIERTO" :
+						if(m.getCarnet().equals(defecto.getProyecto_lider()) || m.getPerfil().equals("ADMINISTRADOR")){ //Si soy el lider puedo editar el usuario asignado
+							this.editarReabierto=true;
+							this.asignar=true;
+							this.resolver=true;
+						}
+						break;
+				}
+			}
+		}catch(NumberFormatException ex){
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/error.jsf"); 
+	    }
     }
 	
 	public void opcEdit(){
@@ -281,9 +282,6 @@ public class DefectosMB implements Serializable{
 		this.aceptar=false;
 		this.asignar=false;
 		this.resolver=false;
-		this.editarAbierto=false;
-		this.editarReabierto=false;
-		this.editarAsignado=false;
 	}
 	public void opcAsignar(){
 		this.opciones=true;
@@ -341,7 +339,7 @@ public class DefectosMB implements Serializable{
 		this.botones=true;
 	}
 	public void opcGuardar(Object objeto){
-		if(editarAbierto || editarReabierto || editarAsignado)
+		if(this.editarAbierto || this.editarReabierto || this.editarAsignado)
 			opcGuardarCambios(objeto);
 		if(asignar) opcCambiarEstado(objeto, "ASIGNADO");
 		if(rechazar) opcCambiarEstado(objeto, "RE-ABIERTO");
