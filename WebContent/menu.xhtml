@@ -19,10 +19,10 @@
 		console.log("voy a limpiar nuevamente");
 		$("#formDefecto").find('input:text, input:password, input:file, textarea').val('');
 		$("#formDefecto").find('select').val('0');
+		refreshContentBody();
 		PF('dlgx').hide();
 	}
 	function clickHiddenButton(){
-		console.log("\nBandera");
 		myCommand();
 		PF('dlgx').show();
 	}
@@ -88,7 +88,8 @@
 	</p:dialog>
 	<h:form id="form">
 		<p:remoteCommand name="myCommand" actionListener="#{generalController.reload}" update="@([id$=formDefecto])" style="display: none;" />
-		<p:remoteCommand name="refreshContentBody" update="@([id$=contentBody])" style="display: none;" />
+		<p:remoteCommand name="refreshContentBody" listener="#{generalController.reloadPage}" style="display: none;" />
+
 		<p:menubar id="menu">
 			<p:menuitem value="INICIO" rendered="#{menu.mostrar('DEFECTOS','MOSTRAR')}" icon="fa fa-home" url="/Principal" />
 			<p:menuitem value="REGISTRAR DEFECTO" rendered="#{menu.mostrar('DEFECTOS','REPORTAR')}" icon="fa fa-bug" onclick="clickHiddenButton();"/>
@@ -156,8 +157,8 @@
 	function redirect() {
 		//var url = 'http://localhost:8080/sgdbex/login.jsf';
 		var url = 'http://localhost:8080/sgdbex/Autenticacion';
-		window.href("/Autenticacion");
-		//window.location.replace(url);
+		//window.href("/Autenticacion");
+		window.location.replace(url);
 	      }
     </script>
 	

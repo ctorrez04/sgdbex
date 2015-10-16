@@ -341,12 +341,14 @@ public class DefectosMB implements Serializable{
 		this.botones=true;
 	}
 	public void opcGuardar(Object objeto){
+		System.out.println(this.editarAbierto+" "+ this.editarReabierto +" "+ this.editarAsignado);
+		System.out.println(this.asignar+" "+ this.rechazar +" "+ this.aceptar+" "+ this.resolver);
 		if(this.editarAbierto || this.editarReabierto || this.editarAsignado)
 			opcGuardarCambios(objeto);
-		if(asignar) opcCambiarEstado(objeto, "ASIGNADO");
-		if(rechazar) opcCambiarEstado(objeto, "RE-ABIERTO");
-		if(aceptar) opcCambiarEstado(objeto, "CERRADO");
-		if(resolver) opcCambiarEstado(objeto, "RESUELTO");
+		if(this.asignar) opcCambiarEstado(objeto, "ASIGNADO");
+		if(this.rechazar) opcCambiarEstado(objeto, "RE-ABIERTO");
+		if(this.aceptar) opcCambiarEstado(objeto, "CERRADO");
+		if(this.resolver) opcCambiarEstado(objeto, "RESUELTO");
 		this.opciones=false;
 		this.rechazar=false;
 		this.aceptar=false;
@@ -471,6 +473,8 @@ public class DefectosMB implements Serializable{
 		if(isValidar()) return "VALIDAR";
 		if(isAsignar()) return "ASIGNAR";
 		if(isResolver()) return "RESOLVER";
+		if(isRechazar()) return "RECHAZAR";
+		if(isAceptar()) return "CERRAR";
 		return null;
 	}
 	private Integer buscarIdEstado(String nombre){
@@ -499,8 +503,8 @@ public class DefectosMB implements Serializable{
 			}
     		archivosResolucion(d);
     	//	System.out.println("Soy de Defectos cambiar estaos" + d.toString());
-        	//String mensaje = gs.cambiarEstadoDefectos(d);
-            /*if(mensaje.equalsIgnoreCase("fallo")){
+        	String mensaje = gs.cambiarEstadoDefectos(d);
+            if(mensaje.equalsIgnoreCase("fallo")){
             	System.out.println("Fallo al cambiar estatus");
             }else{
     			try {
@@ -516,7 +520,7 @@ public class DefectosMB implements Serializable{
 				this.resolver =false;
             	defecto=gs.getDetalleDefecto(Integer.parseInt(getId()));
 //            	gs.defectosList =  gs.getAllDefectos();
-            }*/
+            }
     	}
 	}
 	public void descargarArchivo(Object objeto) throws FileNotFoundException {

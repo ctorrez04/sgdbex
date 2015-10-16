@@ -82,8 +82,8 @@
 		            <p:calendar id="datetime" value="#{defectosMB.defecto.fecha_estimada}" pattern="dd/MM/yyyy HH:mm:ss" disabled="#{defectosMB.botones or !defectosMB.editarAsignado}"/>
 					
 					<h:outputLabel value="Usuario Asignado" />
-					<h:outputText value="#{defectosMB.defecto.responsable_nombre}" rendered="#{defectosMB.botones or !defectosMB.asignar}"/>
-		            <h:selectOneMenu id="asignado" value="#{defectosMB.defecto.responsable_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and defectosMB.asignar}" >
+					<h:outputText value="#{defectosMB.defecto.responsable_nombre}" rendered="#{defectosMB.botones or (!defectosMB.asignar and !defectosMB.editarAsignado)}"/>
+		            <h:selectOneMenu id="asignado" value="#{defectosMB.defecto.responsable_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and (defectosMB.asignar or defectosMB.editarAsignado)}" >
 							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 							<f:selectItems value="#{defectosMB.usuariosAnalistas}" var="user" itemLabel="#{user.nombre_completo}" itemValue="#{user.carnet}"/>
 					</h:selectOneMenu>
