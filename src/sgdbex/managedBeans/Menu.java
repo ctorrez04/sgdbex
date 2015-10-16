@@ -165,21 +165,19 @@ public class Menu implements Serializable{
     }
     
     public void estaLogueado(ComponentSystemEvent event){
-    	//System.out.println("Entre antes de loguear... ");
     	FacesContext context = FacesContext.getCurrentInstance();  
     	HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
     	HttpSession sesion = ((HttpServletRequest) request).getSession();
     	ppalMB.ReinicializarBooleanos();
 
     	if(sesion.getAttribute("logged")==null){
-    		System.out.println("muero aca ");
     		RequestContext contexto = RequestContext.getCurrentInstance();
     		contexto.execute("PF('dlg1').show();");
     	}else{
     		if(sesion.getAttribute("logged")==null || sesion.getAttribute("logged").equals("no")){
 		    	sesion.setAttribute("initlogin", "no");
+		    	sesion.setAttribute("perfil", "");
 		    	String logged = sesion.getAttribute("logged").toString();
-		    	System.out.println("logged "+logged);
 		    	/*Este if es para cuando el usuario se loguea y luego presiona el boton "cerrar sesion" y el
 		    	atributo "logged" es seteado a "no", por lo que si se coloca la url "http://localhost:8080/sgdbex/principal.jsf"
 		    	cuando la app nos re-direcciona al login.jsf entra en esta validacion.*/
@@ -192,18 +190,15 @@ public class Menu implements Serializable{
 					}
 		    	}
     		}else{
-    			System.out.println("voy cargarusuario ");
     	    	CargarUsuario u = (CargarUsuario)sesion.getAttribute("usuario");
     	    	if(sesion.getAttribute("usuario")!=null) //Escoger entre ambas formas de adquirir los datos del usuario especificadas en el constructor de la clase, i.e, atributo "usuario"(nombreusuario del XML) o "user" (nombreusuario que ingresa por interfaz login.xhtml)
     	        {
-    	    			System.out.println("muerousuario ");
     					nombre=u.getNombre();
     					carnet=u.getCarnet();
     					email=u.getEmail();
     					departamento=u.getDepartamento();
     					perfil=u.getPerfil();
     	        }
-    	    	System.out.println("muero algo nulo ");
     	    	if(perfil != null && carnet != null){
     				System.out.println("sacando proyectos de usuario por perfil: "+perfil+" carnet: "+carnet);
 //    				proyectosUsuarioList = gs.getProyectosPorUsuario(perfil, carnet);
@@ -233,12 +228,6 @@ public class Menu implements Serializable{
     	HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
     	HttpSession sesion = ((HttpServletRequest) request).getSession();
     	if(sesion.getAttribute("logged")==null){
-    		/*try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/login.jsf");
-
-			} catch (IOException e) {
-				e.getMessage();
-			}*/
     		return true;
     	}else{
 		    CargarUsuario u = (CargarUsuario)sesion.getAttribute("usuario");
