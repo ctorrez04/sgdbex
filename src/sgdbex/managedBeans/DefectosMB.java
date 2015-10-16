@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.servlet.ServletContext;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -364,10 +366,12 @@ public class DefectosMB implements Serializable{
 		this.adjuntosSolucion = adjuntosSolucion;
 	}
     public void manejadorCargaArchivos(FileUploadEvent event) {
-        boolean b= adjuntosSolucion.add(event.getFile());
+    	System.out.println("\nEntre ");
+        boolean b= this.adjuntosSolucion.add(event.getFile());
         System.out.println("¿Inserto bien el archivo? "+b);
         System.out.println(adjuntosSolucion.size());
     }
+    
 	public void archivosResolucion(Defectos d){
 		System.out.println("entre a archivos resolucion ");
 		if(adjuntosSolucion!= null) {
@@ -375,15 +379,19 @@ public class DefectosMB implements Serializable{
 	    	List<ArchivosAdjuntos> archAdjuntos=new ArrayList<ArchivosAdjuntos>();
 	    	for(int i=0;i<adjuntosSolucion.size();i++){
 	        	try {
-	                String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosSolucion.get(i).getFileName();
-	                System.out.println(adjuntosSolucion.get(i).getFileName());
+					//String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosSolucion.get(i).getFileName();
+	        		//String directorioPath = System.getProperty("user.dir").replaceAll("\\\\", "/");
+	        		String raiz = "C:/workspace/sgdbex/WebContent/Archivos_Adjuntos/";
+	                String directorio = raiz + adjuntosSolucion.get(i).getFileName();
+	                System.out.println(directorio);
+	                /*System.out.println(adjuntosSolucion.get(i).getFileName());
 	                System.out.println(adjuntosSolucion.get(i).getContentType());
-	                System.out.println(adjuntosSolucion.get(i).getSize());
+	                System.out.println(adjuntosSolucion.get(i).getSize());*/
 	                ArchivosAdjuntos adjuntos = new ArchivosAdjuntos();
 	                adjuntos.setArchivo_nombre(adjuntosSolucion.get(i).getFileName());
 	                adjuntos.setArchivo_formato(adjuntosSolucion.get(i).getContentType());
 	                adjuntos.setArchivo_tipo('S');
-	                adjuntos.setArchivo_ubicacion(directorio);
+	                adjuntos.setArchivo_ubicacion(raiz+URLEncoder.encode(adjuntosSolucion.get(i).getFileName().toString(), "UTF-8"));
 	                adjuntos.setArchivo_tamano(Long.toString(adjuntosSolucion.get(i).getSize()));
 	                adjuntos.setArchivo_usuario_creacion(m.getNombre());
 	                archAdjuntos.add(adjuntos);
@@ -491,8 +499,8 @@ public class DefectosMB implements Serializable{
 			}
     		archivosResolucion(d);
     	//	System.out.println("Soy de Defectos cambiar estaos" + d.toString());
-        	String mensaje = gs.cambiarEstadoDefectos(d);
-            if(mensaje.equalsIgnoreCase("fallo")){
+        	//String mensaje = gs.cambiarEstadoDefectos(d);
+            /*if(mensaje.equalsIgnoreCase("fallo")){
             	System.out.println("Fallo al cambiar estatus");
             }else{
     			try {
@@ -508,7 +516,7 @@ public class DefectosMB implements Serializable{
 				this.resolver =false;
             	defecto=gs.getDetalleDefecto(Integer.parseInt(getId()));
 //            	gs.defectosList =  gs.getAllDefectos();
-            }
+            }*/
     	}
 	}
 	public void descargarArchivo(Object objeto) throws FileNotFoundException {

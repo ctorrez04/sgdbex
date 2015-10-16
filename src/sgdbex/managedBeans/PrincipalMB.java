@@ -24,9 +24,11 @@ código e incluir la nueva, documentando la fecha de la sustitución.
 ***************************************************************************************************************/
 package sgdbex.managedBeans;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,14 +199,10 @@ public class PrincipalMB {
 		titulo3="";
 		titulo4="";
 		String proyectos = gc.getFiltro_proyecto();
-		if(proyectos == null || (proyectos != null && proyectos.equals("0"))){
+		if(proyectos == null  || (proyectos != null && proyectos.equals("0"))){
 			proyectos = gc.buscarEnProyectos(m.getProyectosUsuarioList());
 		}
-		/*if(proyectos.equals("0")){
-			//Son todos los proyectos relacionados al usuario, entonces hago un concat de la lista de proyectos
-			proyectos = gc.buscarEnProyectos(m.getProyectosUsuarioList());
-		}*/
-		if (proyectos !=null){
+		if (proyectos !=null && !proyectos.isEmpty()){
 			if(m.getPerfil().equalsIgnoreCase("ADMINISTRADOR")){
 				title1=false;
 				title2=false;
@@ -256,6 +254,13 @@ public class PrincipalMB {
 				setLista4(gs.getDefectosCerrados(m.getCarnet(), m.getPerfil(), proyectos));
 			}
 		}
+/*		else{
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/sgdbex/Autenticacion");
+			} catch (IOException e) {
+				e.getMessage();
+			}
+		}*/
 	}
 	public void cargarDatosAjax(){
 		cargarDatos(null);

@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 
 import beca.correo.Cartero;
@@ -31,8 +35,10 @@ import sgdbex.model.pojos.*;
 @ManagedBean
 @ViewScoped
 @Controller
-public class GeneralController{
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
+public class GeneralController implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private GeneralServices gs;
@@ -395,20 +401,23 @@ public class GeneralController{
     		mensaje = gs.createDefectos(d);
     		System.out.println("mensaje "+mensaje);
     		if(!mensaje.equalsIgnoreCase("fallo")){
-    			try {
+    			/*try {
 					invocarBeca(gs.enviarNotificacionDefectoCreado(Integer.valueOf(mensaje)));
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}*/
     		}
             if(adjuntosList != null && !mensaje.equalsIgnoreCase("fallo")) {
             	List<ArchivosAdjuntos> archAdjuntos=new ArrayList<ArchivosAdjuntos>();
             	for(int i=0;i<adjuntosList.size();i++){
             		System.out.println("Agregando");
                 	try {
-                        String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
+                        //String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
+                		String raiz = "C:/workspace/sgdbex/WebContent/Archivos_Adjuntos/" ;
+                		String directorio = raiz+ adjuntosList.get(i).getFileName();
+                        System.out.println(directorio);
                         System.out.println(adjuntosList.get(i).getFileName());
                         System.out.println(adjuntosList.get(i).getContentType());
                         System.out.println(adjuntosList.get(i).getSize());
@@ -416,7 +425,7 @@ public class GeneralController{
                         adjuntos.setArchivo_nombre(adjuntosList.get(i).getFileName());
                         adjuntos.setArchivo_formato(adjuntosList.get(i).getContentType());
                         adjuntos.setArchivo_tipo('A');
-                        adjuntos.setArchivo_ubicacion(directorio);
+                        adjuntos.setArchivo_ubicacion(raiz+URLEncoder.encode(adjuntosList.get(i).getFileName().toString(), "UTF-8"));
                         adjuntos.setArchivo_tamano(Long.toString(adjuntosList.get(i).getSize()));
                         adjuntos.setArchivo_usuario_creacion(infoUsuario.getNombre());
                         archAdjuntos.add(adjuntos);
@@ -454,12 +463,16 @@ public class GeneralController{
         	List<ArchivosAdjuntos> archAdjuntos=new ArrayList<ArchivosAdjuntos>();
         	for(int i=0;i<adjuntosList.size();i++){
         		System.out.println("Anadir");
-            	String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
+        		//String directorioPath = System.getProperty("user.dir").replaceAll("\\\\", "/");
+        		String raiz ="C:/workspace/sgdbex/WebContent/Archivos_Adjuntos/";
+        		String directorio = raiz + adjuntosList.get(i).getFileName();
+                System.out.println(directorio);
+            	//String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
 				ArchivosAdjuntos adjuntos = new ArchivosAdjuntos();
 				adjuntos.setArchivo_nombre(adjuntosList.get(i).getFileName());
 				adjuntos.setArchivo_formato(adjuntosList.get(i).getContentType());
 				adjuntos.setArchivo_tipo('A');
-				adjuntos.setArchivo_ubicacion(directorio);
+				adjuntos.setArchivo_ubicacion(raiz+URLEncoder.encode(adjuntosList.get(i).getFileName().toString(), "UTF-8"));
 				adjuntos.setArchivo_tamano(Long.toString(adjuntosList.get(i).getSize()));
 				adjuntos.setArchivo_usuario_creacion(infoUsuario.getNombre());
 				archAdjuntos.add(adjuntos);
@@ -535,9 +548,9 @@ public class GeneralController{
 	}
 
 	public void handleFileUpload(FileUploadEvent event) {
-        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-        boolean b= adjuntosList.add(event.getFile());
+        //FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        //FacesContext.getCurrentInstance().addMessage(null, message);
+        boolean b= this.adjuntosList.add(event.getFile());
         System.out.println("¿Inserto bien el archivo? "+b);
     }
     public void borrarItem(Object objeto){
@@ -615,9 +628,11 @@ public class GeneralController{
 	}
 	public String buscarEnProyectos(List<Proyectos> ListaProyectosUsuario) {
 		String proyectos="";
-		for(int i=0; i<ListaProyectosUsuario.size();i++){
-			proyectos += ListaProyectosUsuario.get(i).getProyecto_id().toString();
-			if(i+1<ListaProyectosUsuario.size()) proyectos +=",";
+		if(ListaProyectosUsuario != null){
+			for(int i=0; i<ListaProyectosUsuario.size();i++){
+				proyectos += ListaProyectosUsuario.get(i).getProyecto_id().toString();
+				if(i+1<ListaProyectosUsuario.size()) proyectos +=",";
+			}
 		}
 		System.out.println("proyectos a buscar"+proyectos);
 		return proyectos;

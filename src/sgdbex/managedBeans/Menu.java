@@ -172,6 +172,7 @@ public class Menu implements Serializable{
     	ppalMB.ReinicializarBooleanos();
 
     	if(sesion.getAttribute("logged")==null){
+    		System.out.println("muero aca ");
     		RequestContext contexto = RequestContext.getCurrentInstance();
     		contexto.execute("PF('dlg1').show();");
     	}else{
@@ -191,15 +192,18 @@ public class Menu implements Serializable{
 					}
 		    	}
     		}else{
+    			System.out.println("voy cargarusuario ");
     	    	CargarUsuario u = (CargarUsuario)sesion.getAttribute("usuario");
     	    	if(sesion.getAttribute("usuario")!=null) //Escoger entre ambas formas de adquirir los datos del usuario especificadas en el constructor de la clase, i.e, atributo "usuario"(nombreusuario del XML) o "user" (nombreusuario que ingresa por interfaz login.xhtml)
     	        {
+    	    			System.out.println("muerousuario ");
     					nombre=u.getNombre();
     					carnet=u.getCarnet();
     					email=u.getEmail();
     					departamento=u.getDepartamento();
     					perfil=u.getPerfil();
     	        }
+    	    	System.out.println("muero algo nulo ");
     	    	if(perfil != null && carnet != null){
     				System.out.println("sacando proyectos de usuario por perfil: "+perfil+" carnet: "+carnet);
 //    				proyectosUsuarioList = gs.getProyectosPorUsuario(perfil, carnet);

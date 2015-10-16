@@ -101,9 +101,10 @@
 					<p:inputTextarea rows="6" cols="30" value="#{defectosMB.defecto.comentarios}" disabled="#{defectosMB.botones}"/>
 		
 					<h:outputLabel for="adjuntar"  value="Anadir archivo adjuntos al defecto: "/>
- 					<p:fileUpload id="adjuntar" fileUploadListener="#{defectosMB.manejadorCargaArchivos}" mode="advanced"
- 					sizeLimit="2048000" fileLimit="3" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" disabled="#{defectosMB.botones}"/>
-		            
+ 					<p:fileUpload id="adjuntar" fileUploadListener="#{defectosMB.manejadorCargaArchivos}" mode="advanced" multiple="true" auto="true"
+ 					sizeLimit="2048000000" fileLimit="20" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" disabled="#{defectosMB.botones}"/>
+ 					
+ 							            
 		        	<f:facet name="footer">
 		            	<p:commandButton value="Editar" rendered="#{defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto or defectosMB.editarAsignado)}" update=":formDetalle" actionListener="#{defectosMB.opcEdit}"></p:commandButton>
 		            	<p:commandButton value="Asignar" rendered="#{defectosMB.botones and defectosMB.asignar}" update=":formDetalle" actionListener="#{defectosMB.opcAsignar}"></p:commandButton>
@@ -134,7 +135,7 @@
     					</p:column>
 		    		</p:dataTable>
 		    	</h:panelGrid>
-		    	<h:panelGrid rendered="#{fn:length(defectosMB.adjuntosList) gt 0}">
+		    	<h:panelGrid> <!--  rendered="#{fn:length(defectosMB.adjuntosList) gt 0}">-->
 		    		<p:galleria value="#{defectosMB.imagenes}" var="imagen" panelWidth="500" panelHeight="313" showCaption="true">
     					<p:graphicImage name="#{imagen}" alt="Image Description for #{imagen}" title="#{imagen}"/>
 					</p:galleria>
