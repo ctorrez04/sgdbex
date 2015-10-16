@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.UploadedFile;
@@ -84,7 +85,7 @@ public class GeneralController implements Serializable{
 	
 	@PostConstruct
     public void init() {
-//		System.out.println("Post Construct List");
+		System.out.println("Post Construct List");
 		try{
 			categoriasList =  listarCategorias();
 			estadosList =  obtenerEstados();
@@ -97,6 +98,23 @@ public class GeneralController implements Serializable{
 //			defectosList =  getAllDefectos();
 			impactosList = obtenerImpactos();
 			urgenciasList = obtenerUrgencias();
+			motivosList = listarMotivos();
+		}catch(Exception e){
+			System.out.println("Exception List" +e.getMessage());
+		}
+    }
+	public void reloadPage(){
+		System.out.println("Reload page");
+		RequestContext.getCurrentInstance().execute("window.location.replace(window.location.href);");
+	}
+	public void reload(ActionEvent event) {
+		System.out.println("Reload");
+		try{
+			categoriasList =  listarCategorias();
+			usuariosList =  listarUsuarios();
+			lideresList = listarLideres();
+			analistasList = listarAnalistas();
+			proyectosList =  listarProyectos();
 			motivosList = listarMotivos();
 		}catch(Exception e){
 			System.out.println("Exception List" +e.getMessage());

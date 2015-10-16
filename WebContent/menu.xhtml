@@ -19,6 +19,12 @@
 		console.log("voy a limpiar nuevamente");
 		$("#formDefecto").find('input:text, input:password, input:file, textarea').val('');
 		$("#formDefecto").find('select').val('0');
+		PF('dlgx').hide();
+	}
+	function clickHiddenButton(){
+		console.log("\nBandera");
+		myCommand();
+		PF('dlgx').show();
 	}
 	</script>
 	<p:dialog header="Crear Defecto" widgetVar="dlgx" appendTo="@(body)" modal="true">
@@ -57,8 +63,8 @@
 	            <p:inputTextarea rows="8" cols="50"  id="descripcion" value="#{generalController.defecto.descripcion}"/>
 				
 	               <h:outputLabel for="adjuntar"  value="Adjuntar archivos " />
-					<p:fileUpload id="adjuntar" fileUploadListener="#{generalController.handleFileUpload}" mode="advanced" update="growl"
-					sizeLimit="2048000" fileLimit="3" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" />
+					<p:fileUpload id="adjuntar" fileUploadListener="#{generalController.handleFileUpload}" mode="advanced" update="growl" auto="true"
+					sizeLimit="2048000000" fileLimit="20" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" />
 	
 				
 				<!-- <h:outputLabel for="comentarios"  value="Comentarios adicionales" />
@@ -72,7 +78,7 @@
 						</p:commandButton>
 						<p:commandButton id="cancelar" value="Borrar" action="#{generalController.limpiar}" oncomplete="limpiarFormulario();"></p:commandButton>
 						<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-							<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" onclick="PF('dlgx').hide();"/>
+							<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 							<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 					</div>
@@ -80,43 +86,12 @@
 			</p:panelGrid>
     	</h:form>
 	</p:dialog>
-	
 	<h:form id="form">
-	<!--	<p:growl id="messages" /> onclick="cerrarDialog();"
-		<p:selectOneMenu id="selecProy" value="#{generalController.filtro_proyecto}" style="float:right;" panelStyle="width:160px" filter="true" filterMatchMode="startsWith">-->
-			<!--  <p:ajax event="change" update=""/>-->
-			<!--<p:ajax update=":form:display :display2"/> 
-			Forma antigua: ":form:selecProy :display2"
-			Aca se referencia a 'display' para actualizar con ajax, pero 'display2' se le agrega
-			como prefijo ':' debido a que es un id fuera de este <h:form>, i.e un id global y no local
-			
-			Ej: http://programandoointentandolo.com/2013/09/como-usar-ajax-en-javaserver-faces-2.html-->
-			
-			<!-- Forma Actualizada:
-			Otra forma de usar ajax es poniendole un id a la etiqueta general que contiene los
-			componentes (form,outputpanel,panelgrid, etc) que vendria siedo etiqueta padre y al momento
-			de realizar un update se define de la siguiente forma, en este caso:
-			<h:form id="form"> | <p:ajax update=":form:display"/>
-			para que la busqueda sea primero por la etiqueta <h:form con id="form" (padre) y al hacer 
-			match se descartan las demas vistas que no poseen dicho id y busca el elemento que se llama
-			"display" (etiquetas hijas) para actualizar con ajax-->
-			<!--  <f:selectItem itemLabel="Todos los Proyectos" noSelectionOption="true" itemValue="0"/>
-			<f:selectItems value="#{menu.proyectosUsuarioList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
-		</p:selectOneMenu>
-		<div align="right">
-		<p:outputLabel value="Proyecto:" for="selecProy" style="margin-right:10px"/>
-		</div>
-		<br />-->
+		<p:remoteCommand name="myCommand" actionListener="#{generalController.reload}" update="@([id$=formDefecto])" style="display: none;" />
+		<p:remoteCommand name="refreshContentBody" update="@([id$=contentBody])" style="display: none;" />
 		<p:menubar id="menu">
 			<p:menuitem value="INICIO" rendered="#{menu.mostrar('DEFECTOS','MOSTRAR')}" icon="fa fa-home" url="/Principal" />
-			<!--<p:submenu label="Mi Vista" icon="fa fa-windows">
-				<p:menuitem value="Defectos monitorizados" actionListener="#{generalController.defectosMonitorizados}" />
-				<p:menuitem value="Defectos Modificados Recientemente" actionListener="#{generalController.defectosModificados}" />
-
-			</p:submenu>
-			<p:menuitem value="Registrar defectos" url="/views/reportarDefecto/reportarDefecto.jsf" rendered="#{menu.mostrar('DEFECTOS','REPORTAR')}" icon="fa fa-bug"/>-->
-			<!--  <p:menuitem value="Dialog" rendered="#{menu.mostrar('DEFECTOS','MOSTRAR')}" icon="fa fa-home" onclick="PF('dlgx').show();"/>   onclick="openDialogCrearDefecto();"-->
-			<p:menuitem value="REGISTRAR DEFECTO" rendered="#{menu.mostrar('DEFECTOS','REPORTAR')}" icon="fa fa-bug" onclick="PF('dlgx').show();"/>
+			<p:menuitem value="REGISTRAR DEFECTO" rendered="#{menu.mostrar('DEFECTOS','REPORTAR')}" icon="fa fa-bug" onclick="clickHiddenButton();"/>
 
 			<p:submenu label="CONTROL DE DEFECTOS" rendered="#{menu.mostrar('MENU','DEFECTOS')}" icon="fa fa-cog">
 				<!-- Validar defectos muestran los defectos reportados por el funcional y se encuentren en estatus resuelto, solo disponible para el funcional -->
@@ -146,9 +121,9 @@
 			</p:submenu>
 
 			<f:facet name="options">
-				<p:selectOneMenu id="selecProy" value="#{generalController.filtro_proyecto}" filter="true" filterMatchMode="startsWith">
-					<!--  <p:ajax event="change" update="@this"/> 
-					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2" disabled="#{principalMB.title1}"/>
+				<p:selectOneMenu id="selecProy" value="#{generalController.filtro_proyecto}" filter="true" filterMatchMode="startsWith" >
+					<p:ajax event="change" listener="#{generalController.reloadPage}" /> 
+					<!-- <p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2" disabled="#{principalMB.title1}"/>
 					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3" disabled="#{principalMB.title2}"/>
 					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title3}"/>
 					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title4}"/>-->
@@ -181,7 +156,8 @@
 	function redirect() {
 		//var url = 'http://localhost:8080/sgdbex/login.jsf';
 		var url = 'http://localhost:8080/sgdbex/Autenticacion';
-		window.location.replace(url);
+		window.href("/Autenticacion");
+		//window.location.replace(url);
 	      }
     </script>
 	
