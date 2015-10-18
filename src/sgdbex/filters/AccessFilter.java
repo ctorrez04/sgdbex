@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beasa.generales.CargarUsuario;
-import sgdbex.managedBeans.Menu;
-
 /**
  * Servlet Filter implementation class AccessFilter
  */
@@ -47,9 +45,7 @@ public class AccessFilter implements Filter {
 	  
 	  //Proceso la URL que está requiriendo el cliente
 	    String urlStr = req.getRequestURL().toString().toLowerCase();
-	    boolean noProteger = noProteger(urlStr);
-	    //System.out.println(urlStr + " - desprotegido=[" + noProteger + "]");
-	  
+	  //System.out.println(urlStr + " - desprotegido=[" + noProteger + "]");	  
 	  //Si no requiere protección continúo normalmente.
 	    if (noProteger(urlStr)) {
 	      chain.doFilter(request, response);
@@ -99,7 +95,7 @@ public class AccessFilter implements Filter {
 
 		  if (urlStr.endsWith("usuarios.jsf") || urlStr.endsWith("categorias.jsf") || urlStr.endsWith("motivos.jsf"))
 		    return true;
-		  if (urlStr.endsWith("modulocategorias") || urlStr.endsWith("modulomotivosresolucion") || urlStr.endsWith("modulousuarios"))
+		  if (urlStr.endsWith("modulocategorias") || urlStr.endsWith("modulomotivosrechazo") || urlStr.endsWith("modulousuarios"))
 			  return true;
 		  if (urlStr.indexOf("/javax.faces.resource/") != -1)
 		    return true;

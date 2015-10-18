@@ -8,7 +8,7 @@ import sgdbex.model.pojos.Categorias;
 import sgdbex.model.pojos.Defectos;
 import sgdbex.model.pojos.Estados;
 import sgdbex.model.pojos.HistoricoEstados;
-import sgdbex.model.pojos.MotivoResolucion;
+import sgdbex.model.pojos.MotivoRechazo;
 import sgdbex.model.pojos.Prioridades;
 import sgdbex.model.pojos.Proyectos;
 import sgdbex.model.pojos.RolUsuarios;
@@ -104,13 +104,13 @@ public interface GeneralServices {
 	
 	public String cambiarEstadoDefectos(Defectos defecto);
 	
-	public String createMotivos(MotivoResolucion motivo);
+	public String createMotivos(MotivoRechazo motivo);
 
-	public String updateMotivos(MotivoResolucion motivo);
+	public String updateMotivos(MotivoRechazo motivo);
 
-	public String deleteMotivos(MotivoResolucion motivo);
+	public String deleteMotivos(MotivoRechazo motivo);
 	
-	public List<MotivoResolucion> getMotivos();
+	public List<MotivoRechazo> getMotivos();
 	
 	public List<Reportes> getReportesEstado();
 	

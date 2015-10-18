@@ -88,7 +88,7 @@
 	</p:dialog>
 	<h:form id="form">
 		<p:remoteCommand name="myCommand" actionListener="#{generalController.reload}" update="@([id$=formDefecto])" style="display: none;" />
-		<p:remoteCommand name="refreshContentBody" listener="#{generalController.reloadPage}" style="display: none;" />
+		<p:remoteCommand name="refreshContentBody" actionListener="#{generalController.reloadContentBody}" style="display: none;" />
 
 		<p:menubar id="menu">
 			<p:menuitem value="INICIO" rendered="#{menu.mostrar('DEFECTOS','MOSTRAR')}" icon="fa fa-home" url="/Principal" />
@@ -118,7 +118,7 @@
 				<p:menuitem value="PROYECTOS" url="/ModuloProyectos" rendered="#{menu.mostrar('ADMINISTRACION','PROYECTOS')}"/>
 				<p:menuitem value="USUARIOS" url="/ModuloUsuarios" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 				<p:menuitem value="CATEGORIAS" url="/ModuloCategorias" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
-				<p:menuitem value="MOTIVOS RESOLUCION" url="/ModuloMotivosResolucion" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
+				<p:menuitem value="MOTIVOS RECHAZO" url="/ModuloMotivosRechazo" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 			</p:submenu>
 
 			<f:facet name="options">

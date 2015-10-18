@@ -24,11 +24,9 @@ código e incluir la nueva, documentando la fecha de la sustitución.
 ***************************************************************************************************************/
 package sgdbex.managedBeans;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;

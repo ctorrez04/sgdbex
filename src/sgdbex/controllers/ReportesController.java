@@ -19,7 +19,7 @@ import org.primefaces.model.chart.LegendPlacement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import sgdbex.model.pojos.MotivoResolucion;
+import sgdbex.model.pojos.MotivoRechazo;
 import sgdbex.model.pojos.Reportes;
 import sgdbex.services.GeneralServices;
 
@@ -38,7 +38,7 @@ public class ReportesController {
 	
 	private String reporteSeleccionado;
 	
-	private List<MotivoResolucion> motivosList;
+	private List<MotivoRechazo> motivosList;
 	
 	//Cada reporte va enumerado para identificar que instrucciones realizar segun el que se pase 
 	//por parametro al metodo initBarModel()
@@ -107,11 +107,11 @@ public class ReportesController {
 		this.opcionesReportes = opcionesReportes;
 	}
 
-	public List<MotivoResolucion> getMotivosList() {
+	public List<MotivoRechazo> getMotivosList() {
 		return motivosList;
 	}
 
-	public void setMotivosList(List<MotivoResolucion> motivosList) {
+	public void setMotivosList(List<MotivoRechazo> motivosList) {
 		this.motivosList = motivosList;
 	}
 

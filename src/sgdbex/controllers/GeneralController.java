@@ -58,7 +58,7 @@ public class GeneralController implements Serializable{
 	public List<Impactos> impactosList;
 	public List<Urgencias> urgenciasList;
 	//public List<Reportes> reportesList;
-	public List<MotivoResolucion> motivosList;
+	public List<MotivoRechazo> motivosList;
 	public List<UploadedFile> adjuntosList;
 	
 	//public List<Reportes> filteredvalues;
@@ -67,7 +67,7 @@ public class GeneralController implements Serializable{
 	private List<Categorias> filtroCategorias;
 	private List<Usuarios> filtroUsuarios;
 	private List<Proyectos> filtroProyectos;
-	private List<MotivoResolucion> filtroMotivos;
+	private List<MotivoRechazo> filtroMotivos;
 	private List<Defectos> filtroDefectos;
 	//-----------------------------------------------------------------
 
@@ -76,7 +76,7 @@ public class GeneralController implements Serializable{
 	public Defectos defecto;
 	public Proyectos proyecto;
 	public RolUsuarios rol;
-	public MotivoResolucion motivo;
+	public MotivoRechazo motivo;
 	
 	private String id;
 	
@@ -103,6 +103,10 @@ public class GeneralController implements Serializable{
 			System.out.println("Exception List" +e.getMessage());
 		}
     }
+	public void reloadContentBody(ActionEvent event){
+		System.out.println("Reload Content Body");
+		RequestContext.getCurrentInstance().execute("window.location.replace(window.location.href);");
+	}
 	public void reloadPage(){
 		System.out.println("Reload page");
 		RequestContext.getCurrentInstance().execute("window.location.replace(window.location.href);");
@@ -173,11 +177,11 @@ public class GeneralController implements Serializable{
 		this.filtroProyectos = filtroProyectos;
 	}
 
-	public List<MotivoResolucion> getFiltroMotivos() {
+	public List<MotivoRechazo> getFiltroMotivos() {
 		return filtroMotivos;
 	}
 
-	public void setFiltroMotivos(List<MotivoResolucion> filtroMotivos) {
+	public void setFiltroMotivos(List<MotivoRechazo> filtroMotivos) {
 		this.filtroMotivos = filtroMotivos;
 	}
 	
@@ -302,23 +306,23 @@ public class GeneralController implements Serializable{
 	}
 //----------MOTIVOS DE RESOLUCION----------------------------------------------------------------------------------------------------------------------
 	
-	public List<MotivoResolucion> getMotivosList() {
+	public List<MotivoRechazo> getMotivosList() {
 		return motivosList;
 	}
 
-	public void setMotivosList(List<MotivoResolucion> motivosList) {
+	public void setMotivosList(List<MotivoRechazo> motivosList) {
 		this.motivosList = motivosList;
 	}
 	
-	public List<MotivoResolucion> listarMotivos() {
+	public List<MotivoRechazo> listarMotivos() {
 		return gs.getMotivos();
 	}
 
-	public MotivoResolucion getMotivo() {
+	public MotivoRechazo getMotivo() {
 		return motivo;
 	}
 
-	public void setMotivo(MotivoResolucion motivo) {
+	public void setMotivo(MotivoRechazo motivo) {
 		this.motivo = motivo;
 	}
 	//----------Adjuntos----------------------------------------------------------------------------------------------------------------------	

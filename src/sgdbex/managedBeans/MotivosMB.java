@@ -35,16 +35,16 @@ import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sgdbex.model.pojos.MotivoResolucion;
+import sgdbex.model.pojos.MotivoRechazo;
 import sgdbex.services.GeneralServices;
 
 @ManagedBean 
 @Service
 public class MotivosMB {
-	private List<MotivoResolucion> motivosList;
-	private List<MotivoResolucion> filtroMotivos;
+	private List<MotivoRechazo> motivosList;
+	private List<MotivoRechazo> filtroMotivos;
 	
-	private MotivoResolucion motivo = new MotivoResolucion();
+	private MotivoRechazo motivo = new MotivoRechazo();
 	
 	@Autowired
 	private GeneralServices gs;
@@ -68,27 +68,27 @@ public class MotivosMB {
 		this.m = m;
 	}
 
-	public List<MotivoResolucion> getMotivosList() {
+	public List<MotivoRechazo> getMotivosList() {
 		return motivosList;
 	}
 
-	public void setMotivosList(List<MotivoResolucion> motivosList) {
+	public void setMotivosList(List<MotivoRechazo> motivosList) {
 		this.motivosList = motivosList;
 	}
 
-	public List<MotivoResolucion> getFiltroMotivos() {
+	public List<MotivoRechazo> getFiltroMotivos() {
 		return filtroMotivos;
 	}
 
-	public void setFiltroMotivos(List<MotivoResolucion> filtroMotivos) {
+	public void setFiltroMotivos(List<MotivoRechazo> filtroMotivos) {
 		this.filtroMotivos = filtroMotivos;
 	}
 
-	public MotivoResolucion getMotivo() {
+	public MotivoRechazo getMotivo() {
 		return motivo;
 	}
 
-	public void setMotivo(MotivoResolucion motivo) {
+	public void setMotivo(MotivoRechazo motivo) {
 		this.motivo = motivo;
 	}
 
@@ -104,8 +104,8 @@ public class MotivosMB {
 	public void borrarItem(Object objeto){
     	System.out.println("Vere a que clase pertenezco");
     	String mensaje;
-    	if(objeto instanceof MotivoResolucion){
-    		MotivoResolucion mot = (MotivoResolucion) objeto;
+    	if(objeto instanceof MotivoRechazo){
+    		MotivoRechazo mot = (MotivoRechazo) objeto;
         	mensaje = gs.deleteMotivos(mot);
             if(mensaje.equalsIgnoreCase("fallo")){
             	addMessage("Algo salio mal, fallo al eliminar!");
@@ -119,8 +119,8 @@ public class MotivosMB {
 	public void editar(RowEditEvent event) {
 		String mensaje="";
 		System.out.println("Entre a editar Vere a que clase pertenezco");
-        if(event.getObject() instanceof MotivoResolucion){
-        	MotivoResolucion mot = ((MotivoResolucion) event.getObject());
+        if(event.getObject() instanceof MotivoRechazo){
+        	MotivoRechazo mot = ((MotivoRechazo) event.getObject());
         	mensaje = gs.updateMotivos(mot);
         	addMessage("El item seleccionado ha sido editado!");
         }
@@ -131,7 +131,7 @@ public class MotivosMB {
     }
 
 	public void cancelar(RowEditEvent event) {
-        if(event.getObject() instanceof MotivoResolucion){
+        if(event.getObject() instanceof MotivoRechazo){
         	addMessage("Cambios cancelados");	
         }
     }
@@ -139,8 +139,8 @@ public class MotivosMB {
 	public void agregar(Object objeto) {
     	String mensaje;
     	System.out.println("Entre a agregar ");
-    	if(objeto instanceof MotivoResolucion){
-    		MotivoResolucion mot = (MotivoResolucion)objeto;
+    	if(objeto instanceof MotivoRechazo){
+    		MotivoRechazo mot = (MotivoRechazo)objeto;
     		mot.setMotivo_usuario_modificacion(m.getCarnet());
         	mensaje = gs.createMotivos(mot);
             if(mensaje.equalsIgnoreCase("fallo")){
@@ -153,6 +153,6 @@ public class MotivosMB {
     	}
 	}
 	public void limpiar(){
-		setMotivo(new MotivoResolucion());
+		setMotivo(new MotivoRechazo());
 	}
 }

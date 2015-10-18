@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import sgdbex.model.pojos.MotivoResolucion;
+import sgdbex.model.pojos.MotivoRechazo;
 
 @Component
-@Repository("motivoResolucionDAO")
+@Repository("motivoRechazoDAO")
 @SuppressWarnings("unchecked")
-public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
+public class MotivoRechazoDAOImpl implements MotivoRechazoDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -29,16 +29,16 @@ public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
 	}
 
 	@Override
-	public String createMotivos(MotivoResolucion motivo) {
+	public String createMotivos(MotivoRechazo motivo) {
 		Session session = sessionFactory.openSession();
-		List<MotivoResolucion> list = null;
+		List<MotivoRechazo> list = null;
 		try {
 			Query query = session.createSQLQuery("SP_CrearMotivos :nombre, :descripcion, :usuario_creador")
-					.setResultTransformer(Transformers.aliasToBean(MotivoResolucion.class))
+					.setResultTransformer(Transformers.aliasToBean(MotivoRechazo.class))
 					.setParameter("nombre", motivo.getMotivo_nombre())
 					.setParameter("descripcion", motivo.getMotivo_descripcion())
 					.setParameter("usuario_creador", motivo.getMotivo_usuario_modificacion());
-			list = (List<MotivoResolucion>)query.list();
+			list = (List<MotivoRechazo>)query.list();
 			if(list.get(0).getMotivo_id() != 0){
 				return "exito";
 			}
@@ -52,16 +52,16 @@ public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
 	}
 
 	@Override
-	public String updateMotivos(MotivoResolucion motivo) {
+	public String updateMotivos(MotivoRechazo motivo) {
 		Session session = sessionFactory.openSession();
-		List<MotivoResolucion> list = null;
+		List<MotivoRechazo> list = null;
 		try {
 			Query query = session.createSQLQuery("SP_ActualizarMotivos :idMotivo, :nombre, :descripcion")
-					.setResultTransformer(Transformers.aliasToBean(MotivoResolucion.class))
+					.setResultTransformer(Transformers.aliasToBean(MotivoRechazo.class))
 					.setParameter("idMotivo", motivo.getMotivo_id())
 					.setParameter("nombre", motivo.getMotivo_nombre())
 					.setParameter("descripcion", motivo.getMotivo_descripcion());
-			list = (List<MotivoResolucion>)query.list();
+			list = (List<MotivoRechazo>)query.list();
 			if(list.get(0).getMotivo_id().equals(motivo.getMotivo_id())){
 				return "exito";
 			}
@@ -75,14 +75,14 @@ public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
 	}
 
 	@Override
-	public String deleteMotivos(MotivoResolucion motivo) {
+	public String deleteMotivos(MotivoRechazo motivo) {
 		Session session = sessionFactory.openSession();
-		List<MotivoResolucion> list = null;
+		List<MotivoRechazo> list = null;
 		try {
 			Query query = session.createSQLQuery("SP_EliminarMotivos :idMotivo")
-					.setResultTransformer(Transformers.aliasToBean(MotivoResolucion.class))
+					.setResultTransformer(Transformers.aliasToBean(MotivoRechazo.class))
 					.setParameter("idMotivo", motivo.getMotivo_id());
-			list = (List<MotivoResolucion>)query.list();
+			list = (List<MotivoRechazo>)query.list();
 			if(list.get(0).getMotivo_id().equals(motivo.getMotivo_id())){
 				return "exito";
 			}
@@ -96,12 +96,12 @@ public class MotivoResolucionDAOImpl implements MotivoResolucionDAO{
 	}
 
 	@Override
-	public List<MotivoResolucion> getMotivos() {
+	public List<MotivoRechazo> getMotivos() {
 		Session session = sessionFactory.openSession();
-		List<MotivoResolucion> list = null;
+		List<MotivoRechazo> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_ListarMotivosResolucion").setResultTransformer(Transformers.aliasToBean(MotivoResolucion.class));
-			list = (List<MotivoResolucion>)query.list();
+			Query query = session.createSQLQuery("SP_ListarMotivosRechazo").setResultTransformer(Transformers.aliasToBean(MotivoRechazo.class));
+			list = (List<MotivoRechazo>)query.list();
 		} catch (HibernateException e) {
 			System.out.println("try getMotivos " +e.getMessage() );
 		} finally {

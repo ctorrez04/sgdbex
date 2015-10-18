@@ -91,12 +91,6 @@
 					<h:outputLabel value="Fecha Asignacion: " />
 		            <p:calendar id="datetime_asi" value="#{defectosMB.defecto.fecha_asignacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true"/>
 								
-            		<h:outputLabel value="Usuario Modificador" />
-		            <h:outputText value="#{defectosMB.defecto.carnet_modificacion.concat('-').concat(defectosMB.defecto.usuario_modificacion)}" />	
-					
-					<h:outputLabel value="Fecha Modificacion: " />
-		            <p:calendar id="datetime_mod" value="#{defectosMB.defecto.fecha_modificacion}" pattern="dd/MM/yyyy HH:mm:ss" disabled="true" />
-					
 					<h:outputLabel value="Comentarios: " />
 					<p:inputTextarea rows="6" cols="30" value="#{defectosMB.defecto.comentarios}" disabled="#{defectosMB.botones}"/>
 		

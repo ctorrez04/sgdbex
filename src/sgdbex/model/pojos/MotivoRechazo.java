@@ -7,17 +7,17 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class MotivoResolucion {
+public class MotivoRechazo {
 	Integer motivo_id;
 	String motivo_nombre;
 	String motivo_descripcion;
 	char motivo_activo;
 	String motivo_usuario_modificacion;
 	Date motivo_fecha_modificacion;
-	public MotivoResolucion(){
+	public MotivoRechazo(){
 		
 	}
-	public MotivoResolucion(Integer motivo_id, String motivo_nombre,
+	public MotivoRechazo(Integer motivo_id, String motivo_nombre,
 			String motivo_descripcion, char motivo_activo,
 			String motivo_usuario_modificacion, Date motivo_fecha_modificacion) {
 		this.motivo_id = motivo_id;
@@ -78,7 +78,7 @@ public class MotivoResolucion {
 
 	@Override
 	public String toString() {
-		return "MotivoResolucion [motivo_id=" + motivo_id + ", motivo_nombre="
+		return "MotivoRechazo [motivo_id=" + motivo_id + ", motivo_nombre="
 				+ motivo_nombre + ", motivo_descripcion=" + motivo_descripcion
 				+ ", motivo_activo=" + motivo_activo
 				+ ", motivo_usuario_modificacion="

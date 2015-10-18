@@ -54,7 +54,7 @@ public class GeneralServicesImpl implements GeneralServices{
 	private ReportesDAO reportesDAO;
 
 	@Autowired
-	private MotivoResolucionDAO motivosDAO;
+	private MotivoRechazoDAO motivosDAO;
 	
 	@Override
 	public void eliminarArchivos_Adjuntos(List<ArchivosAdjuntos> Archivos_Adjuntos) {
@@ -266,22 +266,22 @@ public class GeneralServicesImpl implements GeneralServices{
 	}
 	
 	@Override
-	public String createMotivos(MotivoResolucion motivo) {
+	public String createMotivos(MotivoRechazo motivo) {
 		return motivosDAO.createMotivos(motivo);
 	}
 
 	@Override
-	public String updateMotivos(MotivoResolucion motivo) {
+	public String updateMotivos(MotivoRechazo motivo) {
 		return motivosDAO.updateMotivos(motivo);
 	}
 
 	@Override
-	public String deleteMotivos(MotivoResolucion motivo) {
+	public String deleteMotivos(MotivoRechazo motivo) {
 		return motivosDAO.deleteMotivos(motivo);
 	}
 	
 	@Override
-	public List<MotivoResolucion> getMotivos() {
+	public List<MotivoRechazo> getMotivos() {
 		return motivosDAO.getMotivos();
 	}
 

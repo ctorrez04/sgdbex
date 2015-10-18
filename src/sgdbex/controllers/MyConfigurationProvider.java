@@ -35,7 +35,7 @@ public class MyConfigurationProvider extends HttpConfigurationProvider{
 		
 		.addRule(Join.path("/ModuloCategorias").to("/faces/views/administracion/moduloCategorias.xhtml"))//Administracion Categorias
 		
-		.addRule(Join.path("/ModuloMotivosResolucion").to("/faces/views/administracion/moduloMotivos.xhtml"))//Administracion Motivos Resolucion
+		.addRule(Join.path("/ModuloMotivosRechazo").to("/faces/views/administracion/moduloMotivos.xhtml"))//Administracion Motivos Resolucion
 		
 		.addRule(Join.path("/InformacionAutenticacion").to("/faces/views/miCuenta/miCuenta.xhtml"))//Mi Cuenta
 		 

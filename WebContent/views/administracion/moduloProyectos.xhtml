@@ -32,7 +32,7 @@
 				<h:outputLabel for="proyecto_descripcion" value="Nombre " />
                 <p:inputText id="proyecto_descripcion" value="#{proyectosMB.proyecto.proyecto_descripcion}" />
                 
-				<h:outputLabel for="proyecto_nombre"  value="Llave " />
+				<h:outputLabel for="proyecto_nombre"  value="Siglas " />
                 <p:inputText  id="proyecto_nombre" value="#{proyectosMB.proyecto.proyecto_nombre}" required="true"/>
                 
                 <h:outputLabel for="selecLider" value="Lider de Proyecto " />
@@ -58,7 +58,7 @@
 			paginator="true"  paginatorPosition="bottom" rows="20"
 				widgetVar="proyTable" emptyMessage="No se encontraron proyectos bajo este criterio" filteredValue="#{proyectosMB.filtroProyectos}">
 				<f:facet name="header" styleClass="headerAdm">
-					<div id="titleTable">Todos los proyectos</div>
+					<div id="titleTable">Gestión de proyectos</div>
 					<div>
 					<p:outputPanel id="filtroAdm">
                 	<h:outputText value="Buscar en tabla:" />

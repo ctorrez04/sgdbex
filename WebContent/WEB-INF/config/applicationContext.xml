@@ -16,27 +16,12 @@
 	<context:component-scan base-package="sgdbex.*" />
 	<context:annotation-config />
 
-<!-- 	<bean id="GeneralServices" class="com.crud.services.GeneralServicesImpl"> -->
-<!-- 		<property name="PrioridadesDAO" ref="PrioridadesDAO" /> -->
-<!-- 	</bean> -->
-
 	<bean id="menu" class="sgdbex.managedBeans.Menu" scope="session">
     	<aop:scoped-proxy/>
 	</bean>
 	<bean id="defectosMB" class="sgdbex.managedBeans.DefectosMB" scope="session">
     	<aop:scoped-proxy/>
 	</bean>
-
-	<!-- User DAO Declaration -->
-
-<!--	<bean id="PrioridadesDAO" class="com.crud.dao.PrioridadesDAOImpl">
-
-		<property name="sessionFactory" ref="SessionFactory" />
-
-	</bean>
--->
-
-
 
 	<!-- Data Source Declaration -->
 	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -70,7 +55,7 @@
 				<value>sgdbex.model.pojos.Proyectos</value>
 				<value>sgdbex.model.pojos.Defectos</value>
 				<value>sgdbex.model.pojos.Reportes</value>
-				<value>sgdbex.model.pojos.MotivoResolucion</value>
+				<value>sgdbex.model.pojos.MotivoRechazo</value>
 				<value>sgdbex.model.pojos.HistoricoEstados</value>
 			</list>
 		</property>
