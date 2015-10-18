@@ -1,50 +1,28 @@
 /* ESTILOS CONTENT BODY*/
-#contentBody .box {
-    margin: 5px;
-    padding: 5px;
-    width: 95%;
-    float: left;
-    border: 1px solid gray;
-    height: 95%;
-}
 .wrapPrincipal {
+    display: inline-block;
+    float: left;
+    color: #FFF;
     width:100%;
-		height: 95%;
-    column-count:2;
-    column-gap:5%;
-    -moz-column-count:2;
-    -moz-column-gap:5%;
-    -webkit-column-count:2;
-    -webkit-column-gap:5%;
+    height: auto;
+    border: 1px solid gray;
 }
-/*#contentBody .box {
-    width:49.5%;
-    	min-height: 25% !important;
-	position:absolute !important;
+.col1, .col2 {
+    margin-left: 1%;
+    width: 48%;
+    background: #90EE90 none repeat scroll 0% 0%;
+}
+.row1 {
+    margin-top:1%;
+    height: auto;
+    background: #00008B none repeat scroll 0% 0%;
+ }
+.row2 {
+    margin-top:1%;
+    height: auto;
+    background: #00F none repeat scroll 0% 0%;
 }
 
-#div1 { 
-    margin:0 auto;
-    top:0% !important;
-	left: 0% !important;	
-
-}
-#div2 { 
-  margin:0 auto;
-  top:0% !important;
-	right: 0% !important;
-}
-#div3 { 
-  	margin:0 auto;
-	position: relative !important;
-	top: 25% !important;
-}
-#div4 {
-	margin:0 auto;
-	position: absolute !important;
-	top: 25% !important;
-	right:0% !important;
-}*/
 #formulario1, #formulario2, #formulario3, #formulario4 {
 	text-align: center;
 	font-size: 90%;
