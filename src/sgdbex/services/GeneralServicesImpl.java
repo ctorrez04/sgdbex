@@ -85,6 +85,11 @@ public class GeneralServicesImpl implements GeneralServices{
 	}
 
 	@Override
+	public String validarCategoriaUnico(String categoria) {
+		return categoriasDAO.validarCategoriaUnico(categoria);
+	}
+	
+	@Override
 	public List<Categorias> getCategorias() {
 		return categoriasDAO.getCategorias();
 	}
@@ -147,7 +152,12 @@ public class GeneralServicesImpl implements GeneralServices{
 		String mensaje = proyectosDAO.deleteProyectos(Proyecto);
 		return mensaje;	
 	}
-
+	
+	@Override
+	public String validarProyectoUnico(String siglas) {
+		return proyectosDAO.validarProyectoUnico(siglas);
+	}
+	
 	@Override
 	public List<Proyectos> getProyectos() {
 		return proyectosDAO.getProyectos();
@@ -174,10 +184,14 @@ public class GeneralServicesImpl implements GeneralServices{
 	@Override
 	public String deleteUsuarios(Usuarios usuario) {
 		String mensaje = usuariosDAO.deleteUsuarios(usuario);
-		return mensaje;
-		
+		return mensaje;	
 	}
-
+	
+	@Override
+	public String validarExisteUsuarioProyecto(String carnet, Integer proyecto) {
+		return usuariosDAO.validarExisteUsuarioProyecto(carnet, proyecto);
+	}
+	
 	@Override
 	public List<Usuarios> getUsuarios() {
 		return usuariosDAO.getUsuarios();
@@ -278,6 +292,11 @@ public class GeneralServicesImpl implements GeneralServices{
 	@Override
 	public String deleteMotivos(MotivoRechazo motivo) {
 		return motivosDAO.deleteMotivos(motivo);
+	}
+
+	@Override
+	public String validarMotivoUnico(String motivo) {
+		return motivosDAO.validarMotivoUnico(motivo);
 	}
 	
 	@Override

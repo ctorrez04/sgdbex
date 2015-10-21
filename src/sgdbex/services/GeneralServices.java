@@ -33,6 +33,8 @@ public interface GeneralServices {
 	public String updateProyectos(Proyectos Proyecto);
 
 	public String deleteProyectos(Proyectos Proyecto);
+	
+	public String validarProyectoUnico(String siglas);
 
 	public List<Proyectos> getProyectos();
 	
@@ -50,6 +52,8 @@ public interface GeneralServices {
 
 	public String deleteUsuarios(Usuarios usuario);
 	
+	public String validarExisteUsuarioProyecto(String carnet, Integer proyecto);
+	
 	public List<Usuarios> getUsuarios();
 	
 	public List<Usuarios> getUsuariosPorProyecto(String proyecto);
@@ -65,6 +69,8 @@ public interface GeneralServices {
 	public String updateCategorias(Categorias Categoria);
 
 	public String deleteCategorias(Categorias Categoria);
+	
+	public String validarCategoriaUnico(String categoria);
 
 	public List<Categorias> getCategorias();
 //	-----------------------------------------------------	
@@ -109,6 +115,8 @@ public interface GeneralServices {
 	public String updateMotivos(MotivoRechazo motivo);
 
 	public String deleteMotivos(MotivoRechazo motivo);
+	
+	public String validarMotivoUnico(String motivo);
 	
 	public List<MotivoRechazo> getMotivos();
 	

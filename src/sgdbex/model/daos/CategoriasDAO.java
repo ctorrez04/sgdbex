@@ -13,4 +13,6 @@ public interface CategoriasDAO {
 	public String deleteCategorias(Categorias Categoria);
 
 	public List<Categorias> getCategorias();
+
+	public String validarCategoriaUnico(String categoria);
 }

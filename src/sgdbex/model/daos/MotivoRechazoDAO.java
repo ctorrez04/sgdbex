@@ -13,4 +13,6 @@ public interface MotivoRechazoDAO {
 	public String deleteMotivos(MotivoRechazo motivo);
 
 	public List<MotivoRechazo> getMotivos();
+
+	public String validarMotivoUnico(String motivo);
 }

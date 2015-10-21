@@ -109,5 +109,25 @@ public class MotivoRechazoDAOImpl implements MotivoRechazoDAO{
 		}
 		return list;
 	}
+
+	@Override
+	public String validarMotivoUnico(String motivo) {
+		Session session = sessionFactory.openSession();
+		List<MotivoRechazo> list = null;
+		try {
+			Query query = session.createSQLQuery("SP_BuscarMotivoPorNombre :motivo")
+					.setResultTransformer(Transformers.aliasToBean(MotivoRechazo.class))
+					.setParameter("motivo", motivo);
+			list = (List<MotivoRechazo>)query.list();
+			if(list.size()>0)
+				return list.get(0).getMotivo_descripcion();
+			return "";
+		} catch (HibernateException e) {
+			System.out.println("try Impl Motivos" +e.getMessage() );
+			return "";
+		} finally {
+			session.close();
+		}
+	}
 	
 }

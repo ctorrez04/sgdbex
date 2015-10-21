@@ -15,4 +15,6 @@ public interface ProyectosDAO {
 	public List<Proyectos> getProyectos();
 
 	public List<Proyectos> getProyectosPorUsuario(String rol, String carnet);
+
+	public String validarProyectoUnico(String siglas);
 }

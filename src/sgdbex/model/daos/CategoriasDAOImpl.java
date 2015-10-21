@@ -111,4 +111,24 @@ public class CategoriasDAOImpl implements CategoriasDAO{
 		return list;
 	}
 
+	@Override
+	public String validarCategoriaUnico(String categoria) {
+		Session session = sessionFactory.openSession();
+		List<Categorias> list = null;
+		try {
+			Query query = session.createSQLQuery("SP_BuscarCategoriaPorNombre :categoria")
+					.setResultTransformer(Transformers.aliasToBean(Categorias.class))
+					.setParameter("categoria", categoria);
+			list = (List<Categorias>)query.list();
+			if(list.size()>0)
+				return list.get(0).getCategoria_descripcion();
+			return "";
+		} catch (HibernateException e) {
+			System.out.println("try Impl Categoria " +e.getMessage() );
+			return "";
+		} finally {
+			session.close();
+		}
+	}
+
 }

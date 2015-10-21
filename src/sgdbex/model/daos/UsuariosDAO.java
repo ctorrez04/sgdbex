@@ -20,4 +20,6 @@ public interface UsuariosDAO {
 	public List<Usuarios> getUsuariosAnalistas();
 
 	public String createUsuariosDesdeBeasa(String carnet, Integer proyectoAsociado, String rol);
+
+	public String validarExisteUsuarioProyecto(String carnet, Integer proyecto);
 }

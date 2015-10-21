@@ -144,4 +144,25 @@ public class ProyectosDAOImpl implements ProyectosDAO{
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public String validarProyectoUnico(String siglas) {
+		Session session = sessionFactory.openSession();
+		List<Proyectos> list = null;
+		try {
+			Query query = session.createSQLQuery("SP_BuscarProyectoPorSiglas :siglas")
+						.setResultTransformer(Transformers.aliasToBean(Proyectos.class))
+						.setParameter("siglas", siglas);
+			list = (List<Proyectos>)query.list();
+			if(list.size()>0)
+				return list.get(0).getProyecto_descripcion();
+			return "";	
+		} catch (HibernateException e) {
+			System.out.println("try Impl Proy " +e.getMessage() );
+			return "";	
+		} finally {
+			session.close();
+		}
+	}
+
 }

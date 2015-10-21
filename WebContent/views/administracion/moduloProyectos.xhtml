@@ -33,7 +33,9 @@
                 <p:inputText id="proyecto_descripcion" value="#{proyectosMB.proyecto.proyecto_descripcion}" />
                 
 				<h:outputLabel for="proyecto_nombre"  value="Siglas " />
-                <p:inputText  id="proyecto_nombre" value="#{proyectosMB.proyecto.proyecto_nombre}" required="true"/>
+				<p:inputText  id="proyecto_nombre" value="#{proyectosMB.proyecto.proyecto_nombre}" required="true" requiredMessage="Ingresar Siglas de Proyecto.">
+					<f:validator binding="#{proyectoValidator}"/>
+				</p:inputText>
                 
                 <h:outputLabel for="selecLider" value="Lider de Proyecto " />
 				<h:selectOneMenu id="selecLider" value="#{proyectosMB.proyecto.proyecto_lider}"  displayValueOnly="true" >

@@ -30,9 +30,10 @@
             <p:panelGrid id="panelGridDialog" columns="2" >
 				
 				<h:outputLabel for="proyecto_id" value="Nombre de Proyecto: " />
-				<h:selectOneMenu id="proyecto_id" value="#{usuariosMB.usuario.usuario_proyecto_fk}"  displayValueOnly="true" >
+				<h:selectOneMenu id="proyecto_id" value="#{usuariosMB.usuario.usuario_proyecto_fk}"  displayValueOnly="true" required="true">
 					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
 					<f:selectItems value="#{usuariosMB.proyectosList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
+					<f:validator binding="#{usuarioValidator}"/>
 				</h:selectOneMenu>
 				
 				<h:outputLabel for="rol_analistas" value="Rol asignado: " rendered="#{usuariosMB.rol eq 'ADMINISTRADOR'}"/>
@@ -49,7 +50,7 @@
 				</h:selectOneMenu>
 
 				<h:outputLabel for="nombres"  value="Nombres " />
-                <h:selectOneMenu id="nombres" value="#{usuariosMB.usuario.carnet}"  displayValueOnly="true" >
+                <h:selectOneMenu id="nombres" value="#{usuariosMB.usuario.carnet}"  displayValueOnly="true" required="true">
 					<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue=""/>
 					<f:selectItems value="#{usuariosMB.usuariosBeasaList}" var="user" itemLabel="#{user.nombre_completo}" itemValue="#{user.carnet}"/>
 				</h:selectOneMenu>

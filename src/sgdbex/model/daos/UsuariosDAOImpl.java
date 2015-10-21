@@ -198,4 +198,24 @@ public class UsuariosDAOImpl implements UsuariosDAO{
 		}
 		return list;
 	}
+
+	@Override
+	public String validarExisteUsuarioProyecto(String carnet, Integer proyecto) {
+		Session session = sessionFactory.openSession();
+		List<Usuarios> list = null;
+		try {
+			Query query = session.createSQLQuery("SP_BuscarUsuarioPorCarnetProyecto :carnet, :proyecto").setResultTransformer(Transformers.aliasToBean(Usuarios.class))
+						  .setParameter("carnet", carnet)
+					      .setParameter("proyecto", proyecto);
+			list = (List<Usuarios>)query.list();
+			if(list.size()>0)
+				return list.get(0).getNombre_completo();
+			return "";
+		} catch (HibernateException e) {
+			System.out.println("try Impl Usuarios " +e.getMessage() );
+			return "";
+		} finally {
+			session.close();
+		}
+	}
 }

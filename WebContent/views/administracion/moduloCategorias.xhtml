@@ -30,8 +30,9 @@
             <p:panelGrid id="panelGridDialog" columns="2">
 				
 				<h:outputLabel for="categoria_nombre"  value="Nombre " />
-                <p:inputText  id="categoria_nombre" value="#{categoriasMB.categoria.categoria_nombre}" required="true"/>
-                
+                <p:inputText  id="categoria_nombre" value="#{categoriasMB.categoria.categoria_nombre}" required="true" requiredMessage="Ingresar Nombre de Categoria.">
+					<f:validator binding="#{categoriaValidator}"/>
+				</p:inputText>
                 <h:outputLabel for="categoria_descripcion" value="Descripcion " />
                 <p:inputText id="categoria_descripcion" value="#{categoriasMB.categoria.categoria_descripcion}" />
          
