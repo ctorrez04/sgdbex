@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -437,8 +436,9 @@ public class GeneralController implements Serializable{
             		System.out.println("Agregando");
                 	try {
                         //String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
-                		String raiz = "C:/workspace/sgdbex/WebContent/Archivos_Adjuntos/" ;
-                		String directorio = raiz+ adjuntosList.get(i).getFileName();
+                		String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
+                		//String raiz = "C:\\Archivos_Adjuntos\\" ;
+                		//String directorio = raiz+ adjuntosList.get(i).getFileName();
                         System.out.println(directorio);
                         System.out.println(adjuntosList.get(i).getFileName());
                         System.out.println(adjuntosList.get(i).getContentType());
@@ -447,7 +447,7 @@ public class GeneralController implements Serializable{
                         adjuntos.setArchivo_nombre(adjuntosList.get(i).getFileName());
                         adjuntos.setArchivo_formato(adjuntosList.get(i).getContentType());
                         adjuntos.setArchivo_tipo('A');
-                        adjuntos.setArchivo_ubicacion(raiz+URLEncoder.encode(adjuntosList.get(i).getFileName().toString(), "UTF-8"));
+                        adjuntos.setArchivo_ubicacion(directorio);
                         adjuntos.setArchivo_tamano(Long.toString(adjuntosList.get(i).getSize()));
                         adjuntos.setArchivo_usuario_creacion(infoUsuario.getNombre());
                         archAdjuntos.add(adjuntos);
@@ -486,15 +486,14 @@ public class GeneralController implements Serializable{
         	for(int i=0;i<adjuntosList.size();i++){
         		System.out.println("Anadir");
         		//String directorioPath = System.getProperty("user.dir").replaceAll("\\\\", "/");
-        		String raiz ="C:/workspace/sgdbex/WebContent/Archivos_Adjuntos/";
-        		String directorio = raiz + adjuntosList.get(i).getFileName();
+        		String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
                 System.out.println(directorio);
             	//String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosList.get(i).getFileName();
 				ArchivosAdjuntos adjuntos = new ArchivosAdjuntos();
 				adjuntos.setArchivo_nombre(adjuntosList.get(i).getFileName());
 				adjuntos.setArchivo_formato(adjuntosList.get(i).getContentType());
 				adjuntos.setArchivo_tipo('A');
-				adjuntos.setArchivo_ubicacion(raiz+URLEncoder.encode(adjuntosList.get(i).getFileName().toString(), "UTF-8"));
+				adjuntos.setArchivo_ubicacion(directorio);
 				adjuntos.setArchivo_tamano(Long.toString(adjuntosList.get(i).getSize()));
 				adjuntos.setArchivo_usuario_creacion(infoUsuario.getNombre());
 				archAdjuntos.add(adjuntos);

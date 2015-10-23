@@ -1,70 +1,145 @@
-.tableAdm{
-	text-align: center;
-	width: 80%;
-}
-.tableAdm thead .ui-state-default{
-	background: none;
-	background-color: #0971B2 !important;
-	color : #FFF !important;
+/* ESTILOS CONTENT BODY*/
+.wrapPrincipal {
+    display: inline-block;
+    float: left;
+    color: #FFF;
+    width:96%;
+    height: auto;
 	font-family: Helvetica, sans-serif !important;
-	font-size: 14px !important;
+	font-size: 16px !important;
+	text-decoration:none;
+	
 }
-.tableAdm .ui-datatable-header{
-	margin-bottom: 1%;
-	background: none;
-	background-color:  #0971B2 !important;
-}
-.tableAdm #titleTable{
-	float: left;	
-	color: #FFF !important;
+.titlePrincipal{
+	margin-left: 5%;
+	margin-top: 0%;
 	font-family: Helvetica, sans-serif !important;
 	font-size: 14px !important;
 	text-decoration:none;
-	text-transform:uppercase;
-	margin-left: 5% !important;
-	margin-top: 0.5% !important;
-}
-.tableAdm .ui-outputpanel {
-	background-color:  #0971B2 !important;
-}
-.tableAdm .filtroAdm{
-	margin-left: 50%;
-	color: #FFF !important;
-	font-family: Helvetica, sans-serif !important;
-	font-size: 12px !important;
 }
 
-.tableAdm .filtroAdm input{
-	margin-left: 5% !important;
-	font-family: Helvetica, sans-serif !important;
-	font-size: 12px !important;
+.col1, .col2 {
+    margin-left: 1%;
+    width: 48%;
+    background: #FFF none repeat scroll 0% 0%;
+	border : none;
 }
-.admDialog .ui-dialog-titlebar{
+.row1 {
+    margin-top:1%;
+    height: auto;
+    background: #FFF none repeat scroll 0% 0%;
+		border: 1px solid gray;
+ }
+.row2 {
+    margin-top:1%;
+    height: auto;
+    background: #FFF none repeat scroll 0% 0%;
+		border: 1px solid gray;
+}
+.row2 table thead span,.row1 table thead span{
+	color : #FFF !important;
+}
+.row2 table thead th,.row1 table thead th{
 	background: none;
 	background-color: #0971B2 !important;
-	font-family: Helvetica, sans-serif !important;
-	font-size: 12px !important;
 }
-.admDialog td,.admDialog tr{
-	border:none !important;
+#formulario1, #formulario2, #formulario3, #formulario4 {
+	text-align: center;
+	font-size: 90%;
+}
+#formulario1 .ui-datatable-header, #formulario2 .ui-datatable-header, #formulario3 .ui-datatable-header, #formulario4 .ui-datatable-header{
+	margin-bottom: 1%;
+}
+#formulario1 #titleTable, #formulario2 #titleTable, #formulario3 #titleTable, #formulario4 #titleTable{
+	float: left;
+}
+#formulario1 .ui-outputpanel , #formulario2 .ui-outputpanel , #formulario3 .ui-outputpanel, #formulario4 .ui-outputpanel {
+	background-color:  inherit;	
+}
+#dialogAdm label{
+	float: left;
+	position: relative;
+	text-align: right;
+	width: 80px;
+}
+#formulario1 .ui-inputfield, #formulario2 .ui-inputfield, #formulario3 .ui-inputfield, #formulario4 .ui-inputfield{/*.dateTimeField input {*/
+  width:75px;
+	color: black !important;
+}
+#dialogAdm select, #dialogAdm input{
+	width: 240px;
 }
 
-.admDialog table tbody{
-	background-color: #0971B2 !important;
-	font-family: Helvetica, sans-serif !important;
-	font-size: 14px !important;
+#contentBody .panelgrid.ui-panelgrid>*>tr, .panelgrid.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
 }
-.admDialog table tfoot{
-	margin-top: 20% !important;
+#botones{
+	float: right;
+}
+#contentBody .ui-panelgrid-footer button.ui-widget{
+	background-color: #3F59FF !important;
+	color: #FFF !important;
+}
+
+/*estilo de los nombres de las columnas*/
+th {
+	background-color: #3F59FF !important;
+	color: black !important;
+	border:disabled !important;
+}
+/*estilo contenido de tablas*/
+#formulario1 .ui-widget-content, #formulario2 .ui-widget-content, #formulario3 .ui-widget-content, #formulario4 .ui-widget-content{
+	border: none !important;
+	color: black;
+	font-family: Arial, Helvetica, sans-serif !important;
+	font-size: 95%;
+}
+#contentBody .ui-datatable-header{
+	background-color: white !important; /*#333 tipo gris 000A6F azul #03C*/ 
+	border: none !important;
+}
+#contentBody .ui-datatable-header .ui-outputpanel{
 	text-align: right !important;
 }
-.admDialog table tfoot .ui-widget-header{
-	background: none !important;
+#contentBody .ui-datatable-header div#titleTable{
+	text-align: left !important;
+	/*font-family:  Comic Sans MS, cursive, sans-serif !important;	*/
+	font-family: Arial, Helvetica, sans-serif !important;
 }
-.admDialog table tfoot .ui-widget-header .ui-button{
-	margin-top: 4% !important;
-	margin-right: 2% !important;
-	width : 20% !important;
-	background: none;
-	background-color: #0971B2 !important;
+#contentBody .ui-datatable-footer{
+	background-color: #3F59FF !important;
+}
+#contentBody .ui-datatable thead th,
+#contentBody .ui-datatable tbody,
+#contentBody .ui-datatable tbody tr,
+#contentBody .ui-datatable tbody td {
+    border: none !important;
+}
+#contentBody .ui-state-default,
+#contentBody .ui-widget-content .ui-state-default,
+#contentBody .ui-widget-header .ui-state-default {
+    border: none !important;
+}
+#dialogAdm{
+	height: 200px;
+}
+
+#formDialog .ui-panelgrid{
+	border: none !important;
+}
+#formDialog td{
+	border: none !important;
+}
+#formDialog .ui-widget-content {
+	border: none !important;
+}
+#formDialog .ui-widget-header{
+	background-color: white !important;
+	border: none !important;
+}
+#formDialog .ui-widget-header td{
+	text-align: right !important;
+}
+#contentBody .ui-paginator{
+	background-color: white !important;
 }

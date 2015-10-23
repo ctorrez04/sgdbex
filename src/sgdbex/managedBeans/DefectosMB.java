@@ -263,6 +263,8 @@ public class DefectosMB implements Serializable{
 						this.opciones=false;
 						break;
 					case "RE-ABIERTO" :
+						defecto.setMotivo_fk(0);
+						defecto.setMotivo_nombre("");
 						if(m.getCarnet().equals(defecto.getProyecto_lider()) || m.getPerfil().equals("ADMINISTRADOR")){ //Si soy el lider puedo editar el usuario asignado
 							this.editarReabierto=true;
 							this.asignar=true;
@@ -382,8 +384,7 @@ public class DefectosMB implements Serializable{
 	        	try {
 					//String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosSolucion.get(i).getFileName();
 	        		//String directorioPath = System.getProperty("user.dir").replaceAll("\\\\", "/");
-	        		String raiz = "C:/workspace/sgdbex/WebContent/Archivos_Adjuntos/";
-	                String directorio = raiz + adjuntosSolucion.get(i).getFileName();
+	        		String directorio="C:/Users/ctorrez/Desktop/XML_SGDBEX/"+ adjuntosSolucion.get(i).getFileName();
 	                System.out.println(directorio);
 	                /*System.out.println(adjuntosSolucion.get(i).getFileName());
 	                System.out.println(adjuntosSolucion.get(i).getContentType());
@@ -392,7 +393,7 @@ public class DefectosMB implements Serializable{
 	                adjuntos.setArchivo_nombre(adjuntosSolucion.get(i).getFileName());
 	                adjuntos.setArchivo_formato(adjuntosSolucion.get(i).getContentType());
 	                adjuntos.setArchivo_tipo('S');
-	                adjuntos.setArchivo_ubicacion(raiz+URLEncoder.encode(adjuntosSolucion.get(i).getFileName().toString(), "UTF-8"));
+	                adjuntos.setArchivo_ubicacion(directorio);
 	                adjuntos.setArchivo_tamano(Long.toString(adjuntosSolucion.get(i).getSize()));
 	                adjuntos.setArchivo_usuario_creacion(m.getNombre());
 	                archAdjuntos.add(adjuntos);
