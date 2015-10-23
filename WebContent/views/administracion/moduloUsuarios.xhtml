@@ -24,7 +24,7 @@
             PF('dialog').hide();"
         }
 	</script>
-	<p:dialog id="dialogAdm" header="Nuevo Usuario" widgetVar="dialog" appendToBody="@(body)">   	  
+	<p:dialog id="dialogAdm" styleClass="admDialog" header="Nuevo Usuario" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
             <p:panelGrid id="panelGridDialog" columns="2" >
@@ -64,7 +64,7 @@
        </h:form>
 	</p:dialog>	
     <div align="center" style="width: 90%;">
-     	<h:form id="formulario">
+     	<h:form id="formulario" styleClass="tableAdm">
      		<p:growl id="msjs" showDetail="true" life="2500"/>
      		
 			<p:dataTable id="table" var="user" value="#{usuariosMB.usuariosList}" style="text-align:center" 
@@ -73,7 +73,7 @@
 				<f:facet styleClass="headerAdm" name="header">
 					<div id="titleTable">Gestión de usuarios</div>
 					<div>
-	        			<p:outputPanel id="filtroAdm">
+	        			<p:outputPanel id="filtroAdm" styleClass="filtroAdm">
 	                	<h:outputText value="Buscar en tabla:" />
 	                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('userTable').filter()" style="width:25%" placeholder=""/>
 	            		</p:outputPanel>

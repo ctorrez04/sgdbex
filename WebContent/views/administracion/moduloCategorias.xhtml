@@ -24,7 +24,7 @@
             PF('dialog').hide();"
         }
 	</script>
-	<p:dialog id="dialogAdm" header="Nueva Categorias" widgetVar="dialog" appendToBody="@(body)">   	  
+	<p:dialog id="dialogAdm" styleClass="admDialog" header="Nueva Categorias" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
             <p:panelGrid id="panelGridDialog" columns="2">
@@ -45,16 +45,15 @@
        </h:form>
 	</p:dialog>			
      <div align="center" style="width: 90%;">
-     	<h:form id="formulario">
+     	<h:form id="formulario" styleClass="tableAdm">
      	  	<p:growl id="msjs" showDetail="true" life="2500"/>
-			
 			<p:dataTable id="table" var="cat" value="#{categoriasMB.categoriasList}" editable="true" style="margin-bottom:20px"
 				paginator="true"  paginatorPosition="bottom" rows="20"
 				widgetVar="catTable" emptyMessage="No se encontraron categorias bajo este criterio" filteredValue="#{categoriasMB.filtroCategorias}">
 				<f:facet name="header" styleClass="headerAdm">
 					<div id="titleTable">Gestión de Categorías</div>
 					<div>
-        			<p:outputPanel>
+        			<p:outputPanel id="filtroAdm" styleClass="filtroAdm">
                 	<h:outputText value="Buscar en tabla:" />
                 		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('catTable').filter()" style="width:150px" placeholder=""/>
             		</p:outputPanel>
