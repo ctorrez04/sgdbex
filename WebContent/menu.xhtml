@@ -28,7 +28,7 @@
 	}
 	</script>
 	<p:dialog header="Crear Defecto" widgetVar="dlgx" appendTo="@(body)" modal="true">
-	    <h:form id="formDefecto" enctype="multipart/form-data">
+	    <h:form id="formDefecto" class="formDefecto" enctype="multipart/form-data">
 			<p:growl id="growl" sticky="true" showDetail="true" life="2500" />
 	    	<p:panelGrid styleClass="panelgrid" columns="2">
 	    		
@@ -71,7 +71,7 @@
 	            <p:inputTextarea rows="4" cols="50" id="comentarios" value="#{generalController.defecto.comentarios}"/> -->
 				
 				<f:facet name="footer">
-					<div id="botones" >
+					<div class="botones" >
 						<p:commandButton update="growl" value="Crear" actionListener="#{generalController.agregar(generalController.defecto)}" oncomplete="limpiarFormulario();" >
 							<p:confirm header="Confirmacion" message="Esta seguro de reportar este defecto?" icon="ui-icon-alert" />
 							<!--  <f:ajax event="click" listener="#{principalMB.cargarDatosAjax}" render=":formulario1" disabled="#{!menu.principal}"/>-->
@@ -90,22 +90,22 @@
 		<p:remoteCommand name="myCommand" actionListener="#{generalController.reload}" update="@([id$=formDefecto])" style="display: none;" />
 		<p:remoteCommand name="refreshContentBody" actionListener="#{generalController.reloadContentBody}" style="display: none;" />
 
-		<p:menubar id="menu">
+		<p:menubar id="menu" styleClass="menu">
 			<p:menuitem value="INICIO" rendered="#{menu.mostrar('DEFECTOS','MOSTRAR')}" icon="fa fa-home" url="/Principal" />
 			<p:menuitem value="REGISTRAR DEFECTO" rendered="#{menu.mostrar('DEFECTOS','REPORTAR')}" icon="fa fa-bug" onclick="clickHiddenButton();"/>
 
 			<p:submenu label="CONTROL DE DEFECTOS" rendered="#{menu.mostrar('MENU','DEFECTOS')}" icon="fa fa-cog">
 				<!-- Validar defectos muestran los defectos reportados por el funcional y se encuentren en estatus resuelto, solo disponible para el funcional -->
-				<p:menuitem value="DEFECTOS A VALIDAR" rendered="#{menu.mostrar('DEFECTOS','VALIDAR')}" actionListener="#{generalController.defectosValidar}" />
+				<p:menuitem styleClass="submenu-li" value="DEFECTOS A VALIDAR" rendered="#{menu.mostrar('DEFECTOS','VALIDAR')}" actionListener="#{generalController.defectosValidar}" />
 				<!-- Modificar defectos accion utilizada solo por el funcional que reporto el defecto a modificar siempre que el estatus sea abierto
 				<p:menuitem value="Modificar defectos" rendered="#{menu.mostrar('DEFECTOS','MODIFICAR')}" actionListener="#{generalController.defectosModificar}"/> -->
 				<!-- Eliminar defectos accion utilizada solo por el lider y el funcional que reporto el defecto a eliminar 
 				<p:menuitem value="Eliminar defectos" rendered="#{menu.mostrar('DEFECTOS','ELIMINAR')}" actionListener="#{generalController.defectosEliminar}" />-->
 				<!-- Ver asignados muestran todos los defectos que fueron asignados al analista alguna vez hasta que haya sido cerrado
 				O algun defecto asignado que haya sido resuelto anteriormente por lo tanto el lider podria eliminarlo, posible accion-->
-				<p:menuitem value="DEFECTOS A RESOLVER" rendered="#{menu.mostrar('DEFECTOS','CONSULTAR')}" actionListener="#{generalController.defectosResolver}"/>
+				<p:menuitem styleClass="submenu-li" value="DEFECTOS A RESOLVER" rendered="#{menu.mostrar('DEFECTOS','CONSULTAR')}" actionListener="#{generalController.defectosResolver}"/>
 				<!-- Asignar defectos muestran los defectos no asignados es decir en estatus abierto y reabierto y solo disponible para el lider -->
-				<p:menuitem value="ASIGNAR DEFECTOS" rendered="#{menu.mostrar('DEFECTOS','ASIGNAR')}" actionListener="#{generalController.defectosPorAsignar}" />
+				<p:menuitem styleClass="submenu-li" value="ASIGNAR DEFECTOS" rendered="#{menu.mostrar('DEFECTOS','ASIGNAR')}" actionListener="#{generalController.defectosPorAsignar}" />
 				
 			</p:submenu>
 			<p:menuitem value="REPORTES" rendered="#{menu.mostrar('MENU','REPORTES')}" icon="fa fa-table" actionListener="#{reportesController.reportesGeneral}"/>
@@ -115,29 +115,21 @@
 			</p:submenu>-->
 			
 			<p:submenu label="ADMINISTRACION" rendered="#{menu.mostrar('MENU','ADMINISTRACION')}" icon="fa fa-wrench">
-				<p:menuitem value="PROYECTOS" url="/ModuloProyectos" rendered="#{menu.mostrar('ADMINISTRACION','PROYECTOS')}"/>
-				<p:menuitem value="USUARIOS" url="/ModuloUsuarios" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
-				<p:menuitem value="CATEGORIAS" url="/ModuloCategorias" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
-				<p:menuitem value="MOTIVOS RECHAZO" url="/ModuloMotivosRechazo" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
+				<p:menuitem styleClass="submenu-li" value="PROYECTOS" url="/ModuloProyectos" rendered="#{menu.mostrar('ADMINISTRACION','PROYECTOS')}"/>
+				<p:menuitem styleClass="submenu-li" value="USUARIOS" url="/ModuloUsuarios" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
+				<p:menuitem styleClass="submenu-li" value="CATEGORIAS" url="/ModuloCategorias" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
+				<p:menuitem styleClass="submenu-li" value="MOTIVOS RECHAZO" url="/ModuloMotivosRechazo" rendered="#{menu.mostrar('ADMINISTRACION','CATEGORIAS')}"/>
 			</p:submenu>
 
-			<f:facet name="options">
-				<p:selectOneMenu id="selecProy" value="#{generalController.filtro_proyecto}" filter="true" filterMatchMode="startsWith" >
+			<f:facet name="options" styleClass="options">
+				<p:selectOneMenu id="selecProy" styleClass="options-proyecto" value="#{generalController.filtro_proyecto}" filter="true" filterMatchMode="startsWith" >
 					<p:ajax event="change" listener="#{generalController.reloadPage}" /> 
-					<!-- <p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2" disabled="#{principalMB.title1}"/>
-					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3" disabled="#{principalMB.title2}"/>
-					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title3}"/>
-					<p:ajax listener="#{principalMB.cargarDatosAjax}" update=":formulario1:tabla1 :formulario2:tabla2 :formulario3:tabla3 :formulario4:tabla4" disabled="#{principalMB.title4}"/>-->
 					<f:selectItem itemLabel="Todos los Proyectos" noSelectionOption="true" itemValue="0"/>
 					<f:selectItems value="#{menu.proyectosUsuarioList}" var="proy" itemLabel="#{proy.proyecto_nombre}" itemValue="#{proy.proyecto_id}"/>
 				</p:selectOneMenu>
-				<div id="buscar">
-					<h:inputText placeholder="Buscar" binding="#{text}" style="width: 100px; height: 15px;"/>
+				<div class="options-search">
+					<h:inputText placeholder="Buscar" binding="#{text}" />
 					<p:commandButton action="#{menu.doSearch(text.value)}" icon="ui-icon-search"/>
-					<!-- <p:inputText placeholder="Buscar" value="#{menu.buscar}" style="width: 100px; height: 15px;"/>
-					<p:button outcome="/views/reportarDefecto/buscarDefecto" icon="ui-icon-search">
-						<f:param name="nombre" value="#{input1.value}" />
-					</p:button>-->
 				</div>
 			</f:facet>
 		</p:menubar>

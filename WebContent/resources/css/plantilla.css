@@ -7,7 +7,7 @@
 	width: 100% !important;
 	min-width: 960px !important;
 	text-align: center !important;
-	font-size: 11px !important;
+	/*font-size: 11px !important;*/
 	position: fixed !important;
 	z-index: 100 !important;
 	left: 0px !important;
@@ -21,7 +21,7 @@
 	margin-left: auto !important;
 	text-align: left !important;
 	height : 100% !important;
-	min-height: 1200px !important;
+	/*min-height: 1200px !important;*/
 }
 .ui-widget-content{
 	border: 0px none !important;
@@ -30,14 +30,14 @@
   	/*font-size: 90%;*/
   	height: 100% !important;
   	min-height: 500px !important;
-/*	font-family: Arial, Helvetica, sans-serif !important;
+	/*font-family: Arial, Helvetica, sans-serif !important;
  	border:1px solid black;*/
     margin:0 auto;
     position:relative !important;
 }
 #contentBody .ui-widget{
-  	font-size: 90%;
-	font-family: Arial, Helvetica, sans-serif !important;
+/*  	font-size: 90%;
+	font-family: Arial, Helvetica, sans-serif !important;*/
 	background-color: #FFF;
 }
 .ui-layout-north {
@@ -50,9 +50,9 @@
 .ui-selectonemenu-panel {
 	z-index:101 !important;
 	overflow:visible !important;
-	width: 155px !important;
-	font-size: 75%;
-	font-family: Arial, Helvetica, sans-serif;
+	/*width: 155px !important;*/
+	/*font-size: 75%;
+	font-family: Arial, Helvetica, sans-serif;*/
 }
 #header .ui-layout-unit-content.ui-widget-content {
 	width: 100% !important;
@@ -77,22 +77,150 @@
 	width: 100% !important;
 	padding-top: 10px;
 }
-#buscar{
-	margin-right: 10px;
-    float: right;	
-}
-/*-------------------------------------------------------------*/
-.disableWin{
-     pointer-events: none;
-}
-/*-------------------------------------------------------------*/
+
 html, body {
     height:100%
 }
 #nav .ui-menu-list .ui-widget-content {
     min-width:95%;
 }
+div.menu
+{
+width:100%;
+height:30px;
+background-color:#C4C4C4;
+}
+div.menu ul
+{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+div.menu li
+{
+float:left;
+	font-family: Century Gothic, sans-serif;
+}
+div.menu a
+{
+display:block;
+width:10%;
+}
+div.menu li a:link
+{
+/*font-weight:bold;*/
+color:#333333;
+font-size: 14px;
+/*background-color:#C4C4C4;*/
+text-align:center;
+padding:4px;
+text-decoration:none;
+text-transform:uppercase;
+}
+
+div.menu menu-li a:visited
+{
+font-weight:bold;
+color:#FFFFFF;
+background-color:#A8A8A8;
+text-align:center;
+padding:4px;
+text-decoration:none;
+text-transform:uppercase;
+}
+div.menu li a:hover
+{
+background-color:#A8A8A8;
+}
+
+div.menu li a:active
+{
+background-color:#A8A8A8;
+}
+div.menu li ul{
+	width: inherit !important;
+}
+/*.ui-dialog-titlebar {
+	background-color: #3F59FF !important;
+}*/
+.ui-menubar-options{
+	width: 30% !important;
+	height: 20% !important;
+	float: right !important;
+}
+.options-proyecto{
+	width: 38% !important;
+}
+
+.options-search{
+	width: 60% !important;
+	float: right !important;
+}
+.options-proyecto input{
+	width: inherit;
+}
+
+.options-search input{
+	width: inherit;
+}
+
+.options-proyecto label {
+	width: 80% !important;
+}
 
 .ui-dialog-titlebar {
-	background-color: #3F59FF !important;
+	background-color: #0971B2 !important;
+	color : #FFF !important;
+}
+.ui-dialog-titlebar span{
+	font-family: Helvetica, sans-serif !important;
+	font-size: 16px !important;
+	text-decoration:none;
+	text-transform:uppercase;
+	margin-left: 5% !important;
+}
+.ui-fileupload-buttonbar{
+	background-color: #7C7C7C !important;
+}
+.ui-fileupload-buttonbar span{
+	background: none;
+	background-color: #1485CC !important;
+	color : #FFF !important;
+}
+.ui-fileupload-buttonbar .ui-icon-plusthick{
+	background-color: #FFF !important;
+}
+/*.ui-widget-header{
+	background-color: #D4D4D4 !important;
+}*/
+.botones{
+	float: right;
+}
+.botones button.ui-button{
+	background: none;
+	background-color: #1485CC !important;
+	border-style:  solid;
+}
+.ui-confirm-dialog span {
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
+	text-decoration:none;
+}
+.ui-confirm-dialog button{
+	background: none;
+	background-color: #1485CC !important;
+	color: #FFF !important;
+	border-style:  solid;
+	width: 35%;
+}
+.ui-dialog-buttonpane{
+	text-align: center !important;
+}
+
+input[type=text]
+{
+    background-color: #FFF;
+	border:solid 1px #BFBDBD;
+    color: #979797;
+    box-shadow: 2px 2px 0 #828181 inset;
 }

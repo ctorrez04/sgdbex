@@ -24,7 +24,7 @@
             PF('dialog').hide();"
         }
 	</script>
-	<p:dialog id="dialogAdm" header="Nuevo Proyecto" widgetVar="dialog" appendToBody="@(body)">   	  
+	<p:dialog id="dialogAdm" styleClass="admDialog" header="Nuevo Proyecto" widgetVar="dialog" appendToBody="@(body)">   	  
    	  <h:form id="formDialog">
           
             <p:panelGrid id="panelGridDialog" columns="2">
@@ -33,7 +33,7 @@
                 <p:inputText id="proyecto_descripcion" value="#{proyectosMB.proyecto.proyecto_descripcion}" />
                 
 				<h:outputLabel for="proyecto_nombre"  value="Siglas " />
-				<p:inputText  id="proyecto_nombre" value="#{proyectosMB.proyecto.proyecto_nombre}" required="true" requiredMessage="Ingresar Siglas de Proyecto.">
+				<p:inputText  id="proyecto_nombre" value="#{proyectosMB.proyecto.proyecto_nombre}"  required="true" requiredMessage="Ingresar Siglas de Proyecto.">
 					<f:validator binding="#{proyectoValidator}"/>
 				</p:inputText>
                 
@@ -52,7 +52,7 @@
        </h:form>
 	</p:dialog>			
      <div align="center" style="width: 90%;">
-     	<h:form id="formulario">
+     	<h:form id="formulario" styleClass="tableAdm">
 			
 			<p:growl id="msjs" showDetail="true" life="500"/>
 			
@@ -62,9 +62,9 @@
 				<f:facet name="header" styleClass="headerAdm">
 					<div id="titleTable">Gestión de proyectos</div>
 					<div>
-					<p:outputPanel id="filtroAdm">
+					<p:outputPanel id="filtroAdm" styleClass="filtroAdm">
                 	<h:outputText value="Buscar en tabla:" />
-                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('proyTable').filter()" style="width:25%" placeholder=""/>
+                		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('proyTable').filter()" placeholder=""/>
             		</p:outputPanel>
             		</div>
 				</f:facet>

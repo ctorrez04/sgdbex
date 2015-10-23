@@ -5,30 +5,10 @@
 	background-color: #FFFEEE;
 }*/
 
-form#formDefecto {
-	font-family: inherit !important;
-	font-size: 11pt !important;
-}
-
-form#formDefecto label{
-	float: left;
-	/*padding: 5px 0px 0px;*/
-	position: relative;
-	text-align: right;
-	width: 130px;
-}
-
-form#formDefecto select, input{
-	max-width: 250px;
-	width: 100%;
-}
-
 .panelgrid.ui-panelgrid>*>tr, .panelgrid.ui-panelgrid .ui-panelgrid-cell {
     border: none;
 }
-#botones{
-	float: right;
-}
+
 .ui-panelgrid-footer button.ui-widget{
 	background-color: #3F59FF !important;
 	color: #FFF !important;
@@ -39,15 +19,39 @@ form#formDefecto select, input{
 	text-align: right;
 	width: 130px;
 }
-#formDefecto .ui-widget-header {
-	background-color: white !important;
-	text-align: center 
-}
 .ui-fileupload-buttonbar span, .ui-fileupload-buttonbar button{
 	background-color:  lightblue;
 	color: black;
 }
 
-#formDefecto input[type="file"]{
+.formDefecto input[type="file"]{
 	transform: none;
+}
+
+.formDefecto label{
+	font-family: Helvetica,sans-serif !important;
+	font-size: 15px !important;
+}
+
+.formDefecto label{
+	font-family: Helvetica,sans-serif !important;
+	font-size: 15px !important;
+	float: left;
+	position: relative;
+	text-align: right;
+	width: 90%;
+}
+.formDefecto select{
+	font-family: Helvetica,sans-serif !important;
+	text-align: center ;
+	font-size: 15px !important;
+	text-decoration:none;
+	max-width: 50%;
+	width: 100%;
+}
+.formDefecto input, .formDefecto textarea{
+	font-family: Helvetica !important;
+	font-size: 15px !important;
+	text-decoration:none;
+	width: 100%;
 }

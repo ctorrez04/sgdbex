@@ -1,115 +1,70 @@
-/* ESTILOS CONTENT BODY*/
-/*#contentBody .ui-widget{
-  	font-size: 90%;
-	font-family: Arial, Helvetica, sans-serif !important;
-	background-color: #FFF;
-}*/
-#formulario{
+.tableAdm{
 	text-align: center;
-	width: 75%;
-	/*font-size: 95%;*/
+	width: 80%;
 }
-#formulario .ui-datatable-header{
+.tableAdm thead .ui-state-default{
+	background: none;
+	background-color: #0971B2 !important;
+	color : #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
+}
+.tableAdm .ui-datatable-header{
 	margin-bottom: 1%;
+	background: none;
+	background-color:  #0971B2 !important;
 }
-#formulario #titleTable{
-	float: left;
-	
-}
-#formulario .ui-outputpanel {
-	background-color:  inherit;	
-}
-
-#dialogAdm label{
-	float: left;
-	position: relative;
-	text-align: right;
-	width: 80px;
-}
-
-#dialogAdm select, #dialogAdm input{
-	width: 240px;
-}
-
-.panelgrid.ui-panelgrid>*>tr, .panelgrid.ui-panelgrid .ui-panelgrid-cell {
-    border: none;
-}
-#botones{
-	float: right;
-}
-.ui-panelgrid-footer button.ui-widget{
-	background-color: #3F59FF !important;
+.tableAdm #titleTable{
+	float: left;	
 	color: #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
+	text-decoration:none;
+	text-transform:uppercase;
+	margin-left: 5% !important;
+	margin-top: 0.5% !important;
+}
+.tableAdm .ui-outputpanel {
+	background-color:  #0971B2 !important;
+}
+.tableAdm .filtroAdm{
+	margin-left: 50%;
+	color: #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 12px !important;
 }
 
-/*estilo de los nombres de las columnas*/
-th {
-	background-color: #3F59FF !important;
-	color: black !important;
-	border:disabled !important;
+.tableAdm .filtroAdm input{
+	margin-left: 5% !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 12px !important;
 }
-/*estilo contenido de tablas*/
-#formulario .ui-widget-content{
-	border: none !important;
-	color: black;
-	font-family: Arial, Helvetica, sans-serif !important;
-	font-size: 95% !important;
+.admDialog .ui-dialog-titlebar{
+	background: none;
+	background-color: #0971B2 !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 12px !important;
 }
-
-#formulario select option{
-	width: auto;
-	max-width: 120px;
+.admDialog td,.admDialog tr{
+	border:none !important;
 }
 
-.ui-datatable-header{
-	background-color: white !important; /*#333 tipo gris 000A6F azul #03C*/ 
-	border: none !important;
+.admDialog table tbody{
+	background-color: #0971B2 !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
 }
-.ui-datatable-header .ui-outputpanel{
+.admDialog table tfoot{
+	margin-top: 20% !important;
 	text-align: right !important;
 }
-.ui-datatable-header div#titleTable{
-	text-align: left !important;
-	font-family:  Comic Sans MS, cursive, sans-serif !important;	
+.admDialog table tfoot .ui-widget-header{
+	background: none !important;
 }
-.ui-datatable-footer{
-	background-color: #3F59FF !important;
-}
-.ui-datatable thead th,
-.ui-datatable tbody,
-.ui-datatable tbody tr,
-.ui-datatable tbody td {
-    border: none !important;
-}
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-    border: none !important;
-}
-#dialogAdm{
-	height: 200px;
-}
-
-.ui-dialog-titlebar {
-	background-color: #3F59FF !important;
-}
-#formDialog .ui-panelgrid{
-	border: none !important;
-}
-#formDialog td{
-	border: none !important;
-}
-#formDialog .ui-widget-content {
-	border: none !important;
-}
-#formDialog .ui-widget-header{
-	background-color: white !important;
-	border: none !important;
-}
-#formDialog .ui-widget-header td{
-	/*background-color: white !important;*/
-	text-align: right !important;
-}
-.ui-paginator{
-	background-color: white !important;
+.admDialog table tfoot .ui-widget-header .ui-button{
+	margin-top: 4% !important;
+	margin-right: 2% !important;
+	width : 20% !important;
+	background: none;
+	background-color: #0971B2 !important;
 }
