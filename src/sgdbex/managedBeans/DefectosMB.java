@@ -265,8 +265,10 @@ public class DefectosMB implements Serializable{
 					case "RE-ABIERTO" :
 						defecto.setMotivo_fk(0);
 						defecto.setMotivo_nombre("");
-						if(m.getCarnet().equals(defecto.getProyecto_lider()) || m.getPerfil().equals("ADMINISTRADOR")){ //Si soy el lider puedo editar el usuario asignado
+						if(m.getCarnet().equals(defecto.getReportero_fk())){
 							this.editarReabierto=true;
+						} 
+						if(m.getCarnet().equals(defecto.getProyecto_lider()) || m.getPerfil().equals("ADMINISTRADOR")){ //Si soy el lider puedo editar el usuario asignado
 							this.asignar=true;
 							this.resolver=true;
 						}

@@ -1,22 +1,24 @@
 #formulario{
-	width: 50% !important;
+	width: 35% !important;
 	margin-left: 25%;
-    margin-top: 5%;
+  margin-top: 5%;
+	border:solid 1px #BFBDBD;
 }
-/*#contentBody .ui-widget{
-  	font-size: 90%;
-	font-family: Arial, Helvetica, sans-serif !important;
-	background-color: #FFF;
-}*/
 #formulario label{
 	float: right;
 	position: relative;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
 }
-#formulario span{
+#formulario .ui-panel-content span{
 	float: left;
 	font-weight: bold;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
 }
 #formulario .ui-panel-titlebar{
 	background-color: white;
 	border: none;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 16px !important;
 }
