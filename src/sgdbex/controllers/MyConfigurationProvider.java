@@ -25,7 +25,7 @@ public class MyConfigurationProvider extends HttpConfigurationProvider{
 		
 		.addRule(Join.path("/Resolver").to("/faces/views/miVista/defectosAsignados.xhtml"))//Resolver Defectos
 		
-		.addRule(Join.path("/Asignar").to("/faces/views/miVista/defectosAsignados.xhtml"))//Asignar Defectos
+		.addRule(Join.path("/Asignar").to("/faces/views/miVista/defectosReportados.xhtml"))//Asignar Defectos
 		
 		.addRule(Join.path("/ReporteGeneral").to("/faces/views/reportes/reporteGeneral.xhtml"))//Reporte General
 		

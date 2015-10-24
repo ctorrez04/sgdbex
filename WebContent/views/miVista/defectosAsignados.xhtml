@@ -16,14 +16,14 @@
 	<ui:define name="content">
 		<h:outputStylesheet library="css" name="defectos.css" />
     <div align="center" style="width: 90%;">
-    	<h:form id="formulario">
+    	<h:form id="formulario" styleClass="tableDefectos">
      		<p:growl id="msjs" showDetail="true"/>					
 			<p:dataTable var="defec" value="#{generalController.defectosList}" paginator="true"  paginatorPosition="bottom" rows="20"
 				widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{generalController.filtroDefectos}">
 				<f:facet name="header" styleClass="headerDefectos">
-					<div id="titleTable">Defectos Asignados</div>
+					<div id="titleTable">Defectos A Resolver</div>
 					<div>
-					<p:outputPanel id="filtroDefectos">
+					<p:outputPanel id="filtroDefectos" styleClass="filtroDefectos">
                 	<h:outputText value="Buscar en tabla:" />
                 		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
             		</p:outputPanel>

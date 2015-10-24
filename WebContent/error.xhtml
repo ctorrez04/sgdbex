@@ -13,9 +13,15 @@
 <h:body>
 	<ui:composition template="/plantilla.xhtml">
 	  	<ui:define name="content"> 
-			<h:outputStylesheet library="css" name="principal.css" />
-		    <h3> Pagina No Encontrada.
-		    </h3>
+			<h:outputStylesheet library="css" name="error.css" />
+		    <div class="error-template">
+			    <h1> Oops!</h1>
+			    <h2>
+			        404 Not Found</h2>
+			    <div class="error-details">
+			        Pagina no encontrada!
+			    </div>
+			</div>
 		</ui:define>
 	</ui:composition>
 </h:body>
