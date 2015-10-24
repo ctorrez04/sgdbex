@@ -3,26 +3,46 @@
     display: inline-block;
     float: left;
     color: #FFF;
-    width:100%;
+    width:96%;
     height: auto;
-    border: 1px solid gray;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 16px !important;
+	text-decoration:none;
+	
 }
+.titlePrincipal{
+	margin-left: 5%;
+	margin-top: 0%;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
+	text-decoration:none;
+}
+
 .col1, .col2 {
     margin-left: 1%;
     width: 48%;
-    background: #90EE90 none repeat scroll 0% 0%;
+    background: #FFF none repeat scroll 0% 0%;
+	border : none;
 }
 .row1 {
     margin-top:1%;
     height: auto;
-    background: #00008B none repeat scroll 0% 0%;
+    background: #FFF none repeat scroll 0% 0%;
+		border: 1px solid gray;
  }
 .row2 {
     margin-top:1%;
     height: auto;
-    background: #00F none repeat scroll 0% 0%;
+    background: #FFF none repeat scroll 0% 0%;
+		border: 1px solid gray;
 }
-
+.row2 table thead span,.row1 table thead span{
+	color : #FFF !important;
+}
+.row2 table thead th,.row1 table thead th{
+	background: none;
+	background-color: #0971B2 !important;
+}
 #formulario1, #formulario2, #formulario3, #formulario4 {
 	text-align: center;
 	font-size: 90%;
