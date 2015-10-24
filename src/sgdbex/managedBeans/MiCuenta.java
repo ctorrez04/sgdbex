@@ -24,6 +24,8 @@ código e incluir la nueva, documentando la fecha de la sustitución.
 ***************************************************************************************************************/
 package sgdbex.managedBeans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -32,13 +34,19 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+
 import beasa.generales.CargarUsuario;
 
 @ManagedBean
-@SessionScoped
+//@SessionScoped
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 @ViewScoped
-public class MiCuenta{
+public class MiCuenta implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private String nombre;
 	private String carnet;
 	private String email;
