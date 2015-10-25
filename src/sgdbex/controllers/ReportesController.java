@@ -809,11 +809,14 @@ public class ReportesController {
 	
 	//Calcular valor maximo de la columna 'dias' de los reportes:
 		public int ValorDiasMaximoReporte(List<Reportes> lista){
-			int max=lista.get(0).getDias();
-	        for(int i=0;i<lista.size();i++){
-	        	if(lista.get(i).getDias()>max)
-	        		max=lista.get(i).getDias();
-	        }
+			int max=0;
+			if(lista != null && !(lista.isEmpty())){
+				max=lista.get(0).getDias();
+		        for(int i=0;i<lista.size();i++){
+		        	if(lista.get(i).getDias()>max)
+		        		max=lista.get(i).getDias();
+		        }
+			}
 	        return max;
 		}
 	

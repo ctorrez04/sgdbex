@@ -21,7 +21,8 @@
 	<h:outputStylesheet library="css" name="busqueda.css" />
     <div align="center">
 		<h:form id="formBusqueda">
-			<h:outputText value="#{busquedaMB.buscar}" />
+			<span class="span">Resultados para: </span>
+			<h:outputText styleClass="stringBusqueda" value="#{busquedaMB.buscar}" />
 			<p:growl id="msjs" showDetail="true"/>
 			<div>
 				<ul>
@@ -51,12 +52,12 @@
 					</li>
 				</ul>
 			</div>					
-			<p:dataTable id="results" var="defec" value="#{busquedaMB.defectosEncontrados}" paginator="true"  paginatorPosition="bottom" rows="20"
+			<p:dataTable id="results" styleClass="results" var="defec" value="#{busquedaMB.defectosEncontrados}" paginator="true"  paginatorPosition="bottom" rows="20"
 				widgetVar="defTable" emptyMessage="No se encontraron defectos bajo este criterio" filteredValue="#{busquedaMB.filtroDefectos}">
 				<f:facet name="header" styleClass="headerDefectos">
 					<div id="titleTable">Defectos Encontrados</div>
 					<div>
-					<p:outputPanel id="filtroDefectos">
+					<p:outputPanel id="filtroDefectos" styleClass="filtroDefectos">
                 	<h:outputText value="Buscar en tabla:" />
                 		<p:inputText id="globalFilter" styleClass="filtro" onkeyup="PF('defTable').filter()" style="width:25%" placeholder=""/>
             		</p:outputPanel>

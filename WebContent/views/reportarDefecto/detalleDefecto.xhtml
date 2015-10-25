@@ -20,9 +20,9 @@
 	<ui:define name="content">
 	<h:outputStylesheet library="css" name="defectos.css" />
     <div align="center">
-		<h:form id="formDetalle" enctype="multipart/form-data">
-			<p:panel id="basic" header="Defecto No. #{defectosMB.defecto.defecto_id}" style="margin-bottom:20px">
-		        <h:panelGrid columns="4" cellpadding="10">
+		<h:form id="formDetalle" class="detalleDefectos" enctype="multipart/form-data">
+			<p:panel id="basic" header="DEFECTO No. #{defectosMB.defecto.defecto_id}" style="margin-bottom:20px">
+		        <h:panelGrid styleClass="infoDefecto" columns="4" cellpadding="10">
 		            <h:outputLabel value="Asunto: " />
 					<h:outputText value="#{defectosMB.defecto.asunto}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
 					<p:inputText value="#{defectosMB.defecto.asunto}" rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}" />
@@ -30,7 +30,7 @@
 		            <h:outputLabel value="Proyecto: " />
 					<h:outputText value="#{defectosMB.defecto.proyecto_nombre}"/>
 					
-		            <h:outputLabel value="Descripcion del defecto: " />
+		            <h:outputLabel value="Descripcion: " />
 					<h:outputText value="#{defectosMB.defecto.descripcion}" rendered="#{defectosMB.botones or (!defectosMB.editarAbierto and !defectosMB.editarReabierto)}"/>
 					<p:inputTextarea rows="3" cols="30" value="#{defectosMB.defecto.descripcion}" rendered="#{!defectosMB.botones and (defectosMB.editarAbierto or defectosMB.editarReabierto)}"/>
 										
@@ -41,7 +41,7 @@
 						<f:selectItems value="#{generalController.categoriasList}" var="cat" itemLabel="#{cat.categoria_nombre}" itemValue="#{cat.categoria_id}"/>
 					</h:selectOneMenu>
 					
-		            <h:outputLabel value="Usuario Reportero: " />
+		            <h:outputLabel value="Funcional: " />
 		            <h:outputText value="#{defectosMB.defecto.reportero_fk.concat('-').concat(defectosMB.defecto.reportero_nombre)}" />
 					
 		            <h:outputLabel value="Fecha Creacion: " />
@@ -81,7 +81,7 @@
 		            <h:outputLabel value="Fecha Estimada: " />
 		            <p:calendar id="datetime" value="#{defectosMB.defecto.fecha_estimada}" pattern="dd/MM/yyyy HH:mm:ss" disabled="#{defectosMB.botones or !defectosMB.editarAsignado}"/>
 					
-					<h:outputLabel value="Usuario Asignado" />
+					<h:outputLabel value="Responsable: " />
 					<h:outputText value="#{defectosMB.defecto.responsable_nombre}" rendered="#{defectosMB.botones or (!defectosMB.asignar and !defectosMB.editarAsignado)}"/>
 		            <h:selectOneMenu id="asignado" value="#{defectosMB.defecto.responsable_fk}"  displayValueOnly="true" rendered="#{!defectosMB.botones and (defectosMB.asignar or defectosMB.editarAsignado)}" >
 							<f:selectItem itemLabel="--- Sin Asignar ---" noSelectionOption="true" itemValue="0"/>
@@ -94,7 +94,7 @@
 					<h:outputLabel value="Comentarios: " />
 					<p:inputTextarea rows="6" cols="30" value="#{defectosMB.defecto.comentarios}" disabled="#{defectosMB.botones}"/>
 		
-					<h:outputLabel for="adjuntar"  value="Anadir archivo adjuntos al defecto: "/>
+					<h:outputLabel for="adjuntar"  value="Añadir archivos adjuntos: "/>
  					<p:fileUpload id="adjuntar" fileUploadListener="#{defectosMB.manejadorCargaArchivos}" mode="advanced" multiple="true" auto="true"
  					sizeLimit="2048000000" fileLimit="20" cancelLabel="Cancelar" label="Seleccionar" uploadLabel="Subir" disabled="#{defectosMB.botones}"/>
  					

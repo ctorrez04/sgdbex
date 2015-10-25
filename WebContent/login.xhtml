@@ -10,14 +10,22 @@
 </f:metadata>
     <h:head>
         <title>SGDBEX</title>
-        <h:outputStylesheet name="css/style.css" />
-        <h:outputScript name="script.js" />
+        <style type="text/css">
+		.ui-widget {
+		  font-size: 75% !important;
+		}
+		.ui-widget .ui-widget {
+		  font-size: 100% !important;
+		}
+	</style>
     </h:head>
     
     <h:body>
     <div id="header">
     	<h:graphicImage url="/images/logo.jpg" width="400" height="80" />
     </div>
+    <h:outputStylesheet library="css" name="login.css" />
+	<h:outputScript library="js" name="script.js" />
      <div align="center">
      <br/>
      <br/>
@@ -26,7 +34,7 @@
      	<h:form>
    		   <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
-		   <p:panel id="basic" header="Autenticación de Usuarios" style="width:260px;height:220px;" >
+		   <p:panel id="basic" styleClass="formLogin" header="Autenticación de Usuarios" >
 		   <p:focus context="basic"/>
 		     <h:panelGrid id="grid" columns="1" cellpadding="3" >
 		    

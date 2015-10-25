@@ -17,7 +17,7 @@
 	  	<ui:define name="content">
 	  		<!--  <h:outputStylesheet library="css" name="reportes.css" />  -->
 	  		<h:outputStylesheet library="css" name="administracion.css" />
-			<div>
+			<div class="contentReport">
 				<!--  <p:panel id="panel1" header="Reportes" style="text-align:center">-->
 		     	<h:form id="formularioReport" styleClass="tableAdm">
 		     	<!--<div id="divTitle">
@@ -25,7 +25,7 @@
 		     	</div>
 		     	<div id="divSelect">-->
 		     	<div align="center" >
-		     	<p>Estadísticas de Reportes</p> 
+		     	<span class="span">Estadísticas de Reportes: </span> 
 		     	<h:panelGrid columns="2" cellpadding="5" style="text-align:center">
 		     		<p:selectOneMenu id="selectReport" value="#{reportesController.reporteSeleccionado}" style="width:103%;margin-right:10px" panelStyle="width:350px;" filter="true" filterMatchMode="startsWith">
 						<p:ajax event="change" update="@this"/>

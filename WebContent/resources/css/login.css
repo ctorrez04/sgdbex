@@ -1,0 +1,23 @@
+.formLogin .ui-panel-titlebar{
+	background: none;
+	background-color: #FF5B00 !important;
+	color : #FFF !important;
+}
+.formLogin .ui-panel-titlebar span{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 14px !important;
+}
+.formLogin table tbody td label{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 12px !important;
+}
+.formLogin .ui-panel-content .ui-button{
+    background: none;
+    background-color: #0971B2 !important;
+    color: #FFF !important;
+}
+
+.formLogin {
+    width:20%;
+    height:45% !important;
+}

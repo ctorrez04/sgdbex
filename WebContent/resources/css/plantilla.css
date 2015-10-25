@@ -221,3 +221,29 @@ input[type=text]
     color: #979797;
     box-shadow: 2px 2px 0 #828181 inset;
 }
+.ui-paginator{
+	background: none !important;
+	background-color: #0971B2 !important;
+}
+.ui-paginator .ui-corner-all{
+	background-color: #FFF !important;
+}
+
+.ui-datatable-footer {
+	margin-top: 1% !important;
+	background: none !important;
+	border: none !important;
+}
+.ui-datatable-footer button{
+	background: none !important;
+	background-color: #FF5B00 !important;
+	color: #FFF !important;
+}
+.ui-datatable-footer .ui-button .ui-icon-plusthick {
+	background-color: #FF5B00 !important;
+	color: #FFF !important;
+}
+.options-search input{
+ padding: 3px;
+ font-family: Helvetica,sans-serif;
+}

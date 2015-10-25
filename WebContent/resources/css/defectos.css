@@ -12,7 +12,7 @@
 .tableDefectos .ui-datatable-header{
 	margin-bottom: 1%;
 	background: none;
-	background-color:  #0971B2 !important;
+	background-color:  #FF5B00 !important;
 }
 .tableDefectos #titleTable{
 	float: left;	
@@ -25,7 +25,7 @@
 	margin-top: 0.5% !important;
 }
 .tableDefectos .ui-outputpanel {
-	background-color:  #0971B2 !important;
+	background-color:  #FF5B00 !important;
 }
 .tableDefectos .filtroDefectos{
 	margin-left: 50%;
@@ -42,4 +42,73 @@
 }
 .tableDefectos tbody .ui-inputfield {
 	width: 70% !important;
+}
+.detalleDefectos{
+	width: 80%;
+}
+.detalleDefectos .ui-datatable-header {
+	font-size: 12px;
+	color: #FFF;
+	text-decoration:none;
+	text-transform:uppercase;
+}
+.detalleDefectos thead .ui-column-title{
+	font-weight: normal;
+	font-size: 12px;
+}
+.detalleDefectos .ui-datatable-header{
+	margin-bottom: 0.5%;
+	background: none;
+	background-color:  #FF5B00 !important;
+}
+.detalleDefectos thead .ui-state-default{
+	background: none;
+	background-color: #0971B2 !important;
+	color : #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 12px !important;
+}
+.detalleDefectos .ui-panel-titlebar{
+	width: 90%;
+	background: none;
+	background-color: #FF5B00 !important;
+	color : #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
+}
+.detalleDefectos .ui-datatable{
+	width: 95% !important;
+	margin: 0 auto !important;
+	margin-top: 1% !important;
+}
+.infoDefecto{
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
+	border-style: solid;
+	border-width: 1px !important;
+	width: 90%;
+  border-collapse:collapse;
+}
+
+.infoDefecto select,.infoDefecto input{
+	float: left !important;
+	text-align: center !important;
+	font-weight: normal !important;
+}
+.infoDefecto label{
+	float: left;
+	position: relative;
+	text-align: right;
+	font-weight: bold !important;
+	width: 80%;
+}
+.infoDefecto textarea{
+	float: left !important;
+	font-weight: normal !important;
+	width: 100% !important;
+}
+.infoDefecto .ui-button span{
+	background-color: #0971B2;
+	color: #FFF !important;
+	font-weight: 500 !important;
 }

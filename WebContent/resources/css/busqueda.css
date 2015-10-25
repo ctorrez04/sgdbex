@@ -1,90 +1,81 @@
-#formBusqueda{
+.results{
 	text-align: center;
-	width: 95%;
-	font-size: 90%;
+	width: 80%;
 }
-#formBusqueda .ui-datatable-header{
-	margin-bottom: 1%;
+.results thead .ui-state-default{
+	background: none;
+	background-color: #0971B2 !important;
+	color : #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
 }
-#formBusqueda #titleTable{
-	float: left;
-	
+.results .ui-datatable-header{
+	background: none;
+	background-color:  #FF5B00 !important;
 }
-#formBusqueda .ui-outputpanel {
-	background-color:  inherit;	
-}
-#formBusqueda .ui-panel-titlebar {
-	background-color: #3F59FF !important;
-}
-#formBusqueda .ui-inputfield {
- 	width:75px;
-	color: black !important;
-}
-
-.panelgrid.ui-panelgrid>*>tr, .panelgrid.ui-panelgrid .ui-panelgrid-cell {
-    border: none;
-}
-#botones{
-	float: right;
-}
-.ui-panelgrid-footer button.ui-widget{
-	background-color: #3F59FF !important;
+.results #titleTable{
+	float: left;	
 	color: #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 14px !important;
+	text-decoration:none;
+	text-transform:uppercase;
+	margin-left: 5% !important;
+	margin-top: 0.5% !important;	
+}
+.results .ui-datatable-data{
+	font-size: 12px !important;
+}
+.results .ui-datatable-data input{
+	font-weight: normal !important;
+	width: 60%;
+}
+.results .ui-outputpanel {
+	background-color:  #FF5B00 !important;
+}
+.results .filtroDefectos{
+	margin-left: 50%;
+	color: #FFF !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 12px !important;
 }
 
-/*estilo de los nombres de las columnas*/
-th {
-	background-color: #3F59FF !important;
-  color: black !important;
-	border:disabled !important;
+.results .filtroDefectos input{
+	margin-left: 5% !important;
+	font-family: Helvetica, sans-serif !important;
+	font-size: 12px !important;
+	width : 40% !important;
+	font-weight: normal !important;
 }
-/*estilo contenido de tablas*/
-#formBusqueda .ui-widget-content{
-	border: none !important;
-	color: black;
-	font-family: Arial, Helvetica, sans-serif !important;
-	font-size: 90%;
-}
-.ui-datatable-header{
-	background-color: white !important; /*#333 tipo gris 000A6F azul #03C*/ 
-	/*color: # !important;*/
-	border: none !important;
-}
-.ui-datatable-header .ui-outputpanel{
-	text-align: right !important;
-}
-.ui-datatable-header div#titleTable{
-	text-align: left !important;
-	font-family: Arial, Helvetica, sans-serif !important;
-}
-.ui-datatable-footer{
-	background-color: #3F59FF !important;
-}
-.ui-datatable thead th,
-.ui-datatable tbody,
-.ui-datatable tbody tr,
-.ui-datatable tbody td {
-    border: none !important;
-}
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-    border: none !important;
-}
-.ui-paginator{
-	background-color: white !important;
-}
-
 
 #formBusqueda ul{
   list-style-type: none;
   text-align: center;
 	color: #000;
-	font-family: Arial,Helvetica,sans-serif !important;
-	font-size: 90%;
+	font-family: Helvetica,sans-serif !important;
+	width: 50%
 }
+
 #formBusqueda li{
   display: inline;
   text-align: center;
   margin: 0 10px 0 0;
-} 
+}
+#formBusqueda li span{
+	font-family: Helvetica,sans-serif !important;
+	font-size: 13px !important;
+	margin-right: 1% !important;
+	font-weight: 600;
+}
+#formBusqueda li select{
+	text-align: center !important;
+	margin-right: 1% !important;
+}
+#formBusqueda .span{
+	font-family: Helvetica,sans-serif !important;
+	font-size: 16px !important;
+}
+#formBusqueda .stringBusqueda{
+	font-family: Helvetica,sans-serif !important;
+	font-size: 16px !important;
+	font-weight: bold;

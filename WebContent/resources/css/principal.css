@@ -40,7 +40,11 @@
 }
 .row1 .ui-corner-top, .row2 .ui-corner-top{
 	background: none !important;
+	background-color: #FF5B00 !important;
+	color: #FFF !important;
+	font-size: 12px !important;
 }
+
 .row1 form, .row2 form{
 	border: 1px solid gray;
 }
@@ -61,6 +65,8 @@
 
 .row1 .ui-datatable-header .ui-outputpanel, .row2 .ui-datatable-header .ui-outputpanel{
 	text-align: right !important;
+	background-color: #FF5B00 !important;
+	color: #FFF !important;
 }
 
 #contentBody .ui-datatable thead th,
@@ -69,7 +75,6 @@
 #contentBody .ui-datatable tbody td {
     border: none !important;
 }
-
-#contentBody .ui-paginator{
-	background-color: white !important;
+.row1 .ui-widget-header label, .row2 .ui-widget-header label{
+	text-transform:uppercase;
 }

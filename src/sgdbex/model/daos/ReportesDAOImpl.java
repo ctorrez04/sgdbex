@@ -33,10 +33,10 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_REPORTES_ESTADOS")
+			Query query = session.createSQLQuery("SP_ReportesEstados")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
@@ -52,11 +52,10 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_SELECT_REPORTEDEFECTOS_TIEMPO_ABIERTOS :proyecto")
-					.setResultTransformer(Transformers.aliasToBean(Reportes.class))
-					.setParameter("proyecto", proyecto);
+			Query query = session.createSQLQuery("SP_ReporteDefectosTiempoAbiertos")
+					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded MayorTiempoAbierto" + list.get(0).toString());
+			//System.out.println("Defectos loaded MayorTiempoAbierto" + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
@@ -84,22 +83,22 @@ public class ReportesDAOImpl implements ReportesDAO {
 		valordias.add(365);
 		
 		try {
-			Query query = session.createSQLQuery("SP_FECHADIAS_ABIERTOS")
+			Query query = session.createSQLQuery("SP_ReporteFechaDiasEstadoAbierto")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
 			
-			Query query2 = session.createSQLQuery("SP_FECHADIAS_RESUELTOS")
+			Query query2 = session.createSQLQuery("SP_ReportesFechaDiasEstadoResuelto")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list2 = (List<Reportes>)query2.list();
-			System.out.println("Defectos loaded " + list2.get(0).toString());
+			//System.out.println("Defectos loaded " + list2.get(0).toString());
 			
 			
 			for(int i=0;i<list.size();i++){
 				list.get(i).setCantidadResueltos(list2.get(i).getCantidadResueltos());
 				list.get(i).setDefectoid((Integer) valordias.get(i));
 			}
-			System.out.println("Defectos loaded complete " + list.get(0).toString());
+			//System.out.println("Defectos loaded complete " + list.get(0).toString());
 			
 			return list;
 			
@@ -117,10 +116,10 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_REPORTES_CATEGORIA")
+			Query query = session.createSQLQuery("SP_ReportesCategoria")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
@@ -136,10 +135,10 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_REPORTES_PRIORIDAD")
+			Query query = session.createSQLQuery("SP_ReportesPrioridad")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
@@ -155,10 +154,10 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_REPORTES_ESTADISTICAS_USUARIOS")
+			Query query = session.createSQLQuery("SP_ReportesEstadisticasUsuarios")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
@@ -174,7 +173,7 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_REPORTES_ESTADISTICAS_REPORTEROS")
+			Query query = session.createSQLQuery("SP_ReportesEstadisticasReporteros")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
 			//System.out.println("Defectos loaded " + list.get(0).toString());
@@ -193,12 +192,12 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_REPORTES_REPORTEROS_RESOLUCION")
+			Query query = session.createSQLQuery("SP_ReportesFuncionalesResolucion")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
 			//System.out.println("Defectos loaded " + list.get(0).toString());
-			if(list.isEmpty())System.out.println("la lista REPORTES_REPORTEROS_RESOLUCION esta vacia");
-			System.out.println("tamano de lista REPORTES_REPORTEROS_RESOLUCION: "+list.size());
+			if(list.isEmpty())System.out.println("la lista SP_ReportesFuncionalesResolucion esta vacia");
+			System.out.println("tamano de lista SP_ReportesFuncionalesResolucion: "+list.size());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
@@ -214,10 +213,10 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_REPORTES_USUARIOS_RESOLUCION")
+			Query query = session.createSQLQuery("SP_ReportesUsuariosResolucion")
 					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			//System.out.println("Defectos loaded " + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );
