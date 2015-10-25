@@ -4,6 +4,7 @@ public class Reportes {
 	String reporte;
 	String asunto;
 	String tipoReporte;
+	String nombreproyecto;
 	int cantidadAbiertos;
 	int cantidadCerrados;
 	int cantidadResueltos;
@@ -19,7 +20,7 @@ public class Reportes {
 	
 	public Reportes(String reporte, int cantidadAbiertos, int cantidadCerrados,
 			int cantidadResueltos, int cantidadReabiertos,
-			int cantidadAsignados, int total, String asunto, int dias, int defectoid, String tipoReporte) {
+			int cantidadAsignados, int total, String asunto, int dias, int defectoid, String tipoReporte, String nombreproyecto) {
 		this.reporte = reporte;
 		this.cantidadAbiertos = cantidadAbiertos;
 		this.cantidadCerrados = cantidadCerrados;
@@ -31,6 +32,15 @@ public class Reportes {
 		this.dias= dias;
 		this.defectoid= defectoid;
 		this.tipoReporte= tipoReporte;
+		this.nombreproyecto= nombreproyecto;
+	}
+	
+	public String getNombreproyecto() {
+		return nombreproyecto;
+	}
+
+	public void setNombreproyecto(String nombreproyecto) {
+		this.nombreproyecto = nombreproyecto;
 	}
 	
 	public String getTipoReporte() {

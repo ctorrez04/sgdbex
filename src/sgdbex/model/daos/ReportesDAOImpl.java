@@ -47,15 +47,16 @@ public class ReportesDAOImpl implements ReportesDAO {
 	}
 
 	@Override
-	public List<Reportes> getReportesMayorTiempoAbierto() {
+	public List<Reportes> getReportesMayorTiempoAbierto(String proyecto) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_SELECT_REPORTEDEFECTOS_TIEMPO_ABIERTOS")
-					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
+			Query query = session.createSQLQuery("SP_SELECT_REPORTEDEFECTOS_TIEMPO_ABIERTOS :proyecto")
+					.setResultTransformer(Transformers.aliasToBean(Reportes.class))
+					.setParameter("proyecto", proyecto);
 			list = (List<Reportes>)query.list();
-			System.out.println("Defectos loaded " + list.get(0).toString());
+			System.out.println("Defectos loaded MayorTiempoAbierto" + list.get(0).toString());
 			return list;
 		} catch (HibernateException e) {
 			System.out.println("try Impl Defc " +e.getMessage() );

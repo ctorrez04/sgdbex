@@ -1,13 +1,14 @@
 package sgdbex.model.daos;
 
 import java.util.List;
+
 import sgdbex.model.pojos.Reportes;;
 
 public interface ReportesDAO {
 	
 	public List<Reportes> getReportesEstado();
 	
-	public List<Reportes> getReportesMayorTiempoAbierto();
+	public List<Reportes> getReportesMayorTiempoAbierto(String proyecto);
 	
 	public List<Reportes> getReportesFechaDias();
 	

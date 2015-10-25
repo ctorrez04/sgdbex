@@ -36,6 +36,9 @@ public class ReportesController {
 	@Autowired
 	private GeneralServices gs;
 	
+	@Autowired
+	private GeneralController gc;
+	
 	private String reporteSeleccionado;
 	
 	private List<MotivoRechazo> motivosList;
@@ -560,6 +563,14 @@ public class ReportesController {
 	public void setReportesfiltrados(List<Reportes> reportesfiltrados) {
 		this.reportesfiltrados = reportesfiltrados;
 	}
+	
+	public GeneralController getGc() {
+		return gc;
+	}
+
+	public void setGc(GeneralController gc) {
+		this.gc = gc;
+	}
 
 	public ReportesController(){
 		
@@ -569,7 +580,7 @@ public class ReportesController {
 		try{
 			motivosList = gs.getMotivos();
 			reportesEstado = gs.getReportesEstado();
-			reportesTiempoAbierto = gs.getReportesMayorTiempoAbierto();
+			reportesTiempoAbierto = gs.getReportesMayorTiempoAbierto(gc.getFiltro_proyecto());
 			reportesFechaDias = gs.getReportesFechaDias();
 			reportesCategoria = gs.getReportesCategoria();
 			reportesPrioridad = gs.getReportesPrioridad();
@@ -583,7 +594,7 @@ public class ReportesController {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	private void createBarModel(List<Reportes> reportesEstado, List<Reportes> reportesTiempoAbierto, List<Reportes> reportesFechaDias, List<Reportes> reportesCategoria, List<Reportes> reportesPrioridad, List<Reportes> reportesEstadisticasUsuarios, List<Reportes> reportesEstadisticasReporteros, List<Reportes> reportesReporterosResolucion, List<Reportes> reportesUsuariosResolucion) {
         barModel = initBarModel(reportesEstado,1);
         //barModel.setExtender("plotAxisInterval");
@@ -744,6 +755,21 @@ public class ReportesController {
         yAxis9.setMax(CotaMaxY9);
         
     }
+	
+	public void CargarReporteDefectosTiempoAbiertoAjax(){
+		reportesTiempoAbierto = gs.getReportesMayorTiempoAbierto(gc.getFiltro_proyecto());
+		barModelTiempoAbierto = initBarModel(reportesTiempoAbierto,2);
+		barModelTiempoAbierto.setTitle("10 Defectos Mayor Tiempo Abiertos");
+        barModelTiempoAbierto.setLegendPosition("ne");
+        Axis xAxis2 = barModelTiempoAbierto.getAxis(AxisType.X);
+        xAxis2.setLabel("Defectos Mayor Tiempo Abiertos");
+        Axis yAxis2 = barModelTiempoAbierto.getAxis(AxisType.Y);
+        yAxis2.setLabel("Total Dias");
+        yAxis2.setMin(0);
+        int MaxTotalDefectos2 = ValorDiasMaximoReporte(reportesTiempoAbierto);
+        int CotaMaxY2 = CotaEjeY(MaxTotalDefectos2);
+        yAxis2.setMax(CotaMaxY2);
+	}
 	
 	//Calcular valor maximo de la columna 'total' de los reportes:
 	public int ValorTotalMaximoReporte(List<Reportes> lista){
@@ -1196,6 +1222,7 @@ public class ReportesController {
     	}
     	
     	if(reporteSeleccionado.equalsIgnoreCase("ReporteDefectosMayorTiempoAbiertos")){
+    		CargarReporteDefectosTiempoAbiertoAjax();
     		reportesTiempoAbiertoRender=true;
     		reportesEstadoRender=false;                                         
     		reportesFechaDiasRender=false;                     

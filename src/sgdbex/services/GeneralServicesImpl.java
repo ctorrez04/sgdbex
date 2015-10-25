@@ -320,8 +320,8 @@ public class GeneralServicesImpl implements GeneralServices{
 	}
 
 	@Override
-	public List<Reportes> getReportesMayorTiempoAbierto() {
-		return reportesDAO.getReportesMayorTiempoAbierto();
+	public List<Reportes> getReportesMayorTiempoAbierto(String proyecto) {
+		return reportesDAO.getReportesMayorTiempoAbierto(proyecto);
 	}
 
 	@Override
