@@ -122,7 +122,7 @@ public interface GeneralServices {
 	
 	public List<Reportes> getReportesEstado();
 	
-	public List<Reportes> getReportesMayorTiempoAbierto();
+	public List<Reportes> getReportesMayorTiempoAbierto(String proyecto);
 	
 	public List<Reportes> getReportesFechaDias();
 	
