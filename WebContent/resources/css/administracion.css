@@ -12,7 +12,7 @@
 .tableAdm .ui-datatable-header{
 	margin-bottom: 1%;
 	background: none;
-	background-color:  #0971B2 !important;
+	background-color:  #FF5B00 !important;
 }
 .tableAdm #titleTable{
 	float: left;	
@@ -23,9 +23,10 @@
 	text-transform:uppercase;
 	margin-left: 5% !important;
 	margin-top: 0.5% !important;
+	
 }
 .tableAdm .ui-outputpanel {
-	background-color:  #0971B2 !important;
+	background-color:  #FF5B00 !important;
 }
 .tableAdm .filtroAdm{
 	margin-left: 50%;

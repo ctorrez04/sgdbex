@@ -193,13 +193,10 @@ div.menu li ul{
 /*.ui-widget-header{
 	background-color: #D4D4D4 !important;
 }*/
-.botones{
-	float: right;
-}
+
 .botones button.ui-button{
 	background: none;
 	background-color: #1485CC !important;
-	border-style:  solid;
 }
 .ui-confirm-dialog span {
 	font-family: Helvetica, sans-serif !important;
