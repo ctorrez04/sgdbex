@@ -52,8 +52,9 @@ public class ReportesDAOImpl implements ReportesDAO {
 		Session session = sessionFactory.openSession();
 		List<Reportes> list = null;
 		try {
-			Query query = session.createSQLQuery("SP_ReporteDefectosTiempoAbiertos")
-					.setResultTransformer(Transformers.aliasToBean(Reportes.class));
+			Query query = session.createSQLQuery("SP_ReporteDefectosTiempoAbiertos :proyecto")
+					.setResultTransformer(Transformers.aliasToBean(Reportes.class))
+					.setParameter("proyecto", proyecto);
 			list = (List<Reportes>)query.list();
 			//System.out.println("Defectos loaded MayorTiempoAbierto" + list.get(0).toString());
 			return list;
